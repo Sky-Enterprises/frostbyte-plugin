@@ -20,7 +20,7 @@ The token is per-user and per-client. Generating one for Claude Code and another
 
 Claude Code will prompt for your `api_token` (sensitive, stored in your OS keychain) and an optional `endpoint` override (default: `https://getfrostbyte.dev`).
 
-Confirm the install with `/plugin list`. The Frostbyte skills will surface automatically: `/frostbyte:tasks` and `/frostbyte:planning`.
+Confirm the install with `/plugin list`. The Frostbyte skills will surface automatically: `/frostbyte:tasks`, `/frostbyte:releases`, and `/frostbyte:areas`.
 
 ## Install — Codex
 
@@ -39,10 +39,9 @@ Codex does not yet have an in-product keychain prompt for sensitive plugin confi
 
 ## What the plugin gives you
 
-- **Bundled MCP server connection** to `https://getfrostbyte.dev/mcp`, authenticated with your Bearer token. Exposes ~30 tools across project / task / area / release CRUD plus agent-update, read, and planning tools.
-- **Four skills** that tell your agent when and how to call which MCP tool:
+- **Bundled MCP server connection** to `https://getfrostbyte.dev/mcp`, authenticated with your Bearer token. Exposes ~30 tools across project / task / area / release CRUD plus agent-update and read context tools.
+- **Three skills** that tell your agent when and how to call which MCP tool:
   - `frostbyte-tasks` — task lifecycle (`task_start`, `task_complete`, `task_spawn_subtasks`, `task_log_decision`).
-  - `frostbyte-planning` — AI-powered suggestions via `tasks_suggest_next` and `tasks_suggest_breakdown`.
   - `frostbyte-releases` — release lifecycle (`release_create`, `release_read_active`, `release_complete`).
   - `frostbyte-areas` — area CRUD (`area_list`, `area_create`, `area_update`) for projects that use epic-style groupings.
 - **A `SessionEnd` hook** that calls `frostbyte:session_end` when you close a session, so the Dashboard "What your agent did recently" card stays populated even when an agent skips `task_complete`.
@@ -61,7 +60,6 @@ Codex does not yet have an in-product keychain prompt for sensitive plugin confi
   marketplace.json   Codex/agents marketplace entry
 skills/
   tasks/SKILL.md     Task lifecycle skill
-  planning/SKILL.md  Planning suggestions skill
   releases/SKILL.md  Release lifecycle skill
   areas/SKILL.md     Area management skill
 hooks/
@@ -87,7 +85,7 @@ Once that works, ask: *"Start the task called X"* — the Dashboard "What your a
 |---|---|---|
 | `Invalid API token` | Token wrong or revoked | Re-generate at Settings → AI Agents and re-run `/plugin enable frostbyte` (Claude Code) or re-export `FROSTBYTE_API_TOKEN` (Codex). |
 | `MCP access requires a Basic or Pro plan.` | Free tier; MCP gated at endpoint level. | Upgrade in Settings → Billing. |
-| Plugin installed but agent never calls Frostbyte tools | Skills aren't matching the conversation | Mention "Frostbyte" or "this task" explicitly. The skill descriptions activate on task lifecycle and planning prompts. |
+| Plugin installed but agent never calls Frostbyte tools | Skills aren't matching the conversation | Mention "Frostbyte" or "this task" explicitly. The skill descriptions activate on task, release, and area lifecycle prompts. |
 | `lastSeenAt` doesn't update on Settings → AI Agents | First call hasn't fired yet | Ask the agent to list your projects. The `list_projects` call updates `lastSeenAt`. |
 | Dashboard "agent activity" card stays empty | Agent isn't calling `task_start` / `task_complete` | This is a known cold-start behaviour pattern; tell the agent explicitly to start the task once and the skill prose takes over from there. |
 

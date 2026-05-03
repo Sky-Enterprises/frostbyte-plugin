@@ -5,7 +5,7 @@
     "url": "https://getfrostbyte.dev"
   },
   "metadata": {
-    "description": "Single-plugin marketplace for the Frostbyte Claude Code integration. Adds task lifecycle, planning, and session-end recording skills powered by the hosted Frostbyte MCP server.",
+    "description": "Single-plugin marketplace for the Frostbyte Claude Code integration. Adds task, release, and area lifecycle skills powered by the hosted Frostbyte MCP server.",
     "version": "0.1.0"
   },
   "plugins": [
