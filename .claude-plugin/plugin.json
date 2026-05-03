@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "frostbyte",
+  "version": "0.1.0",
+  "description": "Frostbyte project tracking inside Claude Code — your coding agent keeps tasks, decisions, and releases in sync as a side-effect of building.",
+  "author": {
+    "name": "Sky Enterprises",
+    "url": "https://getfrostbyte.dev"
+  },
+  "homepage": "https://getfrostbyte.dev",
+  "repository": "https://github.com/Sky-Enterprises/frostbyte-plugin",
+  "license": "MIT",
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "hooks": "./hooks/hooks.json",
+  "userConfig": {
+    "api_token": {
+      "type": "string",
+      "title": "Frostbyte API token",
+      "description": "Generate at https://getfrostbyte.dev/settings → AI Agents → Generate token. Plaintext is shown once; copy it now and paste it here.",
+      "sensitive": true,
+      "required": true
+    },
+    "endpoint": {
+      "type": "string",
+      "title": "Frostbyte API endpoint",
+      "description": "Override only for local dev or self-host (e.g. http://localhost:4000).",
+      "default": "https://getfrostbyte.dev"
+    }
+  }
+}

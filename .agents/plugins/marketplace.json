@@ -1,0 +1,26 @@
+{
+  "name": "frostbyte-plugin",
+  "owner": {
+    "name": "Sky Enterprises",
+    "url": "https://getfrostbyte.dev"
+  },
+  "metadata": {
+    "description": "Single-plugin marketplace for the Frostbyte Codex integration.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "frostbyte",
+      "source": {
+        "source": "path",
+        "path": "./"
+      },
+      "description": "Project tracking inside Codex — agent updates Frostbyte as a side-effect of building.",
+      "version": "0.1.0",
+      "category": "productivity",
+      "tags": ["mcp", "frostbyte", "project-management", "task-tracking"],
+      "license": "MIT",
+      "homepage": "https://getfrostbyte.dev"
+    }
+  ]
+}
