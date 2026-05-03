@@ -1,0 +1,15 @@
+{
+  "name": "frostbyte",
+  "version": "0.1.0",
+  "description": "Frostbyte project tracking inside Codex — your coding agent keeps tasks, decisions, and releases in sync as a side-effect of building.",
+  "author": {
+    "name": "Sky Enterprises",
+    "url": "https://getfrostbyte.dev"
+  },
+  "homepage": "https://getfrostbyte.dev",
+  "repository": "https://github.com/Sky-Enterprises/frostbyte-plugin",
+  "license": "MIT",
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "hooks": "./hooks/hooks.json"
+}
