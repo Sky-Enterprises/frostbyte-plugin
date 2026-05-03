@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Single-plugin marketplace for the Frostbyte Codex integration.",
-    "version": "0.1.0"
+    "version": "0.2.0"
   },
   "plugins": [
     {
@@ -16,7 +16,7 @@
         "path": "./"
       },
       "description": "Project tracking inside Codex — agent updates Frostbyte as a side-effect of building.",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "category": "productivity",
       "tags": ["mcp", "frostbyte", "project-management", "task-tracking"],
       "license": "MIT",
