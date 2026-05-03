@@ -39,11 +39,36 @@ Codex does not yet have an in-product keychain prompt for sensitive plugin confi
 
 ## What the plugin gives you
 
-- **Bundled MCP server connection** to `https://getfrostbyte.dev/mcp`, authenticated with your Bearer token. Exposes ~30 tools across project / task / area / release CRUD plus the agent-update, read, and planning tools.
-- **Two skills** that tell your agent when to call which MCP tool:
-  - `frostbyte-tasks` — task lifecycle (`task_start`, `task_complete`, `task_spawn_subtasks`).
-  - `frostbyte-planning` — `tasks_suggest_next` and `tasks_suggest_breakdown` for "what should I work on?" prompts.
-- **A `SessionEnd` hook** that records a project-level activity entry when you close a session, so the Dashboard "What your agent did recently" card stays useful even when an agent forgets to call `task_complete`.
+- **Bundled MCP server connection** to `https://getfrostbyte.dev/mcp`, authenticated with your Bearer token. Exposes ~30 tools across project / task / area / release CRUD plus agent-update, read, and planning tools.
+- **Four skills** that tell your agent when and how to call which MCP tool:
+  - `frostbyte-tasks` — task lifecycle (`task_start`, `task_complete`, `task_spawn_subtasks`, `task_log_decision`).
+  - `frostbyte-planning` — AI-powered suggestions via `tasks_suggest_next` and `tasks_suggest_breakdown`.
+  - `frostbyte-releases` — release lifecycle (`release_create`, `release_read_active`, `release_complete`).
+  - `frostbyte-areas` — area CRUD (`area_list`, `area_create`, `area_update`) for projects that use epic-style groupings.
+- **A `SessionEnd` hook** that calls `frostbyte:session_end` when you close a session, so the Dashboard "What your agent did recently" card stays populated even when an agent skips `task_complete`.
+
+## Repository layout
+
+```
+.claude-plugin/
+  plugin.json        Claude Code plugin manifest
+  marketplace.json   Claude Code marketplace entry
+  .mcp.json          MCP server config (Claude Code)
+.codex-plugin/
+  plugin.json        Codex plugin manifest
+  .mcp.json          MCP server config (Codex)
+.agents/plugins/
+  marketplace.json   Codex/agents marketplace entry
+skills/
+  tasks/SKILL.md     Task lifecycle skill
+  planning/SKILL.md  Planning suggestions skill
+  releases/SKILL.md  Release lifecycle skill
+  areas/SKILL.md     Area management skill
+hooks/
+  hooks.json         SessionEnd hook definition
+LICENSE
+CHANGELOG.md
+```
 
 ## Verifying the connection
 
@@ -75,6 +100,14 @@ Once that works, ask: *"Start the task called X"* — the Dashboard "What your a
 # Codex
 codex plugin update frostbyte
 ```
+
+## Contributing
+
+Contributions are welcome. The plugin itself has no build step — all files are plain JSON and Markdown.
+
+To add or modify a skill, edit the relevant `SKILL.md` under `skills/`. The `name` and `description` frontmatter fields are what Claude Code and Codex index when deciding whether to surface the skill; keep `description` precise and action-oriented.
+
+To test locally, point the `endpoint` config value at `http://localhost:4000` (or your local Frostbyte instance) and install the plugin from path rather than the marketplace.
 
 ## License
 
