@@ -13,6 +13,9 @@ All notable changes to this project are documented here. Follows [Keep a Changel
 ### Changed
 - README "What the plugin gives you" expanded to enumerate every skill and the `task_log_decision` tool
 
+### Removed
+- `SessionEnd` hook (and `hooks/` directory). Incompatible with Claude Code 2.1.x plugin schema, and `mcp_tool` was never a supported hook type. Skills carry the policy instead — agents call `task_complete` directly. Reliability backstop revisited only if cold-session tests show it's needed.
+
 ## [0.1.0] — 2026-05-03
 
 ### Added

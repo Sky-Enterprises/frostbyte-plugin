@@ -44,7 +44,6 @@ Codex does not yet have an in-product keychain prompt for sensitive plugin confi
   - `frostbyte-tasks` — task lifecycle (`task_start`, `task_complete`, `task_spawn_subtasks`, `task_log_decision`).
   - `frostbyte-releases` — release lifecycle (`release_create`, `release_read_active`, `release_complete`).
   - `frostbyte-areas` — area CRUD (`area_list`, `area_create`, `area_update`) for projects that use epic-style groupings.
-- **A `SessionEnd` hook** that calls `frostbyte:session_end` when you close a session, so the Dashboard "What your agent did recently" card stays populated even when an agent skips `task_complete`.
 
 ## Repository layout
 
@@ -62,8 +61,6 @@ skills/
   tasks/SKILL.md     Task lifecycle skill
   releases/SKILL.md  Release lifecycle skill
   areas/SKILL.md     Area management skill
-hooks/
-  hooks.json         SessionEnd hook definition
 LICENSE
 CHANGELOG.md
 ```
