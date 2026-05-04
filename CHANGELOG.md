@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented here. Follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.3.1] — 2026-05-05
+
+### Added
+- `frostbyte-tasks` skill: instruct agents to include `FB-<task-number>` in commit messages and PR titles. Frostbyte's release audit uses this to auto-link commits to tasks on the Dashboard with no extra MCP call.
+
 ## [0.3.0] — 2026-05-04
 
 ### Removed

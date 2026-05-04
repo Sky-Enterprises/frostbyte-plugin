@@ -27,6 +27,17 @@ Before transitioning a task, call `frostbyte:get_task` to confirm the current `s
 
 `list_projects` returns every project the user has access to. When the user is ambiguous about which project a task belongs to, ask before calling write tools — the project membership is part of the audit trail.
 
+## Linking commits back to tasks
+
+When the active task has a `taskNumber` (visible as `FB-<n>` in `get_task` responses), include `FB-<task-number>` somewhere in your commit messages and PR titles for work on that task. Frostbyte uses this reference to automatically link the commit to the task on the Dashboard's release audit — no extra MCP call required, and it lets the user see which commits ship which tasks without any manual linking.
+
+Examples:
+- Commit message: `feat(auth): expire stale sessions on logout (FB-42)`
+- Branch name: `fb-42-expire-stale-sessions` (also matches automatically)
+- PR title: `FB-42: Expire stale sessions on logout`
+
+If a single commit advances multiple tasks, include each (`FB-12 FB-13`). If a commit is unrelated to any open task (chore work, dependency bumps), no reference is needed.
+
 ## What a good `last_agent_summary` looks like
 
 Bad: "Implemented task per requirements."
