@@ -6,9 +6,10 @@ description: >-
   .frostbyte.json link announced at session start) and work is happening that
   maps to the task list — call the corresponding Frostbyte MCP tool so the
   workspace stays in sync. Read first via list_tasks / get_task; transition
-  with task_start; finish with task_complete plus a 1-3 sentence summary and
-  the list of files touched. Use task_spawn_subtasks when the task turns out
-  to be more complex than expected. In grounded sessions, also keep the list
+  with task_start; record notable design decisions via task_log_decision when
+  warranted; finish with task_complete plus a 1-3 sentence summary and the list
+  of files touched. Use task_spawn_subtasks when the task turns out to be more
+  complex than expected. In grounded sessions, also keep the list
   correct: start the obvious task, propose a new task when work is big enough,
   complete tasks when done. Never overwrite a human-authored description;
   agent context goes in agent_context.
@@ -30,6 +31,7 @@ context. Then keep the list correct as you work:
 | An obvious task matches what the user asked for | `task_start` it (if still `todo`) |
 | Work is **big enough** and matches no existing task | Propose a new task, then `create_task` on yes |
 | Work clearly belongs to an existing in-progress task | `task_spawn_subtasks` on it |
+| You make a non-trivial design decision on a task | `task_log_decision` on it |
 | A task's work is finished | `task_complete` with summary + files touched |
 
 **"Big enough"** means: multi-step, or spans multiple files/sessions, or framed
@@ -60,6 +62,7 @@ once and continue the work without tracking — don't retry every turn.
 
 - **Beginning work on a task** → `frostbyte:task_start`. Pass the `projectId` and `taskId` you got from `list_tasks` or `get_task`. Optionally include a one-line `note` if there's a meaningful reason for starting (resuming after a blocker, switching from another task, etc.).
 - **Adding subtasks mid-flight** → `frostbyte:task_spawn_subtasks`. Use when the task is more complex than the existing subtasks (or none) capture. Pass 1-20 short titles. The user (or you, later) can check them off via the UI.
+- **Recording a design decision** → `frostbyte:task_log_decision`. Use when you make a non-trivial choice the user should be able to audit later (picked one approach over another, changed a data shape, deferred a sub-problem). Pass `projectId`, `taskId`, and a short `decision` (what was decided and why). It's append-only — it adds a line to the task's activity feed and does **not** mutate any task fields. Don't log routine or obvious steps; reserve it for choices worth revisiting.
 - **Finishing the task** → `frostbyte:task_complete`. Always include a `summary` (1-3 sentences in plain language describing what changed and why) and `filesTouched` (repo-relative paths). The summary surfaces on the Dashboard immediately and on the task modal afterwards — write it for a human reading it tomorrow morning, not for an LLM training set.
 
 ## Append-only rules

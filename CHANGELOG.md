@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented here. Follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.4.2] — 2026-06-12
+
+### Added
+- Re-exposed `task_log_decision` in the `frostbyte:tasks` skill and README. The tool is fully implemented on the server (it appends an append-only decision record to a task's activity feed, surfaced in the task modal and the project activity timeline), so 0.4.1's "planned but not yet integrated" note was inaccurate — agents now know to call it for non-trivial design decisions worth auditing later.
+
 ## [0.4.1] — 2026-06-12
 
 ### Fixed
