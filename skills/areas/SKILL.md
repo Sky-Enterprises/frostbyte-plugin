@@ -1,5 +1,5 @@
 ---
-name: frostbyte-areas
+name: areas
 description: When the user asks about Frostbyte areas (epics, sections, or top-level groupings of tasks in a project), call the matching area MCP tool to list, read, create, or update areas. Areas are optional — not every project uses them — so read before writing and confirm with the user before creating.
 ---
 

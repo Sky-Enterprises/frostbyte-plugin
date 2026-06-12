@@ -2,6 +2,20 @@
 
 All notable changes to this project are documented here. Follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.4.1] — 2026-06-12
+
+### Fixed
+- **MCP server never connected on Claude Code.** `.mcp.json` lived in `.claude-plugin/`, but Claude Code resolves the manifest's `mcpServers` path relative to the plugin root (and auto-discovers `.mcp.json` there) — so the server config was never found and no `frostbyte` tools loaded. Moved `.mcp.json` to the plugin root. The Codex manifest now points explicitly at `./.codex-plugin/.mcp.json` so it doesn't pick up the Claude-format file at the root.
+- Grounding hook no longer walks above the repo boundary: the `.frostbyte.json` search stops at the first directory containing `.git`, so a stray link file in `$HOME` can't ground unrelated repos.
+- Grounding hook parses `.frostbyte.json` with `jq` when available; the no-`jq` fallback now takes the *first* `projectId` occurrence instead of the last.
+- Skill frontmatter `name` fields now match their directory names (`tasks`, `releases`, `areas`, `onboarding` — surfaced as `/frostbyte:<name>`); cross-references between skills updated to the real invocation names.
+- README: corrected repository layout, local-testing instructions for Codex (no `endpoint` config — edit `.codex-plugin/.mcp.json` directly), token re-entry steps, and the "agent never calls Frostbyte tools" troubleshooting row (check `/mcp` first).
+
+### Changed
+- Grounding instruction softened: agents fetch the task list when beginning implementation work rather than "before other work", and are told to degrade gracefully (mention it once, keep working) when the `frostbyte` MCP tools are unavailable. The `frostbyte:tasks` skill carries the same tools-unavailable rule.
+- Removed `task_log_decision` from skill and README tool lists — the tool is planned but not yet integrated on the server.
+- `endpoint` config description now warns against a trailing slash (the MCP URL is built as `${endpoint}/mcp`).
+
 ## [0.4.0] — 2026-06-12
 
 ### Added

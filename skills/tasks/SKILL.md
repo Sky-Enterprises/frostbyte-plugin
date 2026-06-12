@@ -1,6 +1,17 @@
 ---
-name: frostbyte-tasks
-description: When the user asks the agent to start, work on, or finish a Frostbyte task — or when the session is grounded in a linked Frostbyte project (a .frostbyte.json link announced at session start) and work is happening that maps to the task list — call the corresponding Frostbyte MCP tool so the workspace stays in sync. Read first via list_tasks / get_task; transition with task_start; record progress and decisions via task_log_decision when warranted; finish with task_complete plus a 1-3 sentence summary and the list of files touched. Use task_spawn_subtasks when the task turns out to be more complex than expected. In grounded sessions, also keep the list correct: start the obvious task, propose a new task when work is big enough, complete tasks when done. Never overwrite a human-authored description; agent context goes in agent_context.
+name: tasks
+description: >-
+  When the user asks the agent to start, work on, or finish a Frostbyte task —
+  or when the session is grounded in a linked Frostbyte project (a
+  .frostbyte.json link announced at session start) and work is happening that
+  maps to the task list — call the corresponding Frostbyte MCP tool so the
+  workspace stays in sync. Read first via list_tasks / get_task; transition
+  with task_start; finish with task_complete plus a 1-3 sentence summary and
+  the list of files touched. Use task_spawn_subtasks when the task turns out
+  to be more complex than expected. In grounded sessions, also keep the list
+  correct: start the obvious task, propose a new task when work is big enough,
+  complete tasks when done. Never overwrite a human-authored description;
+  agent context goes in agent_context.
 ---
 
 # Frostbyte task lifecycle
@@ -30,16 +41,20 @@ write to the workspace because of grounding alone.
 
 **Areas:** when creating a task, call `list_areas` and place it in the
 best-fitting existing area. Create a new area (`create_area`) only when nothing
-fits — and confirm the name with the user (see the frostbyte-areas skill).
+fits — and confirm the name with the user (see the `frostbyte:areas` skill).
 
 **Releases:** never auto-create or auto-complete releases. Act on releases only
-when the user explicitly asks (the frostbyte-releases skill handles the
+when the user explicitly asks (the `frostbyte:releases` skill handles the
 lifecycle).
 
 **Stale or invalid link:** if `list_tasks` returns not-found or forbidden for
 the linked projectId (project deleted, or your token lost access), say so
-plainly and offer to re-link the repo (see the frostbyte-onboarding skill).
+plainly and offer to re-link the repo (see the `frostbyte:onboarding` skill).
 Never silently continue as if grounded.
+
+**Tools unavailable:** if the `frostbyte` MCP tools are not present in the
+session (server not connected, token missing, or plan-gated), tell the user
+once and continue the work without tracking — don't retry every turn.
 
 ## When to call which tool
 

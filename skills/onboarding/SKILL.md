@@ -1,5 +1,5 @@
 ---
-name: frostbyte-onboarding
+name: onboarding
 description: When working in a repo that has NO .frostbyte.json at its root (and no parent directory has one) and the conversation is about building or maintaining this codebase, offer to link the repo to a Frostbyte project — either create a new Frostbyte project (fresh codebase) or link an existing one (established codebase). Creating a project, linking a repo, and writing .frostbyte.json always require explicit user consent first. If the user declines, drop it for the rest of the session.
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: frostbyte-releases
+name: releases
 description: When the user asks about the current release, wants to cut a new release, mark a release complete, or attach tasks to a release on Frostbyte, call the matching release MCP tool. Never create or complete a release without confirming with the user — releases are high-signal events on the Dashboard.
 ---
 
