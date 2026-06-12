@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented here. Follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## Unreleased
+
+### Fixed
+- Codex marketplace packaging now uses `source: "url"` with `url: "./"`, matching the repo-root plugin layout Codex indexes for installable plugins.
+- Codex MCP config now uses the required top-level `mcpServers` wrapper and a non-hidden `.codex-plugin/mcp.json` file.
+
 ## [0.4.2] — 2026-06-12
 
 ### Added

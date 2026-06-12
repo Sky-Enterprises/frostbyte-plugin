@@ -9,6 +9,19 @@
   "homepage": "https://getfrostbyte.dev",
   "repository": "https://github.com/Sky-Enterprises/frostbyte-plugin",
   "license": "MIT",
+  "keywords": [
+    "frostbyte",
+    "mcp",
+    "tasks",
+    "releases",
+    "project-management"
+  ],
   "skills": "./skills/",
-  "mcpServers": "./.codex-plugin/.mcp.json"
+  "mcpServers": "./.codex-plugin/mcp.json",
+  "interface": {
+    "displayName": "Frostbyte",
+    "shortDescription": "Keep Frostbyte tasks and releases in sync from Codex",
+    "developerName": "Sky Enterprises",
+    "category": "Productivity"
+  }
 }

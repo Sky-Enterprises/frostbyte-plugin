@@ -28,11 +28,11 @@ Codex's plugin platform uses a separate manifest under `.codex-plugin/`. The MCP
 
 ```bash
 codex plugin marketplace add Sky-Enterprises/frostbyte-plugin
-codex
-# inside Codex, run /plugins and enable Frostbyte
+codex plugin add frostbyte@frostbyte-plugin
 
 # in your shell, before launching Codex:
 export FROSTBYTE_API_TOKEN=fb_pat_your_token_here
+codex
 ```
 
 Codex does not yet have an in-product keychain prompt for sensitive plugin config, so the token is read from `FROSTBYTE_API_TOKEN`. Add it to your shell profile if you want the connection to survive restarts.
@@ -101,7 +101,7 @@ Replace `/path/to/frostbyte-plugin` with where Codex installed the plugin (check
   marketplace.json   Claude Code marketplace entry
 .codex-plugin/
   plugin.json        Codex plugin manifest
-  .mcp.json          MCP server config (Codex)
+  mcp.json           MCP server config (Codex)
 .agents/plugins/
   marketplace.json   Codex/agents marketplace entry
 hooks/
@@ -156,7 +156,7 @@ To add or modify a skill, edit the relevant `SKILL.md` under `skills/`. The `nam
 To test locally against `http://localhost:4000` (or your local Frostbyte instance), install the plugin from path rather than the marketplace, then:
 
 - **Claude Code:** set the `endpoint` config value when prompted (no trailing slash).
-- **Codex:** there is no endpoint config — edit the `url` in `.codex-plugin/.mcp.json` of your local clone directly.
+- **Codex:** there is no endpoint config — edit the `url` in `.codex-plugin/mcp.json` of your local clone directly.
 
 ## License
 
