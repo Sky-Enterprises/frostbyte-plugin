@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "Single-plugin marketplace for the Frostbyte Claude Code integration. Adds task, release, and area lifecycle skills powered by the hosted Frostbyte MCP server.",
-    "version": "0.3.1"
+    "version": "0.4.0"
   },
   "plugins": [
     {
       "name": "frostbyte",
       "source": "./",
       "description": "Project tracking inside Claude Code — agent updates Frostbyte as a side-effect of building.",
-      "version": "0.3.1",
+      "version": "0.4.0",
       "category": "productivity",
       "tags": ["mcp", "frostbyte", "project-management", "task-tracking"],
       "license": "MIT",

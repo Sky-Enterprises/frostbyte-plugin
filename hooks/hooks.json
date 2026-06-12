@@ -1,0 +1,15 @@
+{
+  "description": "Frostbyte grounding — on session start, if the repo is linked via .frostbyte.json, tell the agent which Frostbyte project it is working in.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/frostbyte-grounding.sh\""
+          }
+        ]
+      }
+    ]
+  }
+}

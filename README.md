@@ -40,10 +40,57 @@ Codex does not yet have an in-product keychain prompt for sensitive plugin confi
 ## What the plugin gives you
 
 - **Bundled MCP server connection** to `https://getfrostbyte.dev/mcp`, authenticated with your Bearer token. Exposes ~30 tools across project / task / area / release CRUD plus agent-update and read context tools.
-- **Three skills** that tell your agent when and how to call which MCP tool:
-  - `frostbyte-tasks` — task lifecycle (`task_start`, `task_complete`, `task_spawn_subtasks`, `task_log_decision`).
-  - `frostbyte-releases` — release lifecycle (`release_create`, `release_read_active`, `release_complete`).
-  - `frostbyte-areas` — area CRUD (`area_list`, `area_create`, `area_update`) for projects that use epic-style groupings.
+- **Four skills** that tell your agent when and how to call which MCP tool:
+  - `frostbyte-tasks` — task lifecycle (`task_start`, `task_complete`, `task_spawn_subtasks`, `task_log_decision`) plus the auto-tracking policy for grounded sessions.
+  - `frostbyte-releases` — release lifecycle (`create_release`, `release_read_active`, `update_release`).
+  - `frostbyte-areas` — area CRUD (`list_areas`, `create_area`, `update_area`) for projects that use epic-style groupings.
+  - `frostbyte-onboarding` — offers to link an unlinked repo to a Frostbyte project (create new or match existing) and writes `.frostbyte.json`.
+- **A session grounding hook** (Claude Code: bundled; Codex: one config snippet, below) that makes every session in a linked repo open already knowing which Frostbyte project it belongs to.
+
+## Linking a repo: `.frostbyte.json`
+
+One small file at the repo root links a folder on disk to a Frostbyte project:
+
+```json
+{ "projectId": "abc123XYZ" }
+```
+
+- **Commit it.** It holds no secrets — the whole team shares the link.
+- Three ways it gets created: the onboarding skill creates a new project and writes it; the onboarding skill matches an existing project and writes it; or you paste the projectId by hand (it's in the project's URL).
+- One link per repo, at the root. The hook walks up from the current directory to the nearest `.frostbyte.json`, like git does.
+
+## How session grounding works
+
+On session start, the hook looks for `.frostbyte.json`. If found, it injects one instruction: *"this repo is Frostbyte project X — call `list_tasks` for it and treat in-progress tasks and the active release as your working context."* The agent then fetches through the MCP server as usual.
+
+The hook never touches the network and never sees your token — the authenticated fetch happens inside the MCP server, which gets the token from your OS keychain (Claude Code) or `FROSTBYTE_API_TOKEN` (Codex). On any error — missing file, malformed JSON — the hook exits silently and your session starts normally.
+
+With grounding in place, the `frostbyte-tasks` skill keeps the list correct as you work: it starts the obvious task, proposes a new task when work is big enough, adds subtasks when work fits an existing task, and completes tasks when done. Creating anything always asks you first.
+
+### Hook setup — Claude Code
+
+Nothing to do. The hook is bundled with the plugin (`hooks/hooks.json`) and registers automatically on install.
+
+### Hook setup — Codex
+
+Register the shared script in `~/.codex/hooks.json` (Codex will ask you to review and trust it via `/hooks` on next launch):
+
+```json
+{
+  "hooks": {
+    "SessionStart": [
+      { "hooks": [ { "type": "command", "command": "sh /path/to/frostbyte-plugin/hooks/frostbyte-grounding.sh" } ] }
+    ]
+  }
+}
+```
+
+Replace `/path/to/frostbyte-plugin` with where Codex installed the plugin (check `~/.codex/plugins/cache/`) or a local clone of this repo.
+
+### Turning it off
+
+- **Per repo:** delete `.frostbyte.json` (unlinks the repo), or set `{ "projectId": "...", "grounding": false }` to pause grounding while keeping the link.
+- **Globally:** disable or uninstall the plugin (Claude Code), or remove the hook entry from `~/.codex/hooks.json` (Codex).
 
 ## Repository layout
 
@@ -57,10 +104,14 @@ Codex does not yet have an in-product keychain prompt for sensitive plugin confi
   .mcp.json          MCP server config (Codex)
 .agents/plugins/
   marketplace.json   Codex/agents marketplace entry
+hooks/
+  hooks.json                Claude Code hook registration (SessionStart)
+  frostbyte-grounding.sh    Shared grounding hook script (Claude Code + Codex)
 skills/
-  tasks/SKILL.md     Task lifecycle skill
-  releases/SKILL.md  Release lifecycle skill
-  areas/SKILL.md     Area management skill
+  tasks/SKILL.md       Task lifecycle + auto-tracking skill
+  releases/SKILL.md    Release lifecycle skill
+  areas/SKILL.md       Area management skill
+  onboarding/SKILL.md  Repo-to-project linking skill
 LICENSE
 CHANGELOG.md
 ```
