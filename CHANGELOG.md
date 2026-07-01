@@ -4,6 +4,12 @@ All notable changes to this project are documented here. Follows [Keep a Changel
 
 ## Unreleased
 
+## [0.4.3] — 2026-07-02
+
+### Changed
+- `frostbyte:tasks` now draws a sharper line between automatic and offered writes: lifecycle transitions on existing tasks (`task_start`, `task_spawn_subtasks`, `task_log_decision`, `task_complete`) happen automatically without asking, while creating a new task stays a single light inline offer. Releases remain manual; areas still confirm the name.
+- Brevity guidance tightened across the `tasks`, `releases`, and `areas` skills — short imperative task names, 1-2 sentence descriptions and completion/release summaries — matching the same guidance now carried in the server's MCP tool schemas.
+
 ### Fixed
 - Codex marketplace packaging now uses `source: "url"` with `url: "./"`, matching the repo-root plugin layout Codex indexes for installable plugins.
 - Codex MCP config now uses the required top-level `mcpServers` wrapper and a non-hidden `.codex-plugin/mcp.json` file.

@@ -7,12 +7,12 @@ description: >-
   maps to the task list — call the corresponding Frostbyte MCP tool so the
   workspace stays in sync. Read first via list_tasks / get_task; transition
   with task_start; record notable design decisions via task_log_decision when
-  warranted; finish with task_complete plus a 1-3 sentence summary and the list
+  warranted; finish with task_complete plus a 1-2 sentence summary and the list
   of files touched. Use task_spawn_subtasks when the task turns out to be more
-  complex than expected. In grounded sessions, also keep the list
-  correct: start the obvious task, propose a new task when work is big enough,
-  complete tasks when done. Never overwrite a human-authored description;
-  agent context goes in agent_context.
+  complex than expected. In grounded sessions, keep the list correct as you
+  work: start / subtask / complete the obvious task automatically, and offer a
+  new task when work is big enough. Never overwrite a human-authored
+  description; agent context goes in agent_context.
 ---
 
 # Frostbyte task lifecycle
@@ -24,22 +24,31 @@ You are connected to a Frostbyte project tracker via the `frostbyte` MCP server.
 When the session starts with a note that this repo is linked to a Frostbyte
 project (from `.frostbyte.json`), call `list_tasks` for that projectId before
 other work and treat in-progress tasks and the active release as your working
-context. Then keep the list correct as you work:
+context. Then keep the list correct as you work — **transitions on tasks that
+already exist happen automatically, without asking; only creating a new record
+is an offer.**
 
-| Situation | Action |
-|---|---|
-| An obvious task matches what the user asked for | `task_start` it (if still `todo`) |
-| Work is **big enough** and matches no existing task | Propose a new task, then `create_task` on yes |
-| Work clearly belongs to an existing in-progress task | `task_spawn_subtasks` on it |
-| You make a non-trivial design decision on a task | `task_log_decision` on it |
-| A task's work is finished | `task_complete` with summary + files touched |
+| Situation | Action | Ask first? |
+|---|---|---|
+| An obvious task matches what the user asked for | `task_start` it (if still `todo`) | No — just do it |
+| Work clearly belongs to an existing in-progress task | `task_spawn_subtasks` on it | No — just do it |
+| You make a non-trivial design decision on a task | `task_log_decision` on it | No — just do it |
+| A task's work is finished | `task_complete` with summary + files touched | No — just do it |
+| Work is **big enough** and matches no existing task | Offer to `create_task` | Yes — one light inline offer |
+
+For the automatic transitions, don't announce "I'm going to start this task" and
+wait — call the tool and mention it in passing. The live board is the user's
+receipt.
 
 **"Big enough"** means: multi-step, or spans multiple files/sessions, or framed
 as a deliverable. One-line fixes, chores, and dependency bumps get **no** task.
 
-**Creating a task is always an offer.** Tasks are part of the audit trail — if
-it's ambiguous whether work deserves one, propose it and ask. Never silently
-write to the workspace because of grounding alone.
+**Creating a task is a light inline offer, never a silent write.** When work
+grows into its own piece, drop a single natural question while you work — e.g.
+*"This is turning into its own piece of work — want me to log it as a task in
+Frostbyte?"* — and `create_task` on yes. Don't gate your actual work on the
+answer, don't ask twice, and never create a task just because the session is
+grounded.
 
 **Areas:** when creating a task, call `list_areas` and place it in the
 best-fitting existing area. Create a new area (`create_area`) only when nothing
@@ -63,7 +72,7 @@ once and continue the work without tracking — don't retry every turn.
 - **Beginning work on a task** → `frostbyte:task_start`. Pass the `projectId` and `taskId` you got from `list_tasks` or `get_task`. Optionally include a one-line `note` if there's a meaningful reason for starting (resuming after a blocker, switching from another task, etc.).
 - **Adding subtasks mid-flight** → `frostbyte:task_spawn_subtasks`. Use when the task is more complex than the existing subtasks (or none) capture. Pass 1-20 short titles. The user (or you, later) can check them off via the UI.
 - **Recording a design decision** → `frostbyte:task_log_decision`. Use when you make a non-trivial choice the user should be able to audit later (picked one approach over another, changed a data shape, deferred a sub-problem). Pass `projectId`, `taskId`, and a short `decision` (what was decided and why). It's append-only — it adds a line to the task's activity feed and does **not** mutate any task fields. Don't log routine or obvious steps; reserve it for choices worth revisiting.
-- **Finishing the task** → `frostbyte:task_complete`. Always include a `summary` (1-3 sentences in plain language describing what changed and why) and `filesTouched` (repo-relative paths). The summary surfaces on the Dashboard immediately and on the task modal afterwards — write it for a human reading it tomorrow morning, not for an LLM training set.
+- **Finishing the task** → `frostbyte:task_complete`. Always include a `summary` (1-2 short sentences in plain language describing what changed and why) and `filesTouched` (repo-relative paths). The summary surfaces on the Dashboard immediately and on the task modal afterwards — write it for a human reading it tomorrow morning, not for an LLM training set. Keep it tight; shorter is better.
 
 ## Append-only rules
 
@@ -94,7 +103,8 @@ If a single commit advances multiple tasks, include each (`FB-12 FB-13`). If a c
 
 Bad: "Implemented task per requirements."
 Bad: "Completed."
-Good: "Wired the Bearer token dual-read so legacy `apiTokenHash` users keep working alongside the new `ApiToken` collection. Added a backfill script and 6 tests."
-Good: "Renamed the Settings 'API Token' card to 'AI Agents' and added a multi-token table with rename/revoke. Existing token endpoints removed; new flow lives at `/settings/api-tokens`."
+Good: "Added a backfill script + 6 tests so legacy `apiTokenHash` users keep working alongside the new `ApiToken` collection."
+Good: "Renamed the Settings 'API Token' card to 'AI Agents' with a multi-token table (rename/revoke); flow now at `/settings/api-tokens`."
 
-The user reads this on the Dashboard later. They want the *what* and the *why*, not a generic check-box.
+The user reads this on the Dashboard later. They want the *what* and the *why* in
+a sentence or two — not a generic check-box, and not a paragraph.

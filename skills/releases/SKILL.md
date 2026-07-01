@@ -13,7 +13,7 @@ Releases group shipped work. They show on the Dashboard timeline and are the pri
 - **Listing all releases** → `frostbyte:list_releases`. Use when the user asks about release history or wants to pick a specific release to inspect.
 - **Getting a single release** → `frostbyte:get_release`. Pass `projectId` and `releaseId`. Use before any write operation to confirm current status.
 - **Creating a release** → `frostbyte:create_release`. Confirm the name with the user before calling (e.g. "v1.2", "May sprint") — or omit `name` to apply the project's release-naming pattern. Optionally pass a `targetDate` (ISO-8601).
-- **Marking a release shipped** → `frostbyte:update_release` with `status: "completed"`. Update the release `description` with a 1-3 sentence summary (what shipped, what was cut, any notable call-outs) — it appears on the Dashboard timeline permanently; write it for a human reading it in six months. Completing a release also sends notify-on-ship emails to feedback submitters whose linked tasks shipped in it, so never set `completed` without explicit user confirmation.
+- **Marking a release shipped** → `frostbyte:update_release` with `status: "completed"`. Update the release `description` with a 1-2 sentence summary (what shipped, what was cut) — it appears on the Dashboard timeline permanently; write it for a human reading it in six months, and keep it tight. Completing a release also sends notify-on-ship emails to feedback submitters whose linked tasks shipped in it, so never set `completed` without explicit user confirmation.
 
 ## Rules
 
@@ -25,4 +25,4 @@ Releases group shipped work. They show on the Dashboard timeline and are the pri
 
 Bad: "Release completed."
 Bad: "All tasks done."
-Good: "Shipped the AI Agents multi-token table, SessionEnd hook backfill, and the Settings billing page redesign. Cut the Codex deep-link feature to v1.3 — needs another sprint."
+Good: "Shipped the AI Agents multi-token table and billing page redesign. Cut Codex deep-links to v1.3."

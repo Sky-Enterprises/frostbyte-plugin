@@ -10,7 +10,7 @@ Areas are named groupings of tasks within a project — roughly equivalent to ep
 ## When to call which tool
 
 - **Listing areas** → `frostbyte:list_areas`. Pass `projectId`. Use when the user asks "what areas does this project have?" or wants to assign a task to an area. Also use it to confirm an area's current state before updating — there is no single-area read tool.
-- **Creating an area** → `frostbyte:create_area`. Requires `projectId` and `name`. Confirm the name with the user. Areas are visible to everyone on the project.
+- **Creating an area** → `frostbyte:create_area`. Requires `projectId` and `name`. Confirm the name with the user. Keep the name short (a word or two) and the description to 1-2 short sentences. Areas are visible to everyone on the project.
 - **Updating an area** → `frostbyte:update_area`. Pass `areaId` and only the fields changing. Never rename an area the user didn't ask to rename — names are shared references that other team members rely on.
 
 ## Assigning tasks to areas
