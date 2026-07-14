@@ -67,10 +67,22 @@ Never silently continue as if grounded.
 session (server not connected, token missing, or plan-gated), tell the user
 once and continue the work without tracking — don't retry every turn.
 
+## Fetch only what you need
+
+MCP responses land in your context window and stay there for the whole session — keep reads lean:
+
+- `list_tasks` returns **active tasks only (todo + in-progress) by default**, 25 per page. That default is right for almost all work; don't override it reflexively.
+- Need completed work? Pass `status: "done"` (most recently finished first) — usually scoped with `releaseId` or a small `limit`. Pass `status: "all"` only when you genuinely need the whole board.
+- Scope with filters instead of paging through everything: `releaseId` ("what's left in this release?"), `areaId`, or `search` (title substring) to find one task without listing the project.
+- `get_task` is the detail read (description, agent context, subtasks with ids, blocker). Call it for the one or two tasks you're about to act on — not for every task in a list.
+- For "how is the project doing?" questions, `dashboard_snapshot` answers in one call (task counts, in-progress task titles, active release with progress, blocked count, pending feedback) — cheaper than any list.
+- The default first page of `list_tasks` also names the active release, so grounded session start is a single call — no separate `release_read_active` needed.
+
 ## When to call which tool
 
 - **Beginning work on a task** → `frostbyte:task_start`. Pass the `projectId` and `taskId` you got from `list_tasks` or `get_task`. Optionally include a one-line `note` if there's a meaningful reason for starting (resuming after a blocker, switching from another task, etc.).
 - **Adding subtasks mid-flight** → `frostbyte:task_spawn_subtasks`. Use when the task is more complex than the existing subtasks (or none) capture. Pass 1-20 short titles. The user (or you, later) can check them off via the UI.
+- **Ticking off a subtask** → `frostbyte:task_edit_subtask` with `action: "check"` (also `"uncheck"` / `"set-text"`). Subtask ids appear in `get_task` and `task_spawn_subtasks` output next to each item. (`task_delete_subtask` exists, but never delete human-authored subtasks.)
 - **Recording a design decision** → `frostbyte:task_log_decision`. Use when you make a non-trivial choice the user should be able to audit later (picked one approach over another, changed a data shape, deferred a sub-problem). Pass `projectId`, `taskId`, and a short `decision` (what was decided and why). It's append-only — it adds a line to the task's activity feed and does **not** mutate any task fields. Don't log routine or obvious steps; reserve it for choices worth revisiting.
 - **Finishing the task** → `frostbyte:task_complete`. Always include a `summary` (1-2 short sentences in plain language describing what changed and why) and `filesTouched` (repo-relative paths). The summary surfaces on the Dashboard immediately and on the task modal afterwards — write it for a human reading it tomorrow morning, not for an LLM training set. Keep it tight; shorter is better.
 
@@ -90,7 +102,7 @@ Before transitioning a task, call `frostbyte:get_task` to confirm the current `s
 
 ## Linking commits back to tasks
 
-When the active task has a `taskNumber` (visible as `FB-<n>` in `get_task` responses), include `FB-<task-number>` somewhere in your commit messages and PR titles for work on that task. Frostbyte uses this reference to automatically link the commit to the task on the Dashboard's release audit — no extra MCP call required, and it lets the user see which commits ship which tasks without any manual linking.
+When the active task has a `taskNumber` (visible as `FB-<n>` in `list_tasks` and `get_task` responses), include `FB-<task-number>` somewhere in your commit messages and PR titles for work on that task. Frostbyte uses this reference to automatically link the commit to the task on the Dashboard's release audit — no extra MCP call required, and it lets the user see which commits ship which tasks without any manual linking.
 
 Examples:
 - Commit message: `feat(auth): expire stale sessions on logout (FB-42)`

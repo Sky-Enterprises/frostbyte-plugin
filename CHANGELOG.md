@@ -4,6 +4,19 @@ All notable changes to this project are documented here. Follows [Keep a Changel
 
 ## Unreleased
 
+## [0.4.4] — 2026-07-14
+
+### Changed
+- **Context-lean reads.** Paired with Frostbyte MCP server 1.3.0: `list_tasks` now defaults to active tasks only (todo + in-progress, 25 per page) and supports `status`, `releaseId`, `areaId`, and `search` filters, so agents no longer pull every done task into the session. `feedback_hub_get` and `get_feedback_submission` return compact formatted summaries instead of raw JSON documents.
+- The `frostbyte:tasks` skill gained a "Fetch only what you need" section: keep the active-only default, scope with filters, reserve `get_task` for tasks being acted on, and answer project-status questions via `dashboard_snapshot`.
+- The `frostbyte:releases` skill now points agents at `list_tasks` + `releaseId` for remaining-work questions.
+- **Leaner tool surface.** `task_check_subtask` and `task_update_subtask` merged into `task_edit_subtask` (`action`: check / uncheck / set-text); `task_delete_subtask` stays separate so destructive actions keep their by-name approval gate in the in-app agent. Feedback-hub administration (`feedback_hub_enable` / `feedback_hub_disable` / `feedback_hub_update_settings`) moved out of the MCP surface — manage the hub in the web app. Fewer schemas means less context spent before the first tool call.
+- **One-call session grounding.** `dashboard_snapshot` now includes in-progress task titles (with `FB-<n>`) and active-release progress, and the default first page of `list_tasks` names the active release — no separate `release_read_active` call needed at session start. `task_spawn_subtasks` returns the created subtask ids so ticking them off later needs no re-fetch.
+- `get_release` accepts a `taskStatus` filter and `get_project` a `maxReleases` cap (both default to the previous unbounded behaviour); `dashboard_snapshot` no longer duplicates its payload as structured output.
+
+### Fixed
+- `get_task` now returns subtask ids (and per-item completed state), which the subtask tools require but previously had no way to obtain. It also returns the `FB-<n>` task number the commit-linking guidance references, plus blocker reason when set; `list_tasks` lines include `FB-<n>` and a `[blocked]` marker.
+
 ## [0.4.3] — 2026-07-02
 
 ### Changed

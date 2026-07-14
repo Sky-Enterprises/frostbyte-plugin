@@ -9,7 +9,7 @@ Releases group shipped work. They show on the Dashboard timeline and are the pri
 
 ## When to call which tool
 
-- **Reading the active release** → `frostbyte:release_read_active`. Use for "what's in the current release?", "what's left before we ship?", or any summary question about the in-progress release. Prefer this over `list_releases` when the user just wants current state.
+- **Reading the active release** → `frostbyte:release_read_active`. Use for "what's in the current release?", "what's left before we ship?", or any summary question about the in-progress release. Prefer this over `list_releases` when the user just wants current state. For the actual remaining task list, use `frostbyte:list_tasks` with `releaseId` — its default active-only filter returns exactly the unshipped work.
 - **Listing all releases** → `frostbyte:list_releases`. Use when the user asks about release history or wants to pick a specific release to inspect.
 - **Getting a single release** → `frostbyte:get_release`. Pass `projectId` and `releaseId`. Use before any write operation to confirm current status.
 - **Creating a release** → `frostbyte:create_release`. Confirm the name with the user before calling (e.g. "v1.2", "May sprint") — or omit `name` to apply the project's release-naming pattern. Optionally pass a `targetDate` (ISO-8601).
