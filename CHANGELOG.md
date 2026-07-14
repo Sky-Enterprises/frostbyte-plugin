@@ -4,6 +4,11 @@ All notable changes to this project are documented here. Follows [Keep a Changel
 
 ## Unreleased
 
+## [0.6.0] — 2026-07-14
+
+### Removed
+- **`endpoint` user config removed from the Claude Code manifest.** Frostbyte is a hosted product; prompting every user for an API endpoint override at install time (default `https://getfrostbyte.dev`) served no purpose for the vast majority of installs and only added onboarding confusion. `.mcp.json`'s `url` is now hardcoded to `https://getfrostbyte.dev/mcp`, matching how the Codex manifest already worked. Anyone testing against a local/self-hosted instance (there is no endpoint config for either client) now edits the `url` in `.mcp.json` or `.codex-plugin/mcp.json` directly in a local clone — see the README's "Contributing" section.
+
 ## [0.5.0] — 2026-07-14
 
 ### Changed

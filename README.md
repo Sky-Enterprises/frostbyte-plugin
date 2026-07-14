@@ -18,7 +18,7 @@ The token is per-user and per-client. Generating one for Claude Code and another
 /plugin install frostbyte@frostbyte-plugin
 ```
 
-Claude Code will prompt for your `api_token` (sensitive, stored in your OS keychain) and an optional `endpoint` override (default: `https://getfrostbyte.dev`).
+Claude Code will prompt for your `api_token` (sensitive, stored in your OS keychain).
 
 Confirm the install with `/plugin list`. The Frostbyte skills will surface automatically: `/frostbyte:tasks`, `/frostbyte:releases`, `/frostbyte:areas`, and `/frostbyte:onboarding`.
 
@@ -153,10 +153,7 @@ Contributions are welcome. The plugin itself has no build step — all files are
 
 To add or modify a skill, edit the relevant `SKILL.md` under `skills/`. The `name` and `description` frontmatter fields are what Claude Code and Codex index when deciding whether to surface the skill; keep `description` precise and action-oriented.
 
-To test locally against `http://localhost:4000` (or your local Frostbyte instance), install the plugin from path rather than the marketplace, then:
-
-- **Claude Code:** set the `endpoint` config value when prompted (no trailing slash).
-- **Codex:** there is no endpoint config — edit the `url` in `.codex-plugin/mcp.json` of your local clone directly.
+To test locally against `http://localhost:4000` (or your local Frostbyte instance), install the plugin from path rather than the marketplace, then edit the `url` in `.mcp.json` (Claude Code) or `.codex-plugin/mcp.json` (Codex) of your local clone directly — there is no endpoint config for either client.
 
 ## License
 

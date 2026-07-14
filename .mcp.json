@@ -2,7 +2,7 @@
   "mcpServers": {
     "frostbyte": {
       "type": "http",
-      "url": "${user_config.endpoint}/mcp",
+      "url": "https://getfrostbyte.dev/mcp",
       "headers": {
         "Authorization": "Bearer ${user_config.api_token}",
         "X-Frostbyte-Client": "claude-code"
