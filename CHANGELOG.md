@@ -4,6 +4,11 @@ All notable changes to this project are documented here. Follows [Keep a Changel
 
 ## Unreleased
 
+## [0.5.0] — 2026-07-14
+
+### Changed
+- **Breaking: plugin identifier capitalized.** `name` in the Claude Code manifest is now `"Frostbyte"` (was `"frostbyte"`), fixing the lowercase, icon-less listing in Claude's Connectors UI — Claude Code's plugin schema has no separate display-name or icon field, so `name` is the only lever and it doubles as the install identifier (`enabledPlugins` key `Frostbyte@frostbyte-plugin`). Existing installs will need to re-enable the plugin and re-enter their API token after updating; the Codex manifest is untouched since it already had `interface.displayName: "Frostbyte"` separate from its lowercase `name`.
+
 ## [0.4.4] — 2026-07-14
 
 ### Changed
