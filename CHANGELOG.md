@@ -4,6 +4,11 @@ All notable changes to this project are documented here. Follows [Keep a Changel
 
 ## Unreleased
 
+## [0.6.1] — 2026-09-30
+
+### Fixed
+- The `frostbyte:tasks` skill referred to task implementation notes as `agent_context`; the MCP parameter is `agentContext`. It now uses the real name and notes that implementation notes render markdown in the Frostbyte web app.
+
 ## [0.6.0] — 2026-07-14
 
 ### Removed

@@ -12,7 +12,7 @@ description: >-
   complex than expected. In grounded sessions, keep the list correct as you
   work: start / subtask / complete the obvious task automatically, and offer a
   new task when work is big enough. Never overwrite a human-authored
-  description; agent context goes in agent_context.
+  description; implementation notes go in agentContext.
 ---
 
 # Frostbyte task lifecycle
@@ -88,7 +88,7 @@ MCP responses land in your context window and stay there for the whole session â
 
 ## Append-only rules
 
-- Never edit the human-authored `description` of a task. If technical detail belongs in the workspace, put it in `agent_context` via `update_task`.
+- Never edit the human-authored `description` of a task. If technical detail belongs in the workspace, put it in the task's implementation notes (`agentContext`) via `update_task`. Markdown renders there â€” use headings, lists and `code` for files and symbols where it helps.
 - Never silently move a task back to `todo` once it's `in-progress` or `done`.
 - Subtasks added by you should not delete or rewrite existing checklists.
 
