@@ -7,7 +7,7 @@ This repo contains the Claude Code plugin manifest, the Codex plugin manifest, t
 ## What you need first
 
 1. A Frostbyte account (free signup at [getfrostbyte.dev](https://getfrostbyte.dev)).
-2. A Frostbyte API token — generate one at **Settings → AI Agents → Generate token**. Plaintext is shown exactly once; copy it before closing the modal.
+2. A Frostbyte API token — get one at **Settings → AI agents → Connect your agent**. Pick your tool and the token is created automatically and shown inside that tool's steps.
 
 The token is per-user and per-client. Generating one for Claude Code and another for Codex is the recommended pattern — they show up separately in the AI Agents table so you can see which client is active and revoke them independently.
 
@@ -15,7 +15,7 @@ The token is per-user and per-client. Generating one for Claude Code and another
 
 ```text
 /plugin marketplace add Sky-Enterprises/frostbyte-plugin
-/plugin install frostbyte@frostbyte-plugin
+/plugin install Frostbyte@frostbyte-plugin
 ```
 
 Claude Code will prompt for your `api_token` (sensitive, stored in your OS keychain).
@@ -131,7 +131,7 @@ Once that works, ask: *"Start the task called X"* — the Dashboard "What your a
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
-| `Invalid API token` | Token wrong or revoked | Re-generate at Settings → AI Agents, then re-enter it in Claude Code via the plugin's configuration dialog (`/plugin` → frostbyte → configure; reinstalling the plugin also re-prompts). On Codex, re-export `FROSTBYTE_API_TOKEN`. |
+| `Invalid API token` | Token wrong or revoked | Get a new one via Settings → AI agents → Connect your agent, then re-enter it in Claude Code via the plugin's configuration dialog (`/plugin` → frostbyte → configure; reinstalling the plugin also re-prompts). On Codex, re-export `FROSTBYTE_API_TOKEN`. |
 | `MCP access requires a Basic or Pro plan.` | Free tier; MCP gated at endpoint level. | Upgrade in Settings → Billing. |
 | Plugin installed but agent never calls Frostbyte tools | MCP server not connected, or skills aren't matching the conversation | First check `/mcp` shows a connected `frostbyte` server — if it's missing, the token was never entered or the connection failed. If the server is connected, mention "Frostbyte" or "this task" explicitly; the skill descriptions activate on task, release, and area lifecycle prompts. |
 | `lastSeenAt` doesn't update on Settings → AI Agents | First call hasn't fired yet | Ask the agent to list your projects. The `list_projects` call updates `lastSeenAt`. |

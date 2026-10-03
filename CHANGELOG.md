@@ -4,6 +4,11 @@ All notable changes to this project are documented here. Follows [Keep a Changel
 
 ## Unreleased
 
+## [0.6.2] — 2026-10-03
+
+### Changed
+- Token copy now points at Settings → AI agents → Connect your agent (the web app no longer has a "Generate token" button). The README install line uses `Frostbyte@frostbyte-plugin` to match the manifest name.
+
 ## [0.6.1] — 2026-09-30
 
 ### Fixed
