@@ -4,6 +4,12 @@ All notable changes to this project are documented here. Follows [Keep a Changel
 
 ## Unreleased
 
+## [0.8.0] — 2026-10-12
+
+### Added
+- A `frostbyte:signals` skill covering the signals tools that no skill described: capture what a user reported without asking, read the queue and attachments, and leave linking or dismissing a signal to the founder. Matches how the in-app Frostbyte agent behaves.
+- The `frostbyte:tasks` skill now mentions `task_add_blocker` and `tasks_list_blocked`.
+
 ## [0.7.0] — 2026-10-12
 
 ### Added
