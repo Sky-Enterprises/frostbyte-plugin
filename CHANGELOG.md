@@ -4,20 +4,14 @@ All notable changes to this project are documented here. Follows [Keep a Changel
 
 ## Unreleased
 
-### Added
-- Skills now cover the new Frostbyte MCP tools: `update_task` with `releaseId: null` / `areaId: null` to return a task to the Backlog or clear its area; `launchDate` on `create_release` / `update_release`; and `delete_area` / `delete_release` alongside `delete_task`.
-- A "Deleting" section in the `frostbyte:tasks` skill: deletion is allowed only after the user says yes in chat, never on the agent's own initiative, and only after listing exactly what will go.
-
-## [0.8.0] — 2026-10-12
-
-### Added
-- A `frostbyte:signals` skill covering the signals tools that no skill described: capture what a user reported without asking, read the queue and attachments, and leave linking or dismissing a signal to the founder. Matches how the in-app Frostbyte agent behaves.
-- The `frostbyte:tasks` skill now mentions `task_add_blocker` and `tasks_list_blocked`.
-
 ## [0.7.0] — 2026-10-12
 
 ### Added
+- Skills now cover the new Frostbyte MCP tools: `update_task` with `releaseId: null` / `areaId: null` to return a task to the Backlog or clear its area; `launchDate` on `create_release` / `update_release`; and `delete_area` / `delete_release` alongside `delete_task`.
+- A "Deleting" section in the `frostbyte:tasks` skill: deletion is allowed only after the user says yes in chat, never on the agent's own initiative, and only after listing exactly what will go.
 - Agents can read files attached to tasks and signals. Paired with the Frostbyte MCP tools `get_task_attachment` and `signals_get_attachment`, and attachment listings in `get_task` and `signals_get`. The `frostbyte:tasks` skill now has an "Attachments" section: check them when a task mentions a screenshot, mockup or other visual, fetch only what the task refers to, and ask the user to describe the file if the client can't display it. Works the same in Claude Code and Codex, since both load the same skills.
+- A `frostbyte:signals` skill covering the signals tools that no skill described: capture what a user reported without asking, read the queue and attachments, and leave linking or dismissing a signal to the founder. Matches how the in-app Frostbyte agent behaves.
+- The `frostbyte:tasks` skill now mentions `task_add_blocker` and `tasks_list_blocked`.
 
 ## [0.6.2] — 2026-10-03
 
