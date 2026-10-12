@@ -11,10 +11,10 @@ description: >-
   of files touched. Use task_spawn_subtasks when the task turns out to be more
   complex than expected. When a task lists attachments and its text mentions a
   screenshot, mockup, design or other visual, read them with
-  get_task_attachment before starting. In grounded sessions, keep the list correct as you
-  work: start / subtask / complete the obvious task automatically, and offer a
-  new task when work is big enough. Never overwrite a human-authored
-  description; implementation notes go in agentContext.
+  get_task_attachment before starting. In grounded sessions, keep the list
+  correct as you work: start / subtask / complete the obvious task
+  automatically, and offer a new task when work is big enough. Never overwrite
+  a human-authored description; implementation notes go in agentContext.
 ---
 
 # Frostbyte task lifecycle
