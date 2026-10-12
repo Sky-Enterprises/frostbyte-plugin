@@ -4,6 +4,11 @@ All notable changes to this project are documented here. Follows [Keep a Changel
 
 ## Unreleased
 
+## [0.7.0] — 2026-10-12
+
+### Added
+- Agents can read files attached to tasks and signals. Paired with the Frostbyte MCP tools `get_task_attachment` and `signals_get_attachment`, and attachment listings in `get_task` and `signals_get`. The `frostbyte:tasks` skill now has an "Attachments" section: check them when a task mentions a screenshot, mockup or other visual, fetch only what the task refers to, and ask the user to describe the file if the client can't display it. Works the same in Claude Code and Codex, since both load the same skills.
+
 ## [0.6.2] — 2026-10-03
 
 ### Changed

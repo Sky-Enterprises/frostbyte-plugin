@@ -39,9 +39,9 @@ Codex does not yet have an in-product keychain prompt for sensitive plugin confi
 
 ## What the plugin gives you
 
-- **Bundled MCP server connection** to `https://getfrostbyte.dev/mcp`, authenticated with your Bearer token. Exposes ~30 tools across project / task / area / release CRUD plus agent-update and read context tools.
+- **Bundled MCP server connection** to `https://getfrostbyte.dev/mcp`, authenticated with your Bearer token. Exposes about 36 tools across project / task / area / release CRUD plus agent-update and read context tools, including reading the screenshots and files attached to tasks and signals.
 - **Four skills** that tell your agent when and how to call which MCP tool:
-  - `frostbyte:tasks` — task lifecycle (`task_start`, `task_complete`, `task_spawn_subtasks`, `task_log_decision`) plus the auto-tracking policy for grounded sessions.
+  - `frostbyte:tasks` — task lifecycle (`task_start`, `task_complete`, `task_spawn_subtasks`, `task_log_decision`) plus the auto-tracking policy for grounded sessions and when to read a task's attached screenshots (`get_task_attachment`).
   - `frostbyte:releases` — release lifecycle (`create_release`, `release_read_active`, `update_release`).
   - `frostbyte:areas` — area CRUD (`list_areas`, `create_area`, `update_area`) for projects that use epic-style groupings.
   - `frostbyte:onboarding` — offers to link an unlinked repo to a Frostbyte project (create new or match existing) and writes `.frostbyte.json`.
