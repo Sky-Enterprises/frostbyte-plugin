@@ -94,6 +94,8 @@ MCP responses land in your context window and stay there for the whole session �
 - **Beginning work on a task** → `frostbyte:task_start`. Pass the `projectId` and `taskId` you got from `list_tasks` or `get_task`. Optionally include a one-line `note` if there's a meaningful reason for starting (resuming after a blocker, switching from another task, etc.).
 - **Adding subtasks mid-flight** → `frostbyte:task_spawn_subtasks`. Use when the task is more complex than the existing subtasks (or none) capture. Pass 1-20 short titles. The user (or you, later) can check them off via the UI.
 - **Ticking off a subtask** → `frostbyte:task_edit_subtask` with `action: "check"` (also `"uncheck"` / `"set-text"`). Subtask ids appear in `get_task` and `task_spawn_subtasks` output next to each item. (`task_delete_subtask` exists, but never delete human-authored subtasks.)
+- **Taking a task out of its release or area** → `frostbyte:update_task` with `releaseId: null` (back to the Backlog) or `areaId: null` (no area). Leaving the field out changes nothing. An id from another project is rejected.
+- **Deleting a task** → `frostbyte:delete_task`, only under the rules in "Deleting" below.
 - **Recording a design decision** → `frostbyte:task_log_decision`. Use when you make a non-trivial choice the user should be able to audit later (picked one approach over another, changed a data shape, deferred a sub-problem). Pass `projectId`, `taskId`, and a short `decision` (what was decided and why). It's append-only — it adds a line to the task's activity feed and does **not** mutate any task fields. Don't log routine or obvious steps; reserve it for choices worth revisiting.
 - **Hitting something you can't get past** → `frostbyte:task_add_blocker` with a short `reason`. It records the blocker without changing the task's status; `task_start` clears it when work resumes. `frostbyte:tasks_list_blocked` lists every blocked task, so check it before picking new work.
 - **Finishing the task** → `frostbyte:task_complete`. Always include a `summary` (1-2 short sentences in plain language describing what changed and why) and `filesTouched` (repo-relative paths). The summary surfaces on the Dashboard immediately and on the task modal afterwards — write it for a human reading it tomorrow morning, not for an LLM training set. Keep it tight; shorter is better.
@@ -103,6 +105,16 @@ MCP responses land in your context window and stay there for the whole session �
 - Never edit the human-authored `description` of a task. If technical detail belongs in the workspace, put it in the task's implementation notes (`agentContext`) via `update_task`. Markdown renders there — use headings, lists and `code` for files and symbols where it helps.
 - Never silently move a task back to `todo` once it's `in-progress` or `done`.
 - Subtasks added by you should not delete or rewrite existing checklists.
+
+## Deleting
+
+Deleting a task, area or release is permanent and visible to every project member. It is allowed, but only on the user's say-so:
+
+1. **Never on your own initiative.** A task that looks merged, cancelled, duplicated or obsolete is not a reason to delete it. Say so and let the user decide.
+2. **List before you ask.** Name exactly what will be deleted (id and title; for an area or release, its name and how many tasks it holds, from `list_tasks` with `areaId` / `releaseId`).
+3. **Wait for an explicit yes in this conversation.** Only then call `delete_task`, `delete_area` or `delete_release` with `confirm: true`. A yes to one item is not a yes to the next batch.
+
+Deleting an area or release never deletes its tasks: they lose the area, or return to the Backlog.
 
 ## Reading before writing
 

@@ -39,11 +39,11 @@ Codex does not yet have an in-product keychain prompt for sensitive plugin confi
 
 ## What the plugin gives you
 
-- **Bundled MCP server connection** to `https://getfrostbyte.dev/mcp`, authenticated with your Bearer token. Exposes about 36 tools across project / task / area / release CRUD plus agent-update and read context tools, including reading the screenshots and files attached to tasks and signals.
+- **Bundled MCP server connection** to `https://getfrostbyte.dev/mcp`, authenticated with your Bearer token. Exposes about 38 tools across project / task / area / release CRUD plus agent-update and read context tools, including reading the screenshots and files attached to tasks and signals.
 - **Five skills** that tell your agent when and how to call which MCP tool:
   - `frostbyte:tasks` — task lifecycle (`task_start`, `task_complete`, `task_spawn_subtasks`, `task_log_decision`) plus the auto-tracking policy for grounded sessions and when to read a task's attached screenshots (`get_task_attachment`).
-  - `frostbyte:releases` — release lifecycle (`create_release`, `release_read_active`, `update_release`).
-  - `frostbyte:areas` — area CRUD (`list_areas`, `create_area`, `update_area`) for projects that use epic-style groupings.
+  - `frostbyte:releases` — release lifecycle (`create_release`, `release_read_active`, `update_release`, `delete_release`).
+  - `frostbyte:areas` — area CRUD (`list_areas`, `create_area`, `update_area`, `delete_area`) for projects that use epic-style groupings.
   - `frostbyte:signals` — capture what users reported (`signals_capture`), read the queue, and look at attached screenshots. Linking or dismissing a signal waits for your yes.
   - `frostbyte:onboarding` — offers to link an unlinked repo to a Frostbyte project (create new or match existing) and writes `.frostbyte.json`.
 - **A session grounding hook** (Claude Code: bundled; Codex: one config snippet, below) that makes every session in a linked repo open already knowing which Frostbyte project it belongs to.
