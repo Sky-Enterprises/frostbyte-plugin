@@ -4,6 +4,11 @@ All notable changes to this project are documented here. Follows [Keep a Changel
 
 ## Unreleased
 
+## [0.8.0] — 2026-10-13
+
+### Added
+- Paired with Frostbyte MCP server 1.4.0: tool results now link tasks, releases and areas into the app (`[FB-42](…/tasks/…)`), and the server tells clients to reuse them. The `frostbyte:tasks`, `frostbyte:releases` and `frostbyte:areas` skills say the same, so agents name a task, release or area in a reply as a clickable link that opens it in Frostbyte. Links use your own username, so they only open for the token's owner. Commit messages and PR titles keep the plain `FB-<n>`.
+
 ## [0.7.0] — 2026-10-12
 
 ### Added

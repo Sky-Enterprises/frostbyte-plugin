@@ -14,6 +14,8 @@ Areas are named groupings of tasks within a project — roughly equivalent to ep
 - **Updating an area** → `frostbyte:update_area`. Pass `areaId` and only the fields changing. Never rename an area the user didn't ask to rename — names are shared references that other team members rely on.
 - **Deleting an area** → `frostbyte:delete_area`, only after following "Deleting" in the `frostbyte:tasks` skill: never on your own initiative, tell the user which area and how many tasks it holds (`list_tasks` with `areaId`), and wait for a yes in chat before passing `confirm: true`. The tasks are kept, just without an area.
 
+Area names in `list_areas` results are links into Frostbyte. Reuse them as given when you mention an area to the user (see "Linking tasks, releases and areas" in `frostbyte:tasks`).
+
 ## Assigning tasks to areas
 
 Use `frostbyte:update_task` with `areaId` set. Call `list_areas` first to give the user a menu of existing areas so they can pick, rather than creating a new one by default. To take a task out of its area, pass `areaId: null`.

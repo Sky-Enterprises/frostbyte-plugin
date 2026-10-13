@@ -19,6 +19,7 @@ Releases group shipped work. They show on the Dashboard timeline and are the pri
 
 ## Rules
 
+- **Link releases when you name them.** `list_releases`, `get_release` and `release_read_active` return the release name as a link to Frostbyte; reuse it as given (see "Linking tasks, releases and areas" in `frostbyte:tasks`).
 - **Confirm before creating or completing.** Both actions are visible to every project member immediately and cannot be undone from the agent. Ask the user to confirm the name / summary before calling the write tool.
 - **Don't auto-assign tasks to releases.** If a user says "add this task to the release", use `frostbyte:update_task` to set the `releaseId` — but confirm which release first via `release_read_active` or `list_releases`. To send a task back to the Backlog, pass `releaseId: null`.
 - **One active release at a time.** `release_read_active` returns the in-progress release. If the user asks to create a new one while one is active, surface the conflict and ask whether they meant to complete the current one first.
