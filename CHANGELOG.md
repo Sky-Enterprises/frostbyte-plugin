@@ -4,6 +4,11 @@ All notable changes to this project are documented here. Follows [Keep a Changel
 
 ## Unreleased
 
+## [0.8.1] — 2026-10-18
+
+### Fixed
+- Release instructions now treat an explicit request to complete a named release as authorization to call `update_release`, explain reactivation, and distinguish a missing tool or failed call from an action the user must perform manually. Removed the incorrect claim that agents cannot reverse release status changes.
+
 ## [0.8.0] — 2026-10-13
 
 ### Added
