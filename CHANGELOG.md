@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.2
+
+- Align Signals listing, reviewed/no-task outcomes, multi-task links and Backlog guidance with the Signals release.
+- Document manual corrections, fixed references, portal visibility, confirmed deletion, owner-only reporter details and archived-project protection.
+- Refresh both plugin manifests and session grounding for the new tool set.
+
 All notable changes to this project are documented here. Follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased

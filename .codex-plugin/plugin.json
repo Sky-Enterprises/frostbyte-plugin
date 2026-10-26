@@ -1,7 +1,7 @@
 {
   "name": "frostbyte",
-  "version": "0.8.1",
-  "description": "Frostbyte project tracking inside Codex — your coding agent keeps tasks, decisions, and releases in sync as a side-effect of building.",
+  "version": "0.8.2",
+  "description": "Frostbyte project tracking inside Codex \u2014 your coding agent keeps signals, tasks, decisions, and releases in sync as a side-effect of building.",
   "author": {
     "name": "Sky Enterprises",
     "url": "https://getfrostbyte.dev"
