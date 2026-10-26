@@ -4,6 +4,16 @@ All notable changes to this project are documented here. Follows [Keep a Changel
 
 ## Unreleased
 
+### Changed
+- **Breaking: plugin identifier is lowercase again.** `name` in the Claude Code manifest and marketplace entry is now `"frostbyte"` (kebab-case, as the Claude marketplace requires). Install with `/plugin install frostbyte@frostbyte-plugin`. Existing installs need to reinstall and re-enter their API token.
+- The grounding hook now runs the script by literal path instead of through `sh`.
+
+### Added
+- Plugin icon and `privacyPolicyUrl` in the manifest.
+
+### Removed
+- `docs/AUTO_INTEGRATION_PLAN.md`: an internal planning doc that no longer belongs in the shipped plugin.
+
 ## [0.8.1] — 2026-10-18
 
 ### Fixed

@@ -10,7 +10,7 @@
   },
   "plugins": [
     {
-      "name": "Frostbyte",
+      "name": "frostbyte",
       "source": "./",
       "description": "Project tracking inside Claude Code — agent updates Frostbyte as a side-effect of building.",
       "version": "0.8.1",

@@ -15,7 +15,7 @@ The token is per-user and per-client. Generating one for Claude Code and another
 
 ```text
 /plugin marketplace add Sky-Enterprises/frostbyte-plugin
-/plugin install Frostbyte@frostbyte-plugin
+/plugin install frostbyte@frostbyte-plugin
 ```
 
 Claude Code will prompt for your `api_token` (sensitive, stored in your OS keychain).
