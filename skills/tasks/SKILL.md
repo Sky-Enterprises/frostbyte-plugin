@@ -1,7 +1,7 @@
 ---
 name: tasks
 description: >-
-  When the user asks the agent to start, work on, or finish a Frostbyte task —
+  When the user asks what to work on next, or asks the agent to start, work on, or finish a Frostbyte task —
   or when the session is grounded in a linked Frostbyte project (a
   .frostbyte.json link announced at session start) and work is happening that
   maps to the task list — call the corresponding Frostbyte MCP tool so the
@@ -76,6 +76,21 @@ session (server not connected, token missing, or plan-gated), tell the user
 once and continue the work without tracking — don't retry every turn.
 
 ## Fetch only what you need
+
+For "what should I work on next?", call `whats_next({projectId})` before
+proposing work. It returns the dashboard's up to three personal recommendations,
+short factual reasons, a separate release advisory and personally dismissed
+items. It works without an active release and omits customer-demand weighting
+when User Signals is off. Follow the user's explicit task choice over ranking.
+Do not invent tasks, auto-assign/start recommended work or ship a release just
+because it appears in this result. Ask before any release action.
+
+When asked, `whats_next_dismiss({projectId, kind, targetId})` hides a task or
+release recommendation for the authenticated member; `whats_next_restore`
+restores it. Use IDs and kinds returned by `whats_next`, including the release
+advisory's compound ID. These are personal preferences, not Signal decisions or
+changes to project work. Meaningful task changes can resurface a dismissal;
+ordinary edits and one additional vote do not.
 
 MCP responses land in your context window and stay there for the whole session — keep reads lean:
 

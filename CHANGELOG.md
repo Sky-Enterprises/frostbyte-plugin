@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.3
+
+- Add What's Next guidance for personal task ranking, release advice and personal dismiss/restore. Requires MCP server 1.5.0; release with FB-246.
+
 ## 0.8.2
 
 - Align Signals listing, reviewed/no-task outcomes, multi-task links and Backlog guidance with the Signals release.
