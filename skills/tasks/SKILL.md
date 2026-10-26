@@ -60,6 +60,12 @@ fits — and confirm the name with the user (see the `frostbyte:areas` skill).
 when the user explicitly asks (the `frostbyte:releases` skill handles the
 lifecycle).
 
+**Tasks from signals:** propose the work and wait for approval before creating it.
+Pass `releaseId: null` to `create_task` so it stays in the Backlog unless the user
+has selected a release, then link it with `signals_link_task`. Omitting
+`releaseId` defaults to the active release; it does not mean Backlog. A direct
+request for work can go straight to a task without creating a signal.
+
 **Stale or invalid link:** if `list_tasks` returns not-found or forbidden for
 the linked projectId (project deleted, or your token lost access), say so
 plainly and offer to re-link the repo (see the `frostbyte:onboarding` skill).

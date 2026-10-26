@@ -5,6 +5,7 @@ All notable changes to this project are documented here. Follows [Keep a Changel
 ## Unreleased
 
 ### Changed
+- Signals guidance uses `signals_list` with status filters, covers reviewing without a task and unlinking, and keeps approved signal-derived tasks in the Backlog unless a release was chosen. Requires the matching Frostbyte v1.17 server tools; release alongside the Signals workflow update.
 - **Breaking: plugin identifier is lowercase again.** `name` in the Claude Code manifest and marketplace entry is now `"frostbyte"` (kebab-case, as the Claude marketplace requires). Install with `/plugin install frostbyte@frostbyte-plugin`. Existing installs need to reinstall and re-enter their API token.
 - The grounding hook now runs the script by literal path instead of through `sh`.
 
