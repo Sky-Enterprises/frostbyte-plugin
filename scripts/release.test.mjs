@@ -1,6 +1,7 @@
 // scripts/release.test.mjs
 
 import { test } from 'node:test';
+import { spawnSync } from 'node:child_process';
 import assert from 'node:assert/strict';
 import { mkdtempSync, mkdirSync, copyFileSync, readFileSync, writeFileSync, rmSync, symlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -25,3 +26,5 @@ test('Claude credential substitutions cannot leak into public configuration',()=
 test('invalid YAML is rejected as data',()=>assert.throws(()=>fixture(root=>writeFileSync(join(root,'skills/tasks/SKILL.md'),'---\nname: [invalid\n---\n')),/flow|comma|end|YAML/i));
 test('symlinks are rejected',()=>assert.throws(()=>fixture(root=>symlinkSync('/etc/passwd',join(root,'assets/escape'))),/Symlink/));
 test('incomplete reviewer cases are rejected',()=>assert.throws(()=>fixture(root=>edit(root,'plugin.json',m=>{delete m.extensions['com.openai'].review.test_cases.positive[0].expected_behavior;})),/review case/));
+
+test('publication rejects a receipt without exact approval before any public action',()=>{const root=mkdtempSync(join(tmpdir(),'frostbyte-approval-'));try{writeFileSync(join(root,'candidate.json'),JSON.stringify({sha:'unapproved',version:'0.9.0',assets:[]}));const result=spawnSync(process.execPath,[join(repo,'scripts/release.mjs'),'publish','--out',root,'--approved-sha','wrong','--approved-receipt','wrong'],{encoding:'utf8'});assert.equal(result.status,1);assert.match(result.stderr,/approved SHA and receipt/);}finally{rmSync(root,{recursive:true,force:true});}});

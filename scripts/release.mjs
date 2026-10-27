@@ -120,7 +120,7 @@ export function prepare(ref, output) {
       writeFileSync(dest,execFileSync('git',['show',`${sha}:${file}`],{cwd:repo,maxBuffer:8*1024*1024})); chmodSync(dest,modes.get(file));
     }
     const {version} = check(source);
-    const notes = readFileSync(join(source,'CHANGELOG.md'),'utf8').split(`## [${version}]`)[1]?.split(/\n## /)[0];
+    const notes = readFileSync(join(source,'CHANGELOG.md'),'utf8').split(`## [${version}]`)[1]?.split(/\n## /)[0].replace(/^[^\n]*\n/, '');
     assert(notes?.trim(), 'Missing version notes');
     const receipt={version,sha,assets:[]};
     for (const host of ['openai','claude']) {
