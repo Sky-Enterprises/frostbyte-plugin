@@ -16,7 +16,9 @@
       "codexVersion": "0.1.0",
       "tag": null,
       "release": null,
-      "action": "Propose tag and release at final main commit"
+      "action": "Propose tag and release at introducing main commit",
+      "target": "6e3be8a2e83bdee856ff5942677ba0dd94340ad6",
+      "targetReason": "Use the main commit where the version was introduced, without folding later unreleased same-version work into the historical release."
     },
     {
       "version": "0.2.0",
@@ -29,7 +31,9 @@
       "codexVersion": "0.2.0",
       "tag": null,
       "release": null,
-      "action": "Propose tag and release at final main commit"
+      "action": "Propose tag and release at introducing main commit",
+      "target": "2b3d424cd214d6d7cbe5c24f34ad3554e2e117bb",
+      "targetReason": "Use the main commit where the version was introduced, without folding later unreleased same-version work into the historical release."
     },
     {
       "version": "0.3.0",
@@ -43,7 +47,9 @@
       "codexVersion": "0.3.0",
       "tag": null,
       "release": null,
-      "action": "Propose tag and release at final main commit"
+      "action": "Propose tag and release at introducing main commit",
+      "target": "91b02fc59719621a1ac6fb39ce68eb0649d54584",
+      "targetReason": "Use the main commit where the version was introduced, without folding later unreleased same-version work into the historical release."
     },
     {
       "version": "0.3.1",
@@ -56,7 +62,9 @@
       "codexVersion": "0.3.1",
       "tag": null,
       "release": null,
-      "action": "Propose tag and release at final main commit"
+      "action": "Propose tag and release at introducing main commit",
+      "target": "a2c17ee361773d76dd90b1ad5c01cfa0589dec35",
+      "targetReason": "Use the main commit where the version was introduced, without folding later unreleased same-version work into the historical release."
     },
     {
       "version": "0.4.0",
@@ -69,7 +77,9 @@
       "codexVersion": "0.4.0",
       "tag": null,
       "release": null,
-      "action": "Propose tag and release at final main commit"
+      "action": "Propose tag and release at introducing main commit",
+      "target": "dd34d1d1d02c99f27cac0c43c03f346a05bd0736",
+      "targetReason": "Use the main commit where the version was introduced, without folding later unreleased same-version work into the historical release."
     },
     {
       "version": "0.4.1",
@@ -86,7 +96,9 @@
       },
       "release": null,
       "action": "Prepare release notes for existing tag; preserve SHA",
-      "tagManifestVersion": "0.4.1"
+      "tagManifestVersion": "0.4.1",
+      "target": "73b3f1dacef4d32ec4dc27d3d3fb401af82d3e23",
+      "targetReason": "Preserve the existing immutable remote tag; mismatches remain held."
     },
     {
       "version": "0.4.2",
@@ -104,7 +116,9 @@
       },
       "release": null,
       "action": "Prepare release notes for existing tag; preserve SHA",
-      "tagManifestVersion": "0.4.2"
+      "tagManifestVersion": "0.4.2",
+      "target": "1a16a64a29c49c5b283b3e4bdad4686ca36cd50d",
+      "targetReason": "Preserve the existing immutable remote tag; mismatches remain held."
     },
     {
       "version": "0.4.3",
@@ -121,7 +135,9 @@
       },
       "release": null,
       "action": "HOLD: tag manifests say 0.4.2; preserve tag, ask for correction strategy",
-      "tagManifestVersion": "0.4.2"
+      "tagManifestVersion": "0.4.2",
+      "target": "05486947bce957de734324500ec708b84a38d0ac",
+      "targetReason": "Preserve the existing immutable remote tag; mismatches remain held."
     },
     {
       "version": "0.4.4",
@@ -141,7 +157,9 @@
         "draft": false
       },
       "action": "HOLD: tag manifests say 0.4.3; preserve tag, ask for correction strategy",
-      "tagManifestVersion": "0.4.3"
+      "tagManifestVersion": "0.4.3",
+      "target": "f87c8abd2230541696c70e114a8b9191ed15098a",
+      "targetReason": "Preserve the existing immutable remote tag; mismatches remain held."
     },
     {
       "version": "0.5.0",
@@ -161,7 +179,9 @@
         "draft": false
       },
       "action": "Preserve existing release/tag",
-      "tagManifestVersion": "0.5.0"
+      "tagManifestVersion": "0.5.0",
+      "target": "d1b6b56524d8e74572ee5bb12fb8e4b8ef192d55",
+      "targetReason": "Preserve the existing immutable remote tag; mismatches remain held."
     },
     {
       "version": "0.6.0",
@@ -181,7 +201,9 @@
         "draft": false
       },
       "action": "Preserve existing release/tag",
-      "tagManifestVersion": "0.6.0"
+      "tagManifestVersion": "0.6.0",
+      "target": "55417f885b949ebf9cb2839dd359709553af46f0",
+      "targetReason": "Preserve the existing immutable remote tag; mismatches remain held."
     },
     {
       "version": "0.6.1",
@@ -194,7 +216,9 @@
       "codexVersion": "0.6.1",
       "tag": null,
       "release": null,
-      "action": "Propose tag and release at final main commit"
+      "action": "Propose tag and release at introducing main commit",
+      "target": "d4d14a2d75a8d0e74a673581167efd9d7836a93c",
+      "targetReason": "Use the main commit where the version was introduced, without folding later unreleased same-version work into the historical release."
     },
     {
       "version": "0.6.2",
@@ -209,7 +233,9 @@
       "codexVersion": "0.6.2",
       "tag": null,
       "release": null,
-      "action": "Propose tag and release at final main commit"
+      "action": "Propose tag and release at introducing main commit",
+      "target": "1091a3c70afd33a6f77c642947d0306dba893754",
+      "targetReason": "Use the main commit where the version was introduced, without folding later unreleased same-version work into the historical release."
     },
     {
       "version": "0.7.0",
@@ -222,7 +248,9 @@
       "codexVersion": "0.7.0",
       "tag": null,
       "release": null,
-      "action": "Propose tag and release at final main commit"
+      "action": "Propose tag and release at introducing main commit",
+      "target": "d6cb4649cdc612e22c1fc382db6616c27576ab4a",
+      "targetReason": "Use the main commit where the version was introduced, without folding later unreleased same-version work into the historical release."
     },
     {
       "version": "0.8.0",
@@ -235,7 +263,9 @@
       "codexVersion": "0.8.0",
       "tag": null,
       "release": null,
-      "action": "Propose tag and release at final main commit"
+      "action": "Propose tag and release at introducing main commit",
+      "target": "3dab813ef6f1391d0b09211334036f03a7d80319",
+      "targetReason": "Use the main commit where the version was introduced, without folding later unreleased same-version work into the historical release."
     },
     {
       "version": "0.8.1",
@@ -248,7 +278,9 @@
       "codexVersion": "0.8.1",
       "tag": null,
       "release": null,
-      "action": "Propose tag and release at final main commit"
+      "action": "Propose tag and release at introducing main commit",
+      "target": "150a5513f174881f4660b6e791c82645f48d659b",
+      "targetReason": "Use the main commit where the version was introduced, without folding later unreleased same-version work into the historical release."
     }
   ]
 }
