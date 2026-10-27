@@ -45,6 +45,9 @@ without either parser it skips grounding. Skills still support explicit selectio
 Set `grounding: false` in the link to pause automatic grounding.
 
 For an isolated development preview, use `claude --plugin-dir /absolute/path/to/plugin`.
+Claude Code requires its workspace-trust decision and any required token configuration
+before the bundled MCP server is usable. Seeing skills load is not proof that the
+connection is configured; verify the lowercase server in `/mcp`.
 Do not edit the installed cache or change another checkout's server.
 
 ## Claude chat

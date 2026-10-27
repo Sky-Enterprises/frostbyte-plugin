@@ -98,7 +98,7 @@ once and continue the work without tracking — don't retry every turn.
 ## Fetch only what you need
 
 For "what should I work on next?", call `whats_next({projectId})` before
-proposing work. It returns the dashboard's up to three personal recommendations,
+proposing work. It returns the dashboard's personal recommendations,
 short factual reasons, a separate release advisory and personally dismissed
 items. It works without an active release and omits customer-demand weighting
 when User Signals is off. Follow the user's explicit task choice over ranking.
