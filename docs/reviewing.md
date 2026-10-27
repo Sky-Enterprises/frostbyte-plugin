@@ -4,7 +4,7 @@ The exact prompts and expected tool calls are packaged in `plugin.json` under
 `extensions.com.openai.review.test_cases` (five positive, three negative). Results
 belong in the execution evidence, not invented fields in that schema.
 
-Use a dedicated paid demo account and a clean **Frostbyte Plugin Demo** project.
+Use a dedicated paid demo account and a clean **Plugin Demo** project.
 Create **Projects** and **Docs** areas, active **v1.17.0**, upcoming **v1.18.0** and
 **v1.19.0**, and a To Do **Improve setup checklist** task with a small disposable
 repository change and an agreed check. Keep GitHub sync and portal notifications
