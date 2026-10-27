@@ -37,7 +37,6 @@
           "Start this Frostbyte task and keep it updated.",
           "Draft release notes for my planned release."
         ],
-        "commerce": false,
         "commerce_description": "No purchases or payments occur inside the agent. A paid Frostbyte subscription (Indie or higher), purchased on the Frostbyte website, is required.",
         "test_cases": {
           "positive": [

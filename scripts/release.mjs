@@ -43,6 +43,11 @@ function icon(root, path, minimum) {
 export function check(root = repo, host = 'source') {
   const files = filesIn(root).filter(f => !/^(?:node_modules|\.git|\.execution|dist)\//.test(f) && f !== '.git');
   for (const f of files.filter(f => f.endsWith('.json'))) json(join(root, f));
+  for (const f of files.filter(f => /\.ya?ml$/.test(f))) yaml.load(readFileSync(join(root, f), 'utf8'));
+  for (const f of files.filter(f => /\.(?:md|json|ya?ml)$/.test(f))) {
+    const text=readFileSync(join(root,f),'utf8');
+    for(const match of text.matchAll(/(?:\]\(|(?:src|href)=")((?:\.\/)?(?:assets|docs)\/[^)"#]+)(?:#[^)"]*)?(?:\)|")/g)) contained(root,'./'+match[1].replace(/^\.\//,''));
+  }
   for (const f of files.filter(f => /^skills\/[^/]+\/SKILL\.md$/.test(f))) {
     const text = readFileSync(join(root, f), 'utf8'), match = text.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
     assert(match && Buffer.byteLength(text) <= 1024 * 1024, `Invalid frontmatter: ${f}`);
@@ -51,7 +56,7 @@ export function check(root = repo, host = 'source') {
   }
   assert(files.some(f => f === 'skills/tasks/SKILL.md'), 'Tasks skill missing');
   const manifest = json(join(root, host === 'claude' ? '.claude-plugin/plugin.json' : 'plugin.json'));
-  assert(manifest.name === 'frostbyte' && /^\d+\.\d+\.\d+$/.test(manifest.version), 'Invalid identity/version');
+  assert(manifest.name === 'frostbyte' && /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/.test(manifest.version), 'Invalid identity/version');
   if (host === 'claude') {
     icon(root, manifest.icon, 512);
     assert(manifest.userConfig.api_token.sensitive && manifest.mcpServers === './.mcp.json', 'Claude user configuration missing');

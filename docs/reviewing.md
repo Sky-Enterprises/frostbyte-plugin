@@ -61,3 +61,5 @@ policy coverage and attestations are distinct from a successful HTTP response.
 Directory submission, review approval and publication are separate milestones.
 Keep all four surfaces coordinated and record their state independently. Do not
 claim directory availability from a ZIP, a GitHub tag, an upload or a passing scan.
+
+The commerce boolean is deliberately omitted until the target portal question is inspected. The package declares the website subscription requirement and absence of in-agent payments in commerce_description; confirm the actual saved question before selecting its boolean.
