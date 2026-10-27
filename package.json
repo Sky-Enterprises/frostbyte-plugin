@@ -1,0 +1,18 @@
+{
+  "name": "frostbyte-plugin-release-tools",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "check": "node scripts/release.mjs check",
+    "test": "node --test scripts/*.test.mjs",
+    "prepare:release": "node scripts/release.mjs prepare"
+  },
+  "devDependencies": {
+    "ajv": "8.17.1",
+    "ajv-formats": "3.0.1",
+    "js-yaml": "4.1.1"
+  }
+}

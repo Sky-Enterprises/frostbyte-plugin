@@ -1,29 +1,22 @@
 # Changelog
 
-## 0.8.3
-
-- Add What's Next guidance for personal task ranking, release advice and personal dismiss/restore. Requires MCP server 1.5.0; release with FB-246.
-
-## 0.8.2
-
-- Align Signals listing, reviewed/no-task outcomes, multi-task links and Backlog guidance with the Signals release.
-- Document manual corrections, fixed references, portal visibility, confirmed deletion, owner-only reporter details and archived-project protection.
-- Refresh both plugin manifests and session grounding for the new tool set.
-
-All notable changes to this project are documented here. Follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
-
-## Unreleased
-
-### Changed
-- Signals guidance uses `signals_list` with status filters, covers reviewing without a task and unlinking, and keeps approved signal-derived tasks in the Backlog unless a release was chosen. Requires the matching Frostbyte v1.17 server tools; release alongside the Signals workflow update.
-- **Breaking: plugin identifier is lowercase again.** `name` in the Claude Code manifest and marketplace entry is now `"frostbyte"` (kebab-case, as the Claude marketplace requires). Install with `/plugin install frostbyte@frostbyte-plugin`. Existing installs need to reinstall and re-enter their API token.
-- The grounding hook now runs the script by literal path instead of through `sh`.
+## [0.9.0] — candidate
 
 ### Added
-- Plugin icon and `privacyPolicyUrl` in the manifest.
+- Shared project selection for chat and repository hosts, a portable OpenAI OAuth package, listing fields and five positive/three negative review cases.
+- Reproducible exports from an immutable commit, archive inspection, CI preparation and explicit publication approval checks.
+- A historical release map with existing tag mismatches held for a maintainer decision.
+
+### Changed
+- Consolidate unpublished 0.8.2 Signals parity and 0.8.3 What's Next guidance. Requires the deployed MCP 1.5.0 tool set.
+- Lead with tasks, board, areas and releases; retain supported Signals workflows.
+- Honour named release/area assignments through real fields and verify them. Keep tasks In progress while required checks or requested review remain.
+- Restore the stable lowercase frostbyte identifier, icon and privacy URL. Older capitalised Claude installs need reinstalling and token configuration.
+- Use a literal local hook path and complete JSON parsing; public OpenAI uploads omit hook files and declarations.
+- Replace long setup instructions with focused host guidance. No publication, access-rule change or automatic release shipping.
 
 ### Removed
-- `docs/AUTO_INTEGRATION_PLAN.md`: an internal planning doc that no longer belongs in the shipped plugin.
+- Internal auto-integration planning material from distributed packages.
 
 ## [0.8.1] — 2026-10-18
 

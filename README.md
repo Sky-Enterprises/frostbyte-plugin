@@ -1,161 +1,37 @@
-# Frostbyte plugin
+<p align="center"><img src="assets/icon.png" width="88" alt="Frostbyte" /></p>
 
-The Frostbyte plugin connects Claude Code or Codex to your Frostbyte project tracker. Once installed, your AI client treats Frostbyte as structured memory — it transitions tasks, records decisions, and writes session summaries as a side-effect of building.
+# Keep Frostbyte up to date as you build.
 
-This repo contains the Claude Code plugin manifest, the Codex plugin manifest, the shared skills, and the MCP server pointer. You install it once per AI client; it then works across every Frostbyte project the user has access to.
+Pick a task, build it, and keep your board, areas and releases accurate from your
+agent. Requires a [Frostbyte](https://getfrostbyte.dev) account with Indie or higher access.
 
-## What you need first
+> “Start the setup checklist task and keep it updated.”
+>
+> Demo result: the agent started the task, added the connection check, verified the
+> JSON, and marked it Done. The separate planned task stayed To Do.
 
-1. A Frostbyte account (free signup at [getfrostbyte.dev](https://getfrostbyte.dev)).
-2. A Frostbyte API token — get one at **Settings → AI agents → Connect your agent**. Pick your tool and the token is created automatically and shown inside that tool's steps.
+<p><img src="assets/demo-tasks.jpg" width="340" alt="Real Frostbyte Plugin Demo board: setup checklist Done and planned Grok guidance To Do" /></p>
 
-The token is per-user and per-client. Generating one for Claude Code and another for Codex is the recommended pattern — they show up separately in the AI Agents table so you can see which client is active and revoke them independently.
+Captured from a real Codex/MCP demo run with isolated sample data. Fresh directory
+installation checks are still pending.
 
-## Install — Claude Code
+| Use Frostbyte in | Connect |
+| --- | --- |
+| ChatGPT | [OAuth setup](docs/setup.md#chatgpt-and-codex) · public directory release in preparation |
+| Codex | [OAuth and local setup](docs/setup.md#chatgpt-and-codex) · public directory release in preparation |
+| Claude chat | [Connector setup](docs/setup.md#claude-chat) · directory release in preparation |
+| Claude Code | [Install from the marketplace](docs/setup.md#claude-code) |
 
-```text
-/plugin marketplace add Sky-Enterprises/frostbyte-plugin
-/plugin install frostbyte@frostbyte-plugin
-```
+Try:
 
-Claude Code will prompt for your `api_token` (sensitive, stored in your OS keychain).
+- “What should I work on next in this project?”
+- “Start this Frostbyte task and keep it updated as you build.”
+- “Draft release notes for v1.18.0, but don't publish it.”
 
-Confirm the install with `/plugin list`. The Frostbyte skills will surface automatically: `/frostbyte:tasks`, `/frostbyte:releases`, `/frostbyte:areas`, and `/frostbyte:onboarding`.
+The plugin supplies workflow guidance; the [hosted MCP server](https://getfrostbyte.dev/docs/mcp-server)
+reads and writes your Frostbyte projects. You choose the work. The agent tracks
+agreed tasks, checks completion, and discusses release readiness with you. User
+Signals are supported too. Subscriptions are purchased on the website.
 
-## Install — Codex
-
-Codex's plugin platform uses a separate manifest under `.codex-plugin/`. The MCP server is the same.
-
-```bash
-codex plugin marketplace add Sky-Enterprises/frostbyte-plugin
-codex plugin add frostbyte@frostbyte-plugin
-
-# in your shell, before launching Codex:
-export FROSTBYTE_API_TOKEN=fb_pat_your_token_here
-codex
-```
-
-Codex does not yet have an in-product keychain prompt for sensitive plugin config, so the token is read from `FROSTBYTE_API_TOKEN`. Add it to your shell profile if you want the connection to survive restarts.
-
-## What the plugin gives you
-
-- **Bundled MCP server connection** to `https://getfrostbyte.dev/mcp`, authenticated with your Bearer token. Exposes project, task, area, release and Signals tools plus agent-update and read context tools, including reading the screenshots and files attached to tasks and signals.
-- **Five skills** that tell your agent when and how to call which MCP tool:
-  - `frostbyte:tasks` — task lifecycle (`task_start`, `task_complete`, `task_spawn_subtasks`, `task_log_decision`) plus the auto-tracking policy for grounded sessions and when to read a task's attached screenshots (`get_task_attachment`).
-  - `frostbyte:releases` — release lifecycle (`create_release`, `release_read_active`, `update_release`, `delete_release`).
-  - `frostbyte:areas` — area CRUD (`list_areas`, `create_area`, `update_area`, `delete_area`) for projects that use epic-style groupings.
-  - `frostbyte:signals` — capture user input, read new/saved/reviewed/dismissed signals, and inspect attachments. With your approval, turn a signal into Backlog tasks, link or unlink tasks, mark it reviewed without a task, or dismiss it.
-  - `frostbyte:onboarding` — offers to link an unlinked repo to a Frostbyte project (create new or match existing) and writes `.frostbyte.json`.
-- **A session grounding hook** (Claude Code: bundled; Codex: one config snippet, below) that makes every session in a linked repo open already knowing which Frostbyte project it belongs to.
-
-## Linking a repo: `.frostbyte.json`
-
-One small file at the repo root links a folder on disk to a Frostbyte project:
-
-```json
-{ "projectId": "abc123XYZ" }
-```
-
-- **Commit it.** It holds no secrets — the whole team shares the link.
-- Three ways it gets created: the onboarding skill creates a new project and writes it; the onboarding skill matches an existing project and writes it; or you paste the projectId by hand (it's in the project's URL).
-- One link per repo, at the root. The hook walks up from the current directory to the nearest `.frostbyte.json`, stopping at the repo boundary (the first directory containing `.git`) — a `.frostbyte.json` outside the repo never grounds it.
-
-## How session grounding works
-
-On session start, the hook looks for `.frostbyte.json`. If found, it injects one instruction: *"this repo is Frostbyte project X — when you begin implementation work, call `list_tasks` for it and treat in-progress tasks and the active release as your working context."* The agent then fetches through the MCP server as usual. Quick one-off questions don't trigger a fetch, and if the MCP server isn't connected the agent says so once and carries on without tracking.
-
-The hook never touches the network and never sees your token — the authenticated fetch happens inside the MCP server, which gets the token from your OS keychain (Claude Code) or `FROSTBYTE_API_TOKEN` (Codex). On any error — missing file, malformed JSON — the hook exits silently and your session starts normally.
-
-With grounding in place, the `frostbyte-tasks` skill keeps the list correct as you work: it starts the obvious task, proposes a new task when work is big enough, adds subtasks when work fits an existing task, and completes tasks when done. Creating anything always asks you first.
-
-### Hook setup — Claude Code
-
-Nothing to do. The hook is bundled with the plugin (`hooks/hooks.json`) and registers automatically on install.
-
-### Hook setup — Codex
-
-Register the shared script in `~/.codex/hooks.json` (Codex will ask you to review and trust it via `/hooks` on next launch):
-
-```json
-{
-  "hooks": {
-    "SessionStart": [
-      { "hooks": [ { "type": "command", "command": "sh /path/to/frostbyte-plugin/hooks/frostbyte-grounding.sh" } ] }
-    ]
-  }
-}
-```
-
-Replace `/path/to/frostbyte-plugin` with where Codex installed the plugin (check `~/.codex/plugins/cache/`) or a local clone of this repo.
-
-### Turning it off
-
-- **Per repo:** delete `.frostbyte.json` (unlinks the repo), or set `{ "projectId": "...", "grounding": false }` to pause grounding while keeping the link.
-- **Globally:** disable or uninstall the plugin (Claude Code), or remove the hook entry from `~/.codex/hooks.json` (Codex).
-
-## Repository layout
-
-```
-.mcp.json            MCP server config (Claude Code — lives at the plugin root, where Claude Code expects it)
-.claude-plugin/
-  plugin.json        Claude Code plugin manifest
-  marketplace.json   Claude Code marketplace entry
-.codex-plugin/
-  plugin.json        Codex plugin manifest
-  mcp.json           MCP server config (Codex)
-.agents/plugins/
-  marketplace.json   Codex/agents marketplace entry
-hooks/
-  hooks.json                Claude Code hook registration (SessionStart)
-  frostbyte-grounding.sh    Shared grounding hook script (Claude Code + Codex)
-skills/
-  tasks/SKILL.md       Task lifecycle + auto-tracking skill
-  releases/SKILL.md    Release lifecycle skill
-  areas/SKILL.md       Area management skill
-  onboarding/SKILL.md  Repo-to-project linking skill
-LICENSE
-CHANGELOG.md
-```
-
-## Verifying the connection
-
-After installing:
-
-1. Open a Claude Code or Codex session.
-2. Ask: *"What projects do I have on Frostbyte?"*
-3. The agent should call `frostbyte:list_projects` and return your projects.
-4. Open Frostbyte → **Settings → AI Agents** — your token's `Last active` column should show "Just now".
-
-Once that works, ask: *"Start the task called X"* — the Dashboard "What your agent did recently" card will prepend an entry within ~2 seconds.
-
-## Troubleshooting
-
-| Symptom | Likely cause | Fix |
-|---|---|---|
-| `Invalid API token` | Token wrong or revoked | Get a new one via Settings → AI agents → Connect your agent, then re-enter it in Claude Code via the plugin's configuration dialog (`/plugin` → frostbyte → configure; reinstalling the plugin also re-prompts). On Codex, re-export `FROSTBYTE_API_TOKEN`. |
-| `MCP access requires a Basic or Pro plan.` | Free tier; MCP gated at endpoint level. | Upgrade in Settings → Billing. |
-| Plugin installed but agent never calls Frostbyte tools | MCP server not connected, or skills aren't matching the conversation | First check `/mcp` shows a connected `frostbyte` server — if it's missing, the token was never entered or the connection failed. If the server is connected, mention "Frostbyte" or "this task" explicitly; the skill descriptions activate on task, release, and area lifecycle prompts. |
-| `lastSeenAt` doesn't update on Settings → AI Agents | First call hasn't fired yet | Ask the agent to list your projects. The `list_projects` call updates `lastSeenAt`. |
-| Dashboard "agent activity" card stays empty | Agent isn't calling `task_start` / `task_complete` | This is a known cold-start behaviour pattern; tell the agent explicitly to start the task once and the skill prose takes over from there. |
-
-## Updating the plugin
-
-```text
-# Claude Code
-/plugin update frostbyte
-
-# Codex
-codex plugin update frostbyte
-```
-
-## Contributing
-
-Contributions are welcome. The plugin itself has no build step — all files are plain JSON and Markdown.
-
-To add or modify a skill, edit the relevant `SKILL.md` under `skills/`. The `name` and `description` frontmatter fields are what Claude Code and Codex index when deciding whether to surface the skill; keep `description` precise and action-oriented.
-
-To test locally against `http://localhost:4000` (or your local Frostbyte instance), install the plugin from path rather than the marketplace, then edit the `url` in `.mcp.json` (Claude Code) or `.codex-plugin/mcp.json` (Codex) of your local clone directly — there is no endpoint config for either client.
-
-## License
-
-MIT — see [LICENSE](LICENSE).
+[Setup and troubleshooting](docs/setup.md) · [Support](https://getfrostbyte.dev/contact) ·
+[Changelog](CHANGELOG.md) · [Maintainer releases](docs/releasing.md) · [MIT](LICENSE)

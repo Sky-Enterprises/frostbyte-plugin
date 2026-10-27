@@ -1,0 +1,97 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "frostbyte",
+  "version": "0.9.0",
+  "description": "Keep Frostbyte up to date as you build. Tasks, board, areas and releases in your agent.",
+  "author": {
+    "name": "Sky Enterprises",
+    "url": "https://getfrostbyte.dev"
+  },
+  "homepage": "https://getfrostbyte.dev/docs/plugin",
+  "repository": "https://github.com/Sky-Enterprises/frostbyte-plugin",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Frostbyte",
+        "shortDescription": "Keep work up to date",
+        "longDescription": "Keep Frostbyte up to date as you build. Read and update tasks and the board, organise areas, plan releases and draft release notes. Choose your own work; the agent tracks agreed implementation and checks completion. User Signals are also supported. Requires a Frostbyte account with Indie or higher access. Subscriptions are purchased on the Frostbyte website; no purchases or payments are initiated in the agent.",
+        "developerName": "Sky Enterprises",
+        "category": "Developer Tools",
+        "websiteURL": "https://getfrostbyte.dev/docs/plugin",
+        "supportURL": "https://getfrostbyte.dev/contact",
+        "privacyPolicyURL": "https://getfrostbyte.dev/legal/privacy",
+        "termsOfServiceURL": "https://getfrostbyte.dev/legal/terms-of-service",
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png",
+        "defaultPrompt": [
+          "What should I work on next in Frostbyte?",
+          "Start this Frostbyte task and keep it updated.",
+          "Draft release notes for my planned release."
+        ]
+      },
+      "onboardingSkill": "./skills/onboarding/SKILL.md",
+      "review": {
+        "prompts": [
+          "What should I work on next in Frostbyte?",
+          "Start this Frostbyte task and keep it updated.",
+          "Draft release notes for my planned release."
+        ],
+        "commerce": false,
+        "commerce_description": "No purchases or payments occur inside the agent. A paid Frostbyte subscription (Indie or higher), purchased on the Frostbyte website, is required.",
+        "test_cases": {
+          "positive": [
+            {
+              "description": "P1. Select Frostbyte Plugin Demo. It contains sample tasks; recommendations alone must not start work.",
+              "prompt": "Can you see my projects? What should I work on next in Frostbyte Plugin Demo?",
+              "tools_triggered": "list_projects, whats_next",
+              "expected_behavior": "Use the real demo project ID and returned personal recommendations/reasons. No task_start or writes from this question."
+            },
+            {
+              "description": "P2. Demo task Improve setup checklist is To Do. The user agrees implementation; use a disposable repository and require its check.",
+              "prompt": "Start the Improve setup checklist task in Frostbyte Plugin Demo, make the agreed change, and keep it updated.",
+              "tools_triggered": "list_tasks, get_task, task_start, task_complete",
+              "expected_behavior": "Read the exact task and attachments when relevant, start when implementation begins, and complete with a factual summary only after agreed work and required checks/review finish. Pending checks leave In progress."
+            },
+            {
+              "description": "P3. Demo project has upcoming v1.18.0 and Projects area; no duplicate Grok setup task. This is a fixture, not real FB-331.",
+              "prompt": "Create a task to add Grok setup guidance in Frostbyte Plugin Demo’s v1.18.0 release and Projects area.",
+              "tools_triggered": "list_projects, list_releases, list_areas, list_tasks, create_task, get_task",
+              "expected_behavior": "Resolve fixture IDs. Supply both real releaseId and areaId to create_task and verify stored fields with get_task. Notes alone fail. No extra approval for requested placement; no real FB-331 mutation."
+            },
+            {
+              "description": "P4. Select the P3 demo task. Planned release means v1.18.0; use a real member ID from get_project.",
+              "prompt": "Move the demo Grok setup task to v1.18.0 and assign it to me.",
+              "tools_triggered": "get_task, list_releases, get_project, update_task, get_task",
+              "expected_behavior": "Use the existing task and release IDs, set assignedTo to the authenticated user’s valid member ID, and verify assignment and release in a read-back. Never invent an assignee."
+            },
+            {
+              "description": "P5. Demo v1.18.0 contains the P3 task, still unfinished. Draft only.",
+              "prompt": "What’s left for v1.18.0 in Frostbyte Plugin Demo? Draft release notes, but don’t publish it.",
+              "tools_triggered": "list_releases, get_release, list_tasks",
+              "expected_behavior": "Scope reads to the named release and report actual remaining tasks. Draft factual notes clearly distinguishing unfinished work. No update_release completion, publication or notifications."
+            }
+          ],
+          "negative": [
+            {
+              "description": "N1. Incidental language question with no tracking intent. Explain directly without onboarding or task creation.",
+              "prompt": "What is the difference between const and let in JavaScript?"
+            },
+            {
+              "description": "N2. Commerce is website-only. Explain the boundary and link the Frostbyte website; no purchase/payment tool or claimed success.",
+              "prompt": "Buy a Frostbyte subscription for me here."
+            },
+            {
+              "description": "N3. Destructive intent is too vague. Clarify exact candidates, and require explicit item-level deletion approval. No delete_task, delete_area, delete_release or signals_delete from this prompt.",
+              "prompt": "Clean out whatever looks obsolete in Frostbyte Plugin Demo."
+            }
+          ]
+        }
+      },
+      "publication": {
+        "countries": [],
+        "release_notes": "Plugin 0.9.0 consolidates pending Signals and What’s Next guidance, clarifies task placement and completion, and prepares shared workflows for ChatGPT, Codex, Claude chat and Claude Code. The application release is v1.17.0; marketplace availability remains subject to review and coordinated publication."
+      }
+    }
+  }
+}
