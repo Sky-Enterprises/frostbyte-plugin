@@ -33,10 +33,17 @@ is an offer.**
 | Situation | Action | Ask first? |
 |---|---|---|
 | An obvious task matches what the user asked for | `task_start` it (if still `todo`) | No — just do it |
+| The user pasted a Frostbyte prompt ("Task: FB-<n>", from What's Next or the task modal's Copy prompt) | `get_task` → `task_start` (if still `todo`) → work → `task_complete` | No — the paste is the request |
 | Work clearly belongs to an existing in-progress task | `task_spawn_subtasks` on it | No — just do it |
 | You make a non-trivial design decision on a task | `task_log_decision` on it | No — just do it |
 | A task's work is finished | `task_complete` with summary + files touched | No — just do it |
 | Work is **big enough** and matches no existing task | Offer to `create_task` | Yes — one light inline offer |
+
+A pasted Frostbyte prompt carries the project name, the `FB-<n>` number and the
+task title. Find the task with `list_tasks` (`search` on the title, `status: "all"`
+if it is not in the active list), confirm its `taskNumber` matches the `FB-<n>`
+in the prompt, then read it with `get_task` before starting. Prefer the task's
+own description and notes over the pasted copy if they differ.
 
 For the automatic transitions, don't announce "I'm going to start this task" and
 wait — call the tool and mention it in passing. The live board is the user's
