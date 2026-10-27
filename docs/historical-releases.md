@@ -21,7 +21,19 @@ Audited 28 October 2026 against remote tags/releases and first-parent main. Thes
 | 0.8.0 | `3dab813ef6f1391d0b09211334036f03a7d80319` | `3dab813ef6f1391d0b09211334036f03a7d80319` | Missing | Missing | Propose tag and release at final main commit |
 | 0.8.1 | `150a5513f174881f4660b6e791c82645f48d659b` | `150a5513f174881f4660b6e791c82645f48d659b` | Missing | Missing | Propose tag and release at final main commit |
 
-0.7.0 includes multiple merges (Signals, attachments and gap tools); use the final first-parent commit, not an intermediate feature-branch bump. 0.8.0 similarly uses the final main state. Subjects alone are not version evidence.
+The 0.6.2 main state includes PR #4 and the PR #2 attachment merge after its 0.7.0 feature bump was reset. Its final main SHA is 373a3513c8893ee40aa89e6c41bdfd7d57c04202. PR #3 then consolidates the unreleased skills into main 0.7.0 at d6cb4649cdc612e22c1fc382db6616c27576ab4a.
+
+Intermediate merged-branch evidence (not extra releases):
+
+| Commit | Manifests | Interpretation |
+| --- | --- | --- |
+| 8f8b409ba07b2930a987459537e9646ca4d56d70 | both 0.7.0 | Attachment branch bump, reset before its main merge |
+| b4c0bec3b6e6b331b46124f202486b16989984a6 | both 0.6.2 | Reset attachment branch to leave release selection to a release PR |
+| 58651251f8c97cdb3f975786121854de6275b2c9 | both 0.8.0 | Intermediate Signals branch bump, superseded before merge |
+| 65985b7ee7101e81be6a16d2e7de26d3a0bfce77 | both 0.7.0 | Consolidated unreleased skills, merged as main 0.7.0 |
+| faf17daa3d8c78bce7fd0f76d2fb25226b7109a6 | both 0.8.0 | Links feature, merged as main 0.8.0 at 3dab813ef6f1391d0b09211334036f03a7d80319 |
+
+Subjects alone are not version evidence. The table's missing-tag targets use the final first-parent main state for each version; existing matching tags retain their own SHAs.
 
 The existing v0.4.3 tag also mismatches: it points to a main commit with 0.4.2 manifests; retain it and resolve the annotation strategy before publication. The v0.4.4 release/tag has mismatched manifests and must not be force-moved. Options for approval: retain it as historical reality and annotate its release notes, or publish a separately named corrective historical reference. No action chosen here.
 

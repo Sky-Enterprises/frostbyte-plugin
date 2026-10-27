@@ -96,7 +96,7 @@ export function check(root = repo, host = 'source') {
 
 const allowed = (file, host) => /^(?:skills\/|assets\/)/.test(file) || file === 'LICENSE' || (host === 'openai'
   ? ['plugin.json','mcp.json'].includes(file)
-  : ['.claude-plugin/plugin.json','.claude-plugin/icon.png','.mcp.json','hooks/hooks.json','hooks/frostbyte-grounding.sh','README.md','docs/setup.md'].includes(file));
+  : ['.claude-plugin/plugin.json','.claude-plugin/icon.png','.mcp.json','hooks/hooks.json','hooks/frostbyte-grounding.sh','README.md','CHANGELOG.md','docs/setup.md','docs/releasing.md','docs/historical-releases.md','docs/historical-releases.json'].includes(file));
 
 export function prepare(ref, output) {
   assert(ref, 'Pass --ref with an immutable commit');

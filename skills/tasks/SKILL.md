@@ -75,6 +75,11 @@ Backlog uses null; omitted `releaseId` uses the active release for ordinary task
 creation. Respect established context; clarify only consequential ambiguity.
 Never auto-create or auto-complete a release from recommendations or task progress.
 
+For “assign it to me”, use the authenticated member ID returned by `get_project`
+(MCP 1.5.1+), pass `assignedTo: [thatId]`, and read back the task. Never invent
+a member ID. Older servers without that field need a connection/server update
+or a known valid assignment from project data.
+
 **Tasks from signals:** propose the work and wait for approval before creating it.
 Pass `releaseId: null` to `create_task` so it stays in the Backlog unless the user
 has selected a release, then link it with `signals_link_task`. Omitting

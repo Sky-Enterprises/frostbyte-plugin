@@ -8,7 +8,7 @@
 - A historical release map with existing tag mismatches held for a maintainer decision.
 
 ### Changed
-- Consolidate unpublished 0.8.2 Signals parity and 0.8.3 What's Next guidance. Requires the deployed MCP 1.5.0 tool set.
+- Consolidate unpublished 0.8.2 Signals parity and 0.8.3 What's Next guidance. Requires companion MCP 1.5.1 for review annotations and the authenticated member ID; production 1.5.0 already supplies Signals and What’s Next.
 - Lead with tasks, board, areas and releases; retain supported Signals workflows.
 - Honour named release/area assignments through real fields and verify them. Keep tasks In progress while required checks or requested review remain.
 - Restore the stable lowercase frostbyte identifier, icon and privacy URL. Older capitalised Claude installs need reinstalling and token configuration.

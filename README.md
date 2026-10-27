@@ -22,6 +22,12 @@ installation checks are still pending.
 | Claude chat | [Connector setup](docs/setup.md#claude-chat) · directory release in preparation |
 | Claude Code | [Install from the marketplace](docs/setup.md#claude-code) |
 
+Claude Code 2.1.275 or newer supports one-step installation:
+
+```text
+/plugin install frostbyte --marketplace Sky-Enterprises/frostbyte-plugin
+```
+
 Try:
 
 - “What should I work on next in this project?”
