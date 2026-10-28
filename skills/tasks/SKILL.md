@@ -108,8 +108,10 @@ explicit request naming the release already authorizes that requested action.
 
 When asked, `whats_next_dismiss({projectId, kind, targetId})` hides a task or
 release recommendation for the authenticated member; `whats_next_restore`
-restores it. Use IDs and kinds returned by `whats_next`, including the release
-advisory's compound ID. These are personal preferences, not Signal decisions or
+restores it. For a task, pass `kind: "task"` and the task's ID. For a release
+suggestion, pass `kind: "release"` and the advisory's compound `id`; the
+advisory's own `kind` field is its state (ready, nearly, overdue, undated), not
+the dismissal kind. These are personal preferences, not Signal decisions or
 changes to project work. Meaningful task changes can resurface a dismissal;
 ordinary edits and one additional vote do not.
 
@@ -133,7 +135,7 @@ MCP responses land in your context window and stay there for the whole session �
 
 ## Linking tasks, releases and areas
 
-`list_tasks`, `get_task`, `create_task`, `dashboard_snapshot`, `tasks_list_blocked`, `list_releases`, `get_release`, `release_read_active` and `list_areas` return markdown links into Frostbyte, such as `[FB-42](https://…/tasks/…)`. When you mention a task, release or area in a reply, reuse its link exactly as given so the user can click through and see it in Frostbyte. Never build a URL yourself. If a result has no link, write the plain name or `FB-<n>`. Commit messages and PR titles keep the plain `FB-<n>` (see "Linking commits back to tasks").
+`list_tasks`, `get_task`, `create_task`, `whats_next`, `dashboard_snapshot`, `tasks_list_blocked`, `list_releases`, `get_release`, `release_read_active` and `list_areas` return markdown links into Frostbyte, such as `[FB-42](https://…/tasks/…)`. When you mention a task, release or area in a reply, reuse its link exactly as given so the user can click through and see it in Frostbyte. Never build a URL yourself. If a result has no link, write the plain name or `FB-<n>`. Commit messages and PR titles use `#<n>` instead (see "Linking commits back to tasks").
 
 ## When to call which tool
 
@@ -144,7 +146,7 @@ MCP responses land in your context window and stay there for the whole session �
 - **Deleting a task** → `frostbyte:delete_task`, only under the rules in "Deleting" below.
 - **Recording a design decision** → `frostbyte:task_log_decision`. Use when you make a non-trivial choice the user should be able to audit later (picked one approach over another, changed a data shape, deferred a sub-problem). Pass `projectId`, `taskId`, and a short `decision` (what was decided and why). It's append-only — it adds a line to the task's activity feed and does **not** mutate any task fields. Don't log routine or obvious steps; reserve it for choices worth revisiting.
 - **Hitting something you can't get past** → `frostbyte:task_add_blocker` with a short `reason`. It records the blocker without changing the task's status; `task_start` clears it when work resumes. `frostbyte:tasks_list_blocked` lists every blocked task, so check it before picking new work.
-- **Finishing the task** → `frostbyte:task_complete`. Always include a `summary` (1-2 short sentences in plain language describing what changed and why) and `filesTouched` (repo-relative paths). The summary surfaces on the Dashboard immediately and on the task modal afterwards — write it for a human reading it tomorrow morning, not for an LLM training set. Keep it tight; shorter is better.
+- **Finishing the task** → `frostbyte:task_complete`. Always include a `summary` (1-2 short sentences in plain language describing what changed and why) and `filesTouched` (repo-relative paths). The summary shows on the task modal — write it for a human reading it tomorrow morning, not for an LLM training set. Keep it tight; shorter is better.
 
 ## Append-only rules
 
@@ -165,14 +167,14 @@ MCP responses land in your context window and stay there for the whole session �
 Deleting a task, area or release is permanent and visible to every project member. It is allowed, but only on the user's say-so:
 
 1. **Never on your own initiative.** A task that looks merged, cancelled, duplicated or obsolete is not a reason to delete it. Say so and let the user decide.
-2. **List before you ask.** Name exactly what will be deleted (id and title; for an area or release, its name and how many tasks it holds, from `list_tasks` with `areaId` / `releaseId`).
+2. **List before you ask.** Name exactly what will be deleted (id and title; for an area or release, its name and how many tasks it holds, from `list_tasks` with `areaId` / `releaseId` and `status: "all"`, since deleting unassigns done tasks too).
 3. **Wait for an explicit yes in this conversation.** Only then call `delete_task`, `delete_area` or `delete_release` with `confirm: true`. A yes to one item is not a yes to the next batch.
 
 Deleting an area or release never deletes its tasks: they lose the area, or return to the Backlog.
 
 ## Reading before writing
 
-Before transitioning a task, call `frostbyte:get_task` to confirm the current `status`. `task_start` rejects if the task is not `todo`; `task_complete` rejects if it's already `done`. Don't fight the rejection — it's protecting the audit trail. If a task is already `in-progress`, just start working; if it's already `done`, ask the user whether they meant a different task.
+Before transitioning a task, call `frostbyte:get_task` to confirm the current `status`. `task_start` rejects unless the task is `todo` or blocked (a blocked in-progress task is resumed and its blocker cleared); `task_complete` rejects if it's already `done`. Don't fight the rejection — it's protecting the audit trail. If a task is already `in-progress`, just start working; if it's already `done`, ask the user whether they meant a different task.
 
 ## Picking the right project
 
@@ -180,16 +182,15 @@ Before transitioning a task, call `frostbyte:get_task` to confirm the current `s
 
 ## Linking commits back to tasks
 
-When the active task has a `taskNumber` (visible as `FB-<n>` in `list_tasks` and `get_task` responses), include `FB-<task-number>` somewhere in your commit messages and PR titles for work on that task. Frostbyte uses this reference to automatically link the commit to the task on the Dashboard's release audit — no extra MCP call required, and it lets the user see which commits ship which tasks without any manual linking.
+When the active task has a `taskNumber` (shown as `FB-<n>` in `list_tasks` and `get_task` responses), mention it as `#<task-number>` in commit messages and in PR titles or descriptions for work on that task. When the project's GitHub integration is connected, Frostbyte links the commit or PR to the task with no extra MCP call. A closing word (`fixes #42`, `closes #42`, `resolves #42`) in a PR closes the task on merge if the project turned that on. Branch names aren't read.
 
 Examples:
-- Commit message: `feat(auth): expire stale sessions on logout (FB-42)`
-- Branch name: `fb-42-expire-stale-sessions` (also matches automatically)
-- PR title: `FB-42: Expire stale sessions on logout`
+- Commit message: `feat(auth): expire stale sessions on logout (#42)`
+- PR title: `Expire stale sessions on logout, fixes #42`
 
-If a single commit advances multiple tasks, include each (`FB-12 FB-13`). If a commit is unrelated to any open task (chore work, dependency bumps), no reference is needed.
+If a single commit advances multiple tasks, include each (`#12 #13`). If a commit is unrelated to any open task (chore work, dependency bumps), no reference is needed.
 
-## What a good `last_agent_summary` looks like
+## What a good `lastAgentSummary` looks like
 
 Bad: "Implemented task per requirements."
 Bad: "Completed."

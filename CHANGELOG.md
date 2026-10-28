@@ -21,6 +21,10 @@
 - The grounding hook parses `.frostbyte.json` properly (with jq or Python 3) and ignores a malformed file.
 - Shorter README and setup guide.
 
+### Fixed
+- Commit and PR guidance now uses `#42`, the reference Frostbyte's GitHub integration actually links, instead of `FB-42` and branch names.
+- Before deleting an area or release, the agent counts done tasks too, and restores a release suggestion with the right `kind`.
+
 ### Breaking
 - The Claude Code plugin is renamed from `Frostbyte` to `frostbyte`. Reinstall `frostbyte@frostbyte-plugin` and enter your API token again.
 
