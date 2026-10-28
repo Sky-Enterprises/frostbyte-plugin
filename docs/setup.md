@@ -1,28 +1,26 @@
 # Connect Frostbyte
 
-You need a Frostbyte account with Indie or higher access. Buy subscriptions on
-[Frostbyte](https://getfrostbyte.dev/pricing). The plugin cannot initiate payments.
+You need a Frostbyte account on Indie or higher. Subscriptions are bought on the
+[Frostbyte website](https://getfrostbyte.dev/pricing); the plugin never takes payments.
 
 ## ChatGPT and Codex
 
-The public-directory candidate uses OAuth against `https://getfrostbyte.dev/mcp`.
-Its shared skills do not require local hooks or a repository. Directory publication
-is pending; no public listing link is available yet.
+**ChatGPT.** Open **Plugins**, click **+**, then **Add custom MCP server**. Name it
+Frostbyte, paste `https://getfrostbyte.dev/mcp`, choose OAuth, then sign in to
+Frostbyte and approve access. Availability depends on your plan and workspace settings.
 
-For an existing manual connection, use your host's custom MCP connection settings,
-add that URL with OAuth, sign in to Frostbyte and approve access. ChatGPT exposes
-custom MCP setup through Plugins, subject to plan/workspace controls. Codex desktop
-also supports local marketplaces; see the [official package guide](https://developers.openai.com/plugins/build/plugins#how-local-marketplaces-work).
-Installing a local source copy and installing a public directory release have
-separate update paths. Refresh/reinstall the local copy after source changes.
+**Codex.** Install the plugin and save your token in your shell profile:
 
-For token-based clients that support it, the legacy `.codex-plugin/mcp.json`
-reads `FROSTBYTE_API_TOKEN` from your environment. Keep it outside Git and prompts.
-The portable root manifest uses OAuth; its OpenAI extension replaces the compatibility
-overlay rather than merging it. Do not assume exporting a token changes that OAuth
-connection. For a manual Codex MCP-only connection, use `codex mcp add` with the
-hosted HTTP URL and its supported bearer-token environment option, or OAuth login;
-check your installed client's help. MCP-only setup does not install these skills.
+```sh
+codex plugin marketplace add Sky-Enterprises/frostbyte-plugin
+codex plugin add frostbyte@frostbyte-plugin
+export FROSTBYTE_API_TOKEN=<your-token>
+```
+
+Get the token from Frostbyte → Settings → AI agents → Connect your agent, and keep it
+out of your repository. Open a new terminal, then start Codex. To connect only the
+tools without the plugin's guidance, use
+`codex mcp add frostbyte --url https://getfrostbyte.dev/mcp --bearer-token-env-var FROSTBYTE_API_TOKEN`.
 
 ## Claude Code
 
@@ -33,47 +31,45 @@ In a Claude Code session:
 /plugin install frostbyte@frostbyte-plugin
 ```
 
-Obtain an API token from Frostbyte → Settings → AI agents → Connect your agent.
-Enter it in the plugin's sensitive API-token configuration. The token is used by
-the MCP connection, never by the grounding hook. After a rename from the old
-`Frostbyte` identifier, reinstall `frostbyte@frostbyte-plugin` and configure the token
-again. Start a new session and check `/mcp` before relying on tracking.
+Paste your API token when asked (Frostbyte → Settings → AI agents → Connect your
+agent). Claude Code stores it as a sensitive setting. Start a new session and check
+`/mcp` shows `plugin:frostbyte:frostbyte` as connected.
+
+**Upgrading from 0.8.x or earlier?** The plugin used to be called `Frostbyte` and is
+now `frostbyte`. Install `frostbyte@frostbyte-plugin` and enter your token again.
 
 The bundled SessionStart hook reads only `.frostbyte.json`, stops at the repository
-boundary and makes no network calls. It uses jq or Python 3 to parse complete JSON;
-without either parser it skips grounding. Skills still support explicit selection.
-Set `grounding: false` in the link to pause automatic grounding.
-
-For an isolated development preview, use `claude --plugin-dir /absolute/path/to/plugin`.
-Claude Code requires its workspace-trust decision and any required token configuration
-before the bundled MCP server is usable. Seeing skills load is not proof that the
-connection is configured; verify the lowercase server in `/mcp`.
-Do not edit the installed cache or change another checkout's server.
+boundary and makes no network calls. It needs jq or Python 3 to parse the file and
+skips grounding without them. Set `"grounding": false` in the file to pause it.
 
 ## Claude chat
 
-Use Settings → Connectors to add `https://getfrostbyte.dev/mcp`, then sign in through
-OAuth. A manual connector supplies tools; it does not prove the directory plugin's
-skills are installed. The coordinated directory release is still pending. Chat-only
-sessions select the project explicitly and do not require `.frostbyte.json`.
+Open **Settings → Connectors**, add a custom connector with
+`https://getfrostbyte.dev/mcp`, then sign in to Frostbyte. Chat sessions pick a
+project by name; they don't need `.frostbyte.json`.
 
 ## Check and recover
 
-Ask “Can you see my Frostbyte projects?” A real `list_projects` result proves the
-connection can read that account. Then select the intended project and task.
-If tools are unavailable, reconnect once and continue without claiming tracking.
-For a revoked/expired OAuth grant, reconnect in the host. For a token connection,
-replace the token using the host's secure settings. A forbidden project can mean
-wrong account or missing membership; a free account lacks paid MCP access.
-Do not solve either by changing access rules.
+Ask “Can you see my Frostbyte projects?” If your projects are listed, the connection
+works. Then pick the project and task you want.
+
+- **No Frostbyte tools:** reconnect in your app's connection settings.
+- **Expired or revoked access:** reconnect (OAuth) or paste a new token (Claude Code, Codex).
+- **Project not found or forbidden:** check you're signed in to the right account
+  and are a member of the project.
+- **Free account:** agent access needs Indie or higher.
 
 ## Updates
 
-Claude Code: use `/plugin` → Installed → Frostbyte → Update now, or
+Claude Code: `/plugin` → Installed → Frostbyte → Update now, or
 `claude plugin update frostbyte@frostbyte-plugin`. Custom marketplaces have
-[auto-update off by default](https://code.claude.com/docs/en/discover-plugins#keep-plugins-updated);
-choose the marketplace's auto-update setting deliberately.
+[auto-update off by default](https://code.claude.com/docs/en/discover-plugins#keep-plugins-updated).
 
-The Claude directory tracks the configured branch and applies its actual publish
-setting after scanning. OpenAI hosted-tool updates and uploaded skills/assets use
-separate update procedures. A GitHub push does not universally publish a new version.
+Codex: refresh with `codex plugin marketplace upgrade`, reinstall with
+`codex plugin add frostbyte@frostbyte-plugin`, then start a new session.
+
+## Development preview
+
+To try a local checkout, run `claude --plugin-dir /absolute/path/to/plugin`. Trust the
+folder and enter the token when asked, then confirm the lowercase server in `/mcp`;
+skills loading alone doesn't mean the connection is configured.

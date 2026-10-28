@@ -1,22 +1,23 @@
 # Changelog
 
-## [0.9.0] — candidate
+## [0.9.0] — unreleased
 
 ### Added
-- Shared project selection for chat and repository hosts, a portable OpenAI OAuth package, listing fields and five positive/three negative review cases.
-- Reproducible exports from an immutable commit, archive inspection, CI preparation and explicit publication approval checks.
-- A historical release map with existing tag mismatches held for a maintainer decision.
+- Works in ChatGPT and Claude chat as well as Claude Code and Codex. Chat sessions pick a project by name; no repository link needed. The ChatGPT package signs in with OAuth instead of a token.
+- "What should I work on next?" now reads your personal What's Next recommendations, and you can dismiss or restore one.
+- "Assign it to me" works, using your own member ID from the project (needs Frostbyte MCP server 1.5.1).
+- Skills cover the full Signals review flow: list by section, correct a captured signal, mark it reviewed with no task, unlink a task, and permanently delete test or spam signals when asked.
+- An icon and privacy policy link for the plugin directories.
 
 ### Changed
-- Consolidate unpublished 0.8.2 Signals parity and 0.8.3 What's Next guidance. Requires companion MCP 1.5.1 for review annotations and the authenticated member ID; production 1.5.0 already supplies Signals and What’s Next.
-- Lead with tasks, board, areas and releases; retain supported Signals workflows.
-- Honour named release/area assignments through real fields and verify them. Keep tasks In progress while required checks or requested review remain.
-- Restore the stable lowercase frostbyte identifier, icon and privacy URL. Older capitalised Claude installs need reinstalling and token configuration.
-- Use a literal local hook path and complete JSON parsing; public OpenAI uploads omit hook files and declarations.
-- Replace long setup instructions with focused host guidance. No publication, access-rule change or automatic release shipping.
+- When you name a release or area, the agent puts the task there for real and reads it back to check, instead of mentioning it in the notes.
+- Tasks stay In progress until the agreed checks or requested review are done, not just when the code is written. The agent never ships a release on its own.
+- An explicit request ("create a task", "complete v1.2") counts as approval, so the agent doesn't ask again.
+- The grounding hook parses `.frostbyte.json` properly (with jq or Python 3) and ignores a malformed file.
+- Shorter README and setup guide.
 
-### Removed
-- Internal auto-integration planning material from distributed packages.
+### Breaking
+- The Claude Code plugin is renamed from `Frostbyte` to `frostbyte`. Reinstall `frostbyte@frostbyte-plugin` and enter your API token again.
 
 ## [0.8.1] — 2026-10-18
 

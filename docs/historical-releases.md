@@ -1,6 +1,6 @@
 # Historical plugin releases
 
-Audited 28 October 2026 against remote tags/releases and first-parent main. These are decided actions, not yet published. Existing tags are preserved even when inconsistent. Candidate 0.9.0 consolidates unpublished 0.8.2/0.8.3 branch work.
+Audited 28 October 2026 against remote tags/releases and first-parent main. Published 28 October 2026: GitHub releases v0.1.0–v0.8.1 follow this map. Existing tags are preserved even when inconsistent. Candidate 0.9.0 consolidates unpublished 0.8.2/0.8.3 branch work.
 
 | Version | Introducing main commit | Later same-version main state | Existing remote tag | Existing release | Proposed target SHA and action |
 | --- | --- | --- | --- | --- | --- |
@@ -37,4 +37,4 @@ Subjects alone are not version evidence. Missing-tag targets use the introducing
 
 Decided 2026-10-28: both mismatched tags stay where they are. v0.4.3 gets no release, because a release on that tag would label 0.4.2 code as 0.4.3. The published v0.4.4 release is left unedited. No tag is moved or deleted, and no corrective tag is created; this map and CHANGELOG.md hold the accurate version history.
 
-Exact proposed notes for each version are stored in historical-releases.json. Approve each action and SHA before public writes; the 0.9.0 publication command does not backfill history. Historical archives retain their original content and may not meet current marketplace requirements.
+The published notes for each version are stored in historical-releases.json. The 0.9.0 publication command does not backfill history. Historical archives retain their original content and may not meet current marketplace requirements.

@@ -12,14 +12,13 @@ agent. Requires a [Frostbyte](https://getfrostbyte.dev) account with Indie or hi
 
 <p><img src="assets/demo-tasks.jpg" width="340" alt="Real Frostbyte Plugin Demo board: setup checklist Done and planned Grok guidance To Do" /></p>
 
-Captured from a real Codex/MCP demo run with isolated sample data. Fresh directory
-installation checks are still pending.
+Captured from a real demo run with sample data.
 
 | Use Frostbyte in | Connect |
 | --- | --- |
-| ChatGPT | [OAuth setup](docs/setup.md#chatgpt-and-codex) · public directory release in preparation |
-| Codex | [OAuth and local setup](docs/setup.md#chatgpt-and-codex) · public directory release in preparation |
-| Claude chat | [Connector setup](docs/setup.md#claude-chat) · directory release in preparation |
+| ChatGPT | [Sign in with OAuth](docs/setup.md#chatgpt-and-codex) |
+| Codex | [Install the plugin](docs/setup.md#chatgpt-and-codex) |
+| Claude chat | [Add the connector](docs/setup.md#claude-chat) |
 | Claude Code | [Install from the marketplace](docs/setup.md#claude-code) |
 
 Claude Code 2.1.275 or newer supports one-step installation:

@@ -60,7 +60,7 @@
             },
             {
               "description": "P4. Select the P3 demo task. Planned release means v1.18.0; use a real member ID from get_project.",
-              "prompt": "Move the demo Grok setup task to v1.18.0 and assign it to me.",
+              "prompt": "Move the demo Grok setup task to v1.19.0 and assign it to me.",
               "tools_triggered": "get_task, list_releases, get_project, update_task, get_task",
               "expected_behavior": "Use the existing task and release IDs, set assignedTo to the authenticated user’s valid member ID, and verify assignment and release in a read-back. Never invent an assignee."
             },
@@ -89,7 +89,7 @@
       },
       "publication": {
         "countries": [],
-        "release_notes": "Plugin 0.9.0 consolidates pending Signals and What’s Next guidance, clarifies task placement and completion, and prepares shared workflows for ChatGPT, Codex, Claude chat and Claude Code. The application release is v1.17.0; marketplace availability remains subject to review and coordinated publication."
+        "release_notes": "Frostbyte now works in ChatGPT. Ask what to work on next, start and finish tasks, put work in the release and area you name, and draft release notes. Tasks stay in progress until the agreed checks are done, and the agent never ships a release on its own."
       }
     }
   }

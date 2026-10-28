@@ -164,7 +164,7 @@ function publish(output, approvedSha, approvedDigest) {
     }
     let existing;try{existing=JSON.parse(run('gh',['release','view',tag,'--json','isDraft,assets,targetCommitish']));}catch(error){if(!String(error.stderr).includes('release not found'))throw error;}
     if(existing){assert(!existing.isDraft,'Existing draft needs deliberate reconciliation');throw new Error('Release already exists; preserve it and inspect its assets rather than overwriting');}
-    run('gh',['release','create',tag,'--verify-tag','--title',`Frostbyte plugin ${receipt.version}`,'--notes-file',join(output,'release-notes.md'),...receipt.assets.map(a=>join(output,a.name)),receiptPath]);
+    run('gh',['release','create',tag,'--verify-tag','--title',tag,'--notes-file',join(output,'release-notes.md'),...receipt.assets.map(a=>join(output,a.name)),receiptPath]);
   } finally {rmSync(fresh,{recursive:true,force:true});}
 }
 

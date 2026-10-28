@@ -45,10 +45,10 @@ public GitHub draft or marketplace submission.
 
 ## Approval and publication
 
-Before public writes, show Thomas the historical actions and SHAs in
-[historical-releases.md](historical-releases.md), exact new version/SHA, notes,
-asset names/checksums and coordinated marketplace actions. Both historical tag
-mismatches are held for a decision. Never force-move/delete those tags.
+Before publishing, show Thomas the exact new version/SHA, notes, asset
+names/checksums and coordinated marketplace actions. Past releases follow
+[historical-releases.md](historical-releases.md); its two tag mismatches stay as
+published. Never force-move/delete those tags.
 
 After merge, **prepare again at the exact remote main SHA** and obtain approval for
 that receipt. A reviewed feature SHA does not automatically approve new merge bytes.
