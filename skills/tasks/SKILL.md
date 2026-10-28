@@ -23,20 +23,29 @@ You are connected to a Frostbyte project tracker via the `frostbyte` MCP server.
 
 ## Grounded sessions — maintain the list, don't just read it
 
-When the session starts with a note that this repo is linked to a Frostbyte
-project (from `.frostbyte.json`), call `list_tasks` for that projectId before
-other work and treat in-progress tasks and the active release as your working
-context. Then keep the list correct as you work — **transitions on tasks that
-already exist happen automatically, without asking; only creating a new record
-is an offer.**
+When implementation begins in a linked project, load only the relevant work:
+use `get_task` for an explicit task or scoped `list_tasks` when needed. The
+nearest `.frostbyte.json` within the repository boundary supplies project context;
+ordinary skills also read it when no local hook runs. Respect `grounding: false`.
+In chat without filesystem access, use the explicitly selected project or
+`list_projects` and clarify an ambiguous match. Do not load the board or offer
+onboarding for incidental questions. Keep context loading quiet and confirm the
+project briefly only when useful. Start agreed work when implementation starts.
 
 | Situation | Action | Ask first? |
 |---|---|---|
 | An obvious task matches what the user asked for | `task_start` it (if still `todo`) | No — just do it |
-| Work clearly belongs to an existing in-progress task | `task_spawn_subtasks` on it | No — just do it |
+| The user pasted a Frostbyte prompt ("Task: FB-<n>", from What's Next or the task modal's Copy prompt) | `get_task` → `task_start` (if still `todo`) → work → `task_complete` | No — the paste is the request |
+| Existing work needs a useful breakdown | `task_spawn_subtasks` if it helps | No |
 | You make a non-trivial design decision on a task | `task_log_decision` on it | No — just do it |
-| A task's work is finished | `task_complete` with summary + files touched | No — just do it |
+| Agreed work and required checks/review are finished | `task_complete` with summary + files touched | No |
 | Work is **big enough** and matches no existing task | Offer to `create_task` | Yes — one light inline offer |
+
+A pasted Frostbyte prompt carries the project name, the `FB-<n>` number and the
+task title. Find the task with `list_tasks` (`search` on the title, `status: "all"`
+if it is not in the active list), confirm its `taskNumber` matches the `FB-<n>`
+in the prompt, then read it with `get_task` before starting. Prefer the task's
+own description and notes over the pasted copy if they differ.
 
 For the automatic transitions, don't announce "I'm going to start this task" and
 wait — call the tool and mention it in passing. The live board is the user's
@@ -45,7 +54,9 @@ receipt.
 **"Big enough"** means: multi-step, or spans multiple files/sessions, or framed
 as a deliverable. One-line fixes, chores, and dependency bumps get **no** task.
 
-**Creating a task is a light inline offer, never a silent write.** When work
+**An explicit request to create a task authorizes creating it.** Check for
+duplicates first. For substantial unmatched work without that request, use a
+light inline offer. When work
 grows into its own piece, drop a single natural question while you work — e.g.
 *"This is turning into its own piece of work — want me to log it as a task in
 Frostbyte?"* — and `create_task` on yes. Don't gate your actual work on the
@@ -56,9 +67,18 @@ grounded.
 best-fitting existing area. Create a new area (`create_area`) only when nothing
 fits — and confirm the name with the user (see the `frostbyte:areas` skill).
 
-**Releases:** never auto-create or auto-complete releases. Act on releases only
-when the user explicitly asks (the `frostbyte:releases` skill handles the
-lifecycle).
+**Placement:** resolve named releases and areas with `list_releases` and
+`list_areas`, then supply real `releaseId` and `areaId` fields and verify with
+`get_task`. Notes never substitute for placement. An explicit assignment needs
+no repeated approval. A missing named release needs one clarification. Explicit
+Backlog uses null; omitted `releaseId` uses the active release for ordinary task
+creation. Respect established context; clarify only consequential ambiguity.
+Never auto-create or auto-complete a release from recommendations or task progress.
+
+For “assign it to me”, use the authenticated member ID returned by `get_project`
+(MCP 1.5.1+), pass `assignedTo: [thatId]`, and read back the task. Never invent
+a member ID. Older servers without that field need a connection/server update
+or a known valid assignment from project data.
 
 **Tasks from signals:** propose the work and wait for approval before creating it.
 Pass `releaseId: null` to `create_task` so it stays in the Backlog unless the user
@@ -78,12 +98,13 @@ once and continue the work without tracking — don't retry every turn.
 ## Fetch only what you need
 
 For "what should I work on next?", call `whats_next({projectId})` before
-proposing work. It returns the dashboard's up to three personal recommendations,
+proposing work. It returns the dashboard's personal recommendations,
 short factual reasons, a separate release advisory and personally dismissed
 items. It works without an active release and omits customer-demand weighting
 when User Signals is off. Follow the user's explicit task choice over ranking.
 Do not invent tasks, auto-assign/start recommended work or ship a release just
-because it appears in this result. Ask before any release action.
+because it appears in this result. Discuss a release action you propose; an
+explicit request naming the release already authorizes that requested action.
 
 When asked, `whats_next_dismiss({projectId, kind, targetId})` hides a task or
 release recommendation for the authenticated member; `whats_next_restore`
@@ -126,6 +147,14 @@ MCP responses land in your context window and stay there for the whole session �
 - **Finishing the task** → `frostbyte:task_complete`. Always include a `summary` (1-2 short sentences in plain language describing what changed and why) and `filesTouched` (repo-relative paths). The summary surfaces on the Dashboard immediately and on the task modal afterwards — write it for a human reading it tomorrow morning, not for an LLM training set. Keep it tight; shorter is better.
 
 ## Append-only rules
+
+- Complete only when the agreed work is finished and checked, with no known
+  required checks or requested review outstanding. Code written or a PR opened
+  alone is insufficient. Follow an established team/user completion convention;
+  do not impose a universal merge/deployment gate. If the boundary is genuinely
+  unclear, ask one narrow question and keep the task In progress.
+- After actual completion, acknowledge it briefly and optionally offer one
+  What's Next suggestion. Never start another task automatically.
 
 - Never edit the human-authored `description` of a task. If technical detail belongs in the workspace, put it in the task's implementation notes (`agentContext`) via `update_task`. Markdown renders there — use headings, lists and `code` for files and symbols where it helps.
 - Never silently move a task back to `todo` once it's `in-progress` or `done`.

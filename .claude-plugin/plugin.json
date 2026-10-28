@@ -1,8 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "frostbyte",
-  "version": "0.8.3",
-  "description": "Frostbyte project tracking inside Claude Code \u2014 your coding agent keeps signals, tasks, decisions, and releases in sync as a side-effect of building.",
+  "version": "0.9.0",
+  "description": "Keep Frostbyte up to date as you build. Tasks, board, areas and releases in your agent.",
   "author": {
     "name": "Sky Enterprises",
     "url": "https://getfrostbyte.dev"
@@ -18,7 +18,7 @@
     "api_token": {
       "type": "string",
       "title": "Frostbyte API token",
-      "description": "Get it at https://getfrostbyte.dev/settings \u2192 AI agents \u2192 Connect your agent. Pick your tool and the token is created for you; copy it from that tool's steps and paste it here.",
+      "description": "Get it at https://getfrostbyte.dev/settings → AI agents → Connect your agent. Pick your tool and the token is created for you; copy it from that tool's steps and paste it here.",
       "sensitive": true,
       "required": true
     }

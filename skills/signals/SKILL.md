@@ -22,7 +22,6 @@ Deciding which signals become work is the user's judgment, not yours. An explici
 - `frostbyte:signals_mark_reviewed` records that a signal was read and no task is needed. Include a short `reason` when useful. This preserves the learning and is distinct from dismissal.
 - `frostbyte:signals_unlink_task` removes one resulting-task link and reverses its vote/evidence contribution. It does not delete the task or move the signal to a different section.
 - `frostbyte:signals_dismiss` declines a signal. Include a short `reason`.
-
 - `frostbyte:signals_delete` permanently removes a signal with its votes, comments and attachments. Linked tasks remain, with the copied votes and evidence removed. Use only when the user explicitly asks for permanent deletion and pass `confirm: true`; prefer dismissal for ordinary triage.
 
 Reporter names and emails are owner-only. A member may read and classify signals without receiving those details. All writes reject archived projects.
