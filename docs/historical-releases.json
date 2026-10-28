@@ -16,7 +16,7 @@
       "codexVersion": "0.1.0",
       "tag": null,
       "release": null,
-      "action": "Propose tag and release at introducing main commit",
+      "action": "Tag and release at introducing main commit (decided 2026-10-28)",
       "target": "6e3be8a2e83bdee856ff5942677ba0dd94340ad6",
       "targetReason": "Use the main commit where the version was introduced, without folding later unreleased same-version work into the historical release."
     },
@@ -134,10 +134,10 @@
         "sha": "05486947bce957de734324500ec708b84a38d0ac"
       },
       "release": null,
-      "action": "HOLD: tag manifests say 0.4.2; preserve tag, ask for correction strategy",
+      "action": "Keep existing tag unchanged; publish no release on it (decided 2026-10-28)",
       "tagManifestVersion": "0.4.2",
       "target": "05486947bce957de734324500ec708b84a38d0ac",
-      "targetReason": "Preserve the existing immutable remote tag; mismatches remain held."
+      "targetReason": "Tag v0.4.3 points at 0.4.2 manifests. Moving it would rewrite published history, and a release on it would label 0.4.2 code as 0.4.3. The 0.4.3 notes stay in CHANGELOG.md."
     },
     {
       "version": "0.4.4",
@@ -156,10 +156,10 @@
         "url": "https://github.com/Sky-Enterprises/frostbyte-plugin/releases/tag/v0.4.4",
         "draft": false
       },
-      "action": "HOLD: tag manifests say 0.4.3; preserve tag, ask for correction strategy",
+      "action": "Keep existing tag and release unchanged (decided 2026-10-28)",
       "tagManifestVersion": "0.4.3",
       "target": "f87c8abd2230541696c70e114a8b9191ed15098a",
-      "targetReason": "Preserve the existing immutable remote tag; mismatches remain held."
+      "targetReason": "The published v0.4.4 release points at 0.4.3 manifests. Installs may already reference it, so it stays as historical reality; this map records the actual 0.4.4 commit."
     },
     {
       "version": "0.5.0",
