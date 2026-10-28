@@ -1,7 +1,7 @@
 {
   "name": "frostbyte",
-  "version": "0.8.1",
-  "description": "Frostbyte project tracking inside Codex — your coding agent keeps tasks, decisions, and releases in sync as a side-effect of building.",
+  "version": "0.9.0",
+  "description": "Keep Frostbyte up to date as you build. Tasks, board, areas and releases in your agent.",
   "author": {
     "name": "Sky Enterprises",
     "url": "https://getfrostbyte.dev"
@@ -20,8 +20,20 @@
   "mcpServers": "./.codex-plugin/mcp.json",
   "interface": {
     "displayName": "Frostbyte",
-    "shortDescription": "Keep Frostbyte tasks and releases in sync from Codex",
+    "shortDescription": "Keep work up to date",
+    "longDescription": "Keep Frostbyte up to date as you build. Read and update tasks and the board, organise areas, plan releases and draft release notes. Choose your own work; the agent tracks agreed implementation and checks completion. User Signals are also supported. Requires a Frostbyte account with Indie or higher access. Subscriptions are purchased on the Frostbyte website; no purchases or payments are initiated in the agent.",
     "developerName": "Sky Enterprises",
-    "category": "Productivity"
+    "category": "Developer Tools",
+    "websiteURL": "https://getfrostbyte.dev/docs/plugin",
+    "supportURL": "https://getfrostbyte.dev/contact",
+    "privacyPolicyURL": "https://getfrostbyte.dev/legal/privacy",
+    "termsOfServiceURL": "https://getfrostbyte.dev/legal/terms-of-service",
+    "logo": "./assets/icon.png",
+    "composerIcon": "./assets/icon.png",
+    "defaultPrompt": [
+      "What should I work on next in Frostbyte?",
+      "Start this Frostbyte task and keep it updated.",
+      "Draft release notes for my planned release."
+    ]
   }
 }

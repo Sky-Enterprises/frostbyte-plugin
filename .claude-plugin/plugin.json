@@ -1,8 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
-  "name": "Frostbyte",
-  "version": "0.8.1",
-  "description": "Frostbyte project tracking inside Claude Code — your coding agent keeps tasks, decisions, and releases in sync as a side-effect of building.",
+  "name": "frostbyte",
+  "version": "0.9.0",
+  "description": "Keep Frostbyte up to date as you build. Tasks, board, areas and releases in your agent.",
   "author": {
     "name": "Sky Enterprises",
     "url": "https://getfrostbyte.dev"
@@ -10,6 +10,8 @@
   "homepage": "https://getfrostbyte.dev",
   "repository": "https://github.com/Sky-Enterprises/frostbyte-plugin",
   "license": "MIT",
+  "icon": "./.claude-plugin/icon.png",
+  "privacyPolicyUrl": "https://getfrostbyte.dev/legal/privacy",
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",
   "userConfig": {

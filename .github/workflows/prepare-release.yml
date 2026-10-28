@@ -1,0 +1,29 @@
+name: Check and prepare plugin
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run check
+      - run: npm test
+      - run: npm run prepare:release -- --ref "$GITHUB_SHA"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: frostbyte-plugin-candidate
+          path: dist/
+          if-no-files-found: error
+# Preparation only: no tag push, GitHub release, marketplace upload or publication.

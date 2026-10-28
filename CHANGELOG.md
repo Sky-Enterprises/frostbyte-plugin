@@ -1,8 +1,23 @@
 # Changelog
 
-All notable changes to this project are documented here. Follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+## [0.9.0] — unreleased
 
-## Unreleased
+### Added
+- Works in ChatGPT and Claude chat as well as Claude Code and Codex. Chat sessions pick a project by name; no repository link needed. The ChatGPT package signs in with OAuth instead of a token.
+- "What should I work on next?" now reads your personal What's Next recommendations, and you can dismiss or restore one.
+- "Assign it to me" works, using your own member ID from the project (needs Frostbyte MCP server 1.5.1).
+- Skills cover the full Signals review flow: list by section, correct a captured signal, mark it reviewed with no task, unlink a task, and permanently delete test or spam signals when asked.
+- An icon and privacy policy link for the plugin directories.
+
+### Changed
+- When you name a release or area, the agent puts the task there for real and reads it back to check, instead of mentioning it in the notes.
+- Tasks stay In progress until the agreed checks or requested review are done, not just when the code is written. The agent never ships a release on its own.
+- An explicit request ("create a task", "complete v1.2") counts as approval, so the agent doesn't ask again.
+- The grounding hook parses `.frostbyte.json` properly (with jq or Python 3) and ignores a malformed file.
+- Shorter README and setup guide.
+
+### Breaking
+- The Claude Code plugin is renamed from `Frostbyte` to `frostbyte`. Reinstall `frostbyte@frostbyte-plugin` and enter your API token again.
 
 ## [0.8.1] — 2026-10-18
 
