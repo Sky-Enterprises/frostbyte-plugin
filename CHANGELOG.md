@@ -15,6 +15,7 @@
 - An explicit request ("create a task", "complete v1.2") counts as approval, so the agent doesn't ask again.
 - The grounding hook parses `.frostbyte.json` properly (with jq or Python 3) and ignores a malformed file.
 - Shorter README and setup guide.
+- Release instructions say who gets an email when a release ships: portal and widget submitters only, up to a daily limit per project.
 
 ### Breaking
 - The Claude Code plugin is renamed from `Frostbyte` to `frostbyte`. Reinstall `frostbyte@frostbyte-plugin` and enter your API token again.
