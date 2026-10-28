@@ -1,6 +1,11 @@
 # Changelog
 
-## [0.9.0] — unreleased
+## [0.9.1] — unreleased
+
+### Changed
+- Release instructions say who gets an email when a release ships: portal and widget submitters only, up to a daily limit per project.
+
+## [0.9.0] — 2026-10-28
 
 ### Added
 - Works in ChatGPT and Claude chat as well as Claude Code and Codex. Chat sessions pick a project by name; no repository link needed. The ChatGPT package signs in with OAuth instead of a token.
@@ -15,7 +20,6 @@
 - An explicit request ("create a task", "complete v1.2") counts as approval, so the agent doesn't ask again.
 - The grounding hook parses `.frostbyte.json` properly (with jq or Python 3) and ignores a malformed file.
 - Shorter README and setup guide.
-- Release instructions say who gets an email when a release ships: portal and widget submitters only, up to a daily limit per project.
 
 ### Breaking
 - The Claude Code plugin is renamed from `Frostbyte` to `frostbyte`. Reinstall `frostbyte@frostbyte-plugin` and enter your API token again.
