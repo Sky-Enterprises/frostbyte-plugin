@@ -28,22 +28,17 @@ while :; do
 done
 [ -n "$file" ] || exit 0
 
-# Parse with jq when available; fall back to a first-match grep/sed pipeline.
-# Soft opt-out: { "projectId": "...", "grounding": false } keeps the link but
-# pauses injection.
+# Parse complete JSON; never infer a link from a partial or malformed document.
 if command -v jq >/dev/null 2>&1; then
-  project_id=$(jq -r 'if .grounding == false then "" else (.projectId // "") end' "$file" 2>/dev/null) || exit 0
+  project_id=$(jq -er 'if type == "object" and .grounding != false and (.projectId | type) == "string" then .projectId else empty end' "$file" 2>/dev/null) || exit 0
+elif command -v python3 >/dev/null 2>&1; then
+  project_id=$(python3 -c 'import json,sys; d=json.load(open(sys.argv[1])); v=d.get("projectId") if isinstance(d,dict) and d.get("grounding") is not False else None; print(v if isinstance(v,str) else "")' "$file" 2>/dev/null) || exit 0
 else
-  content=$(tr -d '\n\r' < "$file" 2>/dev/null) || exit 0
-  printf '%s' "$content" | grep -Eq '"grounding"[[:space:]]*:[[:space:]]*false' && exit 0
-  project_id=$(printf '%s' "$content" \
-    | grep -oE '"projectId"[[:space:]]*:[[:space:]]*"[^"]*"' 2>/dev/null \
-    | head -n 1 \
-    | sed 's/.*"\([^"]*\)"[[:space:]]*$/\1/')
+  exit 0
 fi
 
 # Charset check doubles as a JSON-injection guard for the printf below.
 printf '%s' "$project_id" | grep -Eq '^[A-Za-z0-9_-]{1,64}$' || exit 0
 
-printf '{"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":"This repo is linked to Frostbyte project %s (via .frostbyte.json). When you begin implementation work (not for quick one-off questions), call the frostbyte list_tasks tool for that projectId and treat in-progress tasks and the active release as your working context; keep the task list correct as you work (see the frostbyte:tasks skill). Signals record what was learned; direct work requests use create_task. Use signals_list with a status filter, signals_update for corrections or portal visibility, and signals_delete only for an explicit permanent deletion. Review outcomes need the founder’s decision; create approved work in the Backlog (releaseId null) unless they choose a release. Preserve original portal wording and attribution; archived projects are read-only. If the frostbyte MCP tools are unavailable in this session, mention that once and continue without tracking."}}\n' "$project_id"
+printf '{"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":"This repo is linked to Frostbyte project %s (via .frostbyte.json). For implementation or explicit tracking requests, follow the tasks skill: read the agreed task, start actual work and complete only after the agreed checks and requested review. Use whats_next for recommendations; recommendations never authorize starting work or shipping releases. Honour named release/area placement with real fields. Use the onboarding skill for selection and recovery; if tools are unavailable, mention it once and continue without claiming tracking. Skip incidental questions."}}\n' "$project_id"
 exit 0
