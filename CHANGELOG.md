@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.9.1] — unreleased
+## [0.9.2] — 2026-10-29
 
 ### Added
 - A planning skill: break a goal into tasks, plan one or more releases, organise the backlog or shape the product brief. The agent proposes the plan in chat and writes it only once you approve, with every task placed in its release or the Backlog.
@@ -10,7 +10,6 @@
 - Skills now cover every Frostbyte MCP tool: `get_activity` for recent changes, `session_end` for work no task captured, `update_project` for the pitch and product brief (owner only, on request), and `feedback_hub_get` for Feedback Portal settings.
 
 ### Changed
-- Release instructions say who gets an email when a release ships: portal and widget submitters only, up to a daily limit per project.
 - Completing a release keeps a `launchDate` passed in the same call (a backdated launch) and otherwise stamps today; `launchDate` on a release that isn't completed is refused.
 - The agent explains Free plan limits instead of retrying, including the new cap on reopening a Done task, and knows `completionPolicy` is needed to finish a task with unchecked subtasks.
 - Connection help covers a deleted account (its tokens stop working), an unverified email, and losing access when you leave or are removed from a project.
@@ -20,6 +19,11 @@
 ### Fixed
 - Commit and PR guidance now uses `#42`, the reference Frostbyte's GitHub integration actually links, instead of `FB-42` and branch names.
 - Before deleting an area or release, the agent counts done tasks too, and restores a release suggestion with the right `kind`.
+
+## [0.9.1] — 2026-10-29
+
+### Changed
+- Release instructions say who gets an email when a release ships: portal and widget submitters only, up to a daily limit per project.
 
 ## [0.9.0] — 2026-10-28
 
