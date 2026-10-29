@@ -75,16 +75,14 @@ Backlog uses null; omitted `releaseId` uses the active release for ordinary task
 creation. Respect established context; clarify only consequential ambiguity.
 Never auto-create or auto-complete a release from recommendations or task progress.
 
-For “assign it to me”, use the authenticated member ID returned by `get_project`
-(MCP 1.5.1+), pass `assignedTo: [thatId]`, and read back the task. Never invent
-a member ID. Older servers without that field need a connection/server update
-or a known valid assignment from project data.
+For “assign it to me”, use the authenticated member ID returned by `get_project`,
+pass `assignedTo: [thatId]`, and read back the task. Never invent a member ID.
 
-**Tasks from signals:** propose the work and wait for approval before creating it.
-Pass `releaseId: null` to `create_task` so it stays in the Backlog unless the user
-has selected a release, then link it with `signals_link_task`. Omitting
-`releaseId` defaults to the active release; it does not mean Backlog. A direct
-request for work can go straight to a task without creating a signal.
+**Tasks from signals:** propose the work first, create it with `releaseId: null`
+unless the user picks a release, then link it with `signals_link_task` (see
+`frostbyte:signals`). A direct request for work can go straight to a task.
+
+**Planning many tasks or releases at once** follows `frostbyte:planning`.
 
 **Stale or invalid link:** if `list_tasks` returns not-found or forbidden for
 the linked projectId (project deleted, or your token lost access), say so
@@ -157,6 +155,7 @@ MCP responses land in your context window and stay there for the whole session �
 - **Adding subtasks mid-flight** → `frostbyte:task_spawn_subtasks`. Use when the task is more complex than the existing subtasks (or none) capture. Pass 1-20 short titles. The user (or you, later) can check them off via the UI.
 - **Ticking off a subtask** → `frostbyte:task_edit_subtask` with `action: "check"` (also `"uncheck"` / `"set-text"`). Subtask ids appear in `get_task` and `task_spawn_subtasks` output next to each item. (`task_delete_subtask` exists, but never delete human-authored subtasks.)
 - **Taking a task out of its release or area** → `frostbyte:update_task` with `releaseId: null` (back to the Backlog) or `areaId: null` (no area). Leaving the field out changes nothing. An id from another project is rejected.
+- **Showing a task on the public roadmap** → `frostbyte:update_task` with `showOnRoadmap: true` (`false` hides it). The Feedback Portal roadmap is public and only appears when the owner has it turned on, so change this only when the user asks.
 - **Deleting a task** → `frostbyte:delete_task`, only under the rules in "Deleting" below.
 - **Recording a design decision** → `frostbyte:task_log_decision`. Use when you make a non-trivial choice the user should be able to audit later (picked one approach over another, changed a data shape, deferred a sub-problem). Pass `projectId`, `taskId`, and a short `decision` (what was decided and why). It's append-only — it adds a line to the task's activity feed and does **not** mutate any task fields. Don't log routine or obvious steps; reserve it for choices worth revisiting.
 - **Hitting something you can't get past** → `frostbyte:task_add_blocker` with a short `reason`. It records the blocker without changing the task's status; `task_start` clears it when work resumes. `frostbyte:tasks_list_blocked` lists every blocked task, so check it before picking new work.
