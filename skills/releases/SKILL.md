@@ -23,7 +23,9 @@ Releases group what ships and make up the project's timeline. Change their statu
 
 ## Release notes
 
-Draft them from what shipped (`get_release` with `taskStatus: "done"`) and show the draft in chat. Save only when asked, as `releaseNotes` on `update_release` (markdown; an empty string clears it). Saving doesn't complete the release or email anyone. Notes reach the Feedback Portal changelog once the release is published there from the app, and edits to a published release show publicly straight away. Write for the product's users: what changed for them, without task numbers or internal detail. "Draft, don't publish" means chat only.
+Draft them from what shipped (`get_release` with `taskStatus: "done"`) and show the draft in chat. Save only when asked, as `releaseNotes` and `changelogTitle` on `update_release` (an empty string clears either). Saving doesn't complete the release or email anyone. The post reaches the Feedback Portal changelog once the release is published there from the app, and edits to a published release show publicly straight away. Cover and inline images are uploaded in the app, on Indie and above.
+
+Write for the product's users. The headline names the main change in their terms ("Recurring invoices that send themselves"), not the version. The notes open with a short paragraph on why it matters, then a `##` section per notable change, then a `## And a few more` list with bold lead-ins. Don't repeat every task: the changelog already lists them under the post. No task numbers or internal detail. "Draft, don't publish" means chat only.
 
 A release `description` is 1–2 factual sentences, such as "Shipped the multi-token table and billing redesign. Cut Codex deep links to v1.3."
 

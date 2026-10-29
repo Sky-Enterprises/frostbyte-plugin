@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+- Release notes are now a changelog post: the agent drafts a headline (`changelogTitle` on `update_release`) as well as the notes, opening with why the change matters instead of repeating every task. Cover and inline images are added in the app, on Indie and above.
+
 ## [0.9.2] — 2026-10-29
 
 ### Added
