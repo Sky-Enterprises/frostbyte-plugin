@@ -17,7 +17,7 @@ codex plugin add frostbyte@frostbyte-plugin
 export FROSTBYTE_API_TOKEN=<your-token>
 ```
 
-Get the token from Frostbyte → Settings → AI agents → Connect your agent, and keep it
+Get the token from Frostbyte → Settings → Connections → Connect your agent, and keep it
 out of your repository. Open a new terminal, then start Codex. To connect only the
 tools without the plugin's guidance, use
 `codex mcp add frostbyte --url https://getfrostbyte.dev/mcp --bearer-token-env-var FROSTBYTE_API_TOKEN`.
@@ -31,7 +31,7 @@ In a Claude Code session:
 /plugin install frostbyte@frostbyte-plugin
 ```
 
-Paste your API token when asked (Frostbyte → Settings → AI agents → Connect your
+Paste your API token when asked (Frostbyte → Settings → Connections → Connect your
 agent). Claude Code stores it as a sensitive setting. Start a new session and check
 `/mcp` shows `plugin:frostbyte:frostbyte` as connected.
 
@@ -55,9 +55,13 @@ works. Then pick the project and task you want.
 
 - **No Frostbyte tools:** reconnect in your app's connection settings.
 - **Expired or revoked access:** reconnect (OAuth) or paste a new token (Claude Code, Codex).
+  Deleting a Frostbyte account also deletes its tokens and app connections, so they
+  stop working for good.
 - **Project not found or forbidden:** check you're signed in to the right account
-  and are a member of the project.
+  and are a member of the project. Leaving or being removed from a project ends
+  access to it straight away.
 - **Free account:** agent access needs Indie or higher.
+- **Email not verified:** verify your email address in Frostbyte, then try again.
 
 ## Updates
 

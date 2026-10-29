@@ -2,8 +2,19 @@
 
 ## [0.9.1] — unreleased
 
+### Added
+- Skills now cover every Frostbyte MCP tool: `get_activity` for recent changes, `session_end` for work no task captured, `update_project` for the pitch and product brief (owner only, on request), and `feedback_hub_get` for Feedback Portal settings.
+
 ### Changed
 - Release instructions say who gets an email when a release ships: portal and widget submitters only, up to a daily limit per project.
+- Completing a release keeps a `launchDate` passed in the same call (a backdated launch) and otherwise stamps today; `launchDate` on a release that isn't completed is refused.
+- The agent explains Free plan limits instead of retrying, including the new cap on reopening a Done task, and knows `completionPolicy` is needed to finish a task with unchecked subtasks.
+- Connection help covers a deleted account (its tokens stop working), an unverified email, and losing access when you leave or are removed from a project.
+- Plugin listings and setup help point to Connect your agent and to Settings → Connections.
+
+### Fixed
+- Commit and PR guidance now uses `#42`, the reference Frostbyte's GitHub integration actually links, instead of `FB-42` and branch names.
+- Before deleting an area or release, the agent counts done tasks too, and restores a release suggestion with the right `kind`.
 
 ## [0.9.0] — 2026-10-28
 
@@ -20,10 +31,6 @@
 - An explicit request ("create a task", "complete v1.2") counts as approval, so the agent doesn't ask again.
 - The grounding hook parses `.frostbyte.json` properly (with jq or Python 3) and ignores a malformed file.
 - Shorter README and setup guide.
-
-### Fixed
-- Commit and PR guidance now uses `#42`, the reference Frostbyte's GitHub integration actually links, instead of `FB-42` and branch names.
-- Before deleting an area or release, the agent counts done tasks too, and restores a release suggestion with the right `kind`.
 
 ### Breaking
 - The Claude Code plugin is renamed from `Frostbyte` to `frostbyte`. Reinstall `frostbyte@frostbyte-plugin` and enter your API token again.

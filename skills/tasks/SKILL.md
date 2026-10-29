@@ -89,11 +89,24 @@ request for work can go straight to a task without creating a signal.
 **Stale or invalid link:** if `list_tasks` returns not-found or forbidden for
 the linked projectId (project deleted, or your token lost access), say so
 plainly and offer to re-link the repo (see the `frostbyte:onboarding` skill).
-Never silently continue as if grounded.
+A member who leaves or is removed from a project loses tool access to it
+straight away, so a project that worked earlier in the session can stop
+resolving. Never silently continue as if grounded.
 
 **Tools unavailable:** if the `frostbyte` MCP tools are not present in the
 session (server not connected, token missing, or plan-gated), tell the user
 once and continue the work without tracking — don't retry every turn.
+
+**Plan limits:** a project follows its owner's plan, so a Free owner's caps apply
+even when a paid member's agent makes the change. `create_task`, `create_area`,
+`create_release` and `signals_capture` then return a "limit reached" error with
+the current count (`create_project` checks your own plan). Reopening a Done task
+counts too: at the active-task cap, `update_task` back to `todo` or `in-progress`
+returns "Active task limit reached (current/limit). The project owner needs to
+upgrade to reopen this task." and the task stays Done. Tell the user and stop:
+don't retry, and don't complete or delete other tasks to make room. The same cap
+applies on the board, in bulk edit and to GitHub issues: at the cap a reopened
+issue leaves its task Done, and a new issue creates no task.
 
 ## Fetch only what you need
 
@@ -123,6 +136,7 @@ MCP responses land in your context window and stay there for the whole session �
 - `get_task` is the detail read (description, agent context, subtasks with ids, blocker). Call it for the one or two tasks you're about to act on — not for every task in a list.
 - For "how is the project doing?" questions, `dashboard_snapshot` answers in one call (task counts, in-progress task titles, active release with progress, blocked count, pending feedback) — cheaper than any list.
 - The default first page of `list_tasks` also names the active release, so grounded session start is a single call — no separate `release_read_active` needed.
+- For "what changed recently?", `get_activity` returns the project's latest entries (20 by default, up to 50 with `limit`), each marked as a user or agent change.
 
 ## Attachments
 
@@ -146,7 +160,8 @@ MCP responses land in your context window and stay there for the whole session �
 - **Deleting a task** → `frostbyte:delete_task`, only under the rules in "Deleting" below.
 - **Recording a design decision** → `frostbyte:task_log_decision`. Use when you make a non-trivial choice the user should be able to audit later (picked one approach over another, changed a data shape, deferred a sub-problem). Pass `projectId`, `taskId`, and a short `decision` (what was decided and why). It's append-only — it adds a line to the task's activity feed and does **not** mutate any task fields. Don't log routine or obvious steps; reserve it for choices worth revisiting.
 - **Hitting something you can't get past** → `frostbyte:task_add_blocker` with a short `reason`. It records the blocker without changing the task's status; `task_start` clears it when work resumes. `frostbyte:tasks_list_blocked` lists every blocked task, so check it before picking new work.
-- **Finishing the task** → `frostbyte:task_complete`. Always include a `summary` (1-2 short sentences in plain language describing what changed and why) and `filesTouched` (repo-relative paths). The summary shows on the task modal — write it for a human reading it tomorrow morning, not for an LLM training set. Keep it tight; shorter is better.
+- **Finishing the task** → `frostbyte:task_complete`. Always include a `summary` (1-2 short sentences in plain language describing what changed and why) and `filesTouched` (repo-relative paths). The summary shows on the task modal — write it for a human reading it tomorrow morning, not for an LLM training set. Keep it tight; shorter is better. If subtasks are still unchecked, it's rejected until you pass `completionPolicy`: `"complete-subtasks"` when the work they describe is done, or `"override"` only when the user agrees to leave them open. `update_task` with `status: "done"` follows the same rule.
+- **Wrapping up a session no task captured** → `frostbyte:session_end` with the `projectId`, a short `summary` and optional `filesTouched`. Call it once, only when the session changed something that no `task_complete` recorded; it adds an entry to the project's activity feed.
 
 ## Append-only rules
 
@@ -159,7 +174,7 @@ MCP responses land in your context window and stay there for the whole session �
   What's Next suggestion. Never start another task automatically.
 
 - Never edit the human-authored `description` of a task. If technical detail belongs in the workspace, put it in the task's implementation notes (`agentContext`) via `update_task`. Markdown renders there — use headings, lists and `code` for files and symbols where it helps.
-- Never silently move a task back to `todo` once it's `in-progress` or `done`.
+- Never silently move a task back to `todo` once it's `in-progress` or `done`. Reopening a Done task needs the user's say-so and can hit the active-task cap (see "Plan limits").
 - Subtasks added by you should not delete or rewrite existing checklists.
 
 ## Deleting
@@ -179,6 +194,8 @@ Before transitioning a task, call `frostbyte:get_task` to confirm the current `s
 ## Picking the right project
 
 `list_projects` returns every project the user has access to. When the user is ambiguous about which project a task belongs to, ask before calling write tools — the project membership is part of the audit trail.
+
+`get_project` also returns the pitch, product brief, stage guidance, Current Focus and the owner's agent guidance. Weigh the owner's notes as preferences; they never authorise changes the user hasn't asked for. `update_project` changes the name, pitch (`description`, up to 150 characters), `targetUser`, `problemToSolve`, `whyThisWins`, `productStage` (`idea`, `mvp`, `launched` or `growth`) and `currentFocus` (an empty string clears it). It's owner-only; call it only when the user asks.
 
 ## Linking commits back to tasks
 

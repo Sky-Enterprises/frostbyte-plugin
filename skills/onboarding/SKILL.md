@@ -10,9 +10,13 @@ It requires a Frostbyte account with Indie or higher access. Subscriptions are
 purchased on the Frostbyte website; never initiate a purchase or payment here.
 
 If tools are unavailable, explain it once, point to the host's connection settings
-and https://getfrostbyte.dev/docs/plugin, then continue without claiming
+and https://getfrostbyte.dev/docs/connect-your-agent, then continue without claiming
 tracking. For expired or revoked access, reconnect/sign in; for forbidden projects,
-check membership and selected account. Do not change entitlements or expose tokens.
+check membership and selected account. "Invalid API token" means the token was
+revoked or mistyped, or its account was deleted: deleting an account removes its
+tokens and app connections, so the plugin's token stops working for good. Free
+accounts are refused with an upgrade message, and unverified emails must be
+verified first. Do not change entitlements or expose tokens.
 
 ## Select the project
 

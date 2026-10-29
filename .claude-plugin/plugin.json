@@ -18,7 +18,7 @@
     "api_token": {
       "type": "string",
       "title": "Frostbyte API token",
-      "description": "Get it at https://getfrostbyte.dev/settings → AI agents → Connect your agent. Pick your tool and the token is created for you; copy it from that tool's steps and paste it here.",
+      "description": "Get it at https://getfrostbyte.dev/settings → Connections → Connect your agent. Pick your tool and the token is created for you; copy it from that tool's steps and paste it here.",
       "sensitive": true,
       "required": true
     }
