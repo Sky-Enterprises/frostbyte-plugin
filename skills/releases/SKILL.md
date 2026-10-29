@@ -1,33 +1,34 @@
 ---
 name: releases
-description: When the user asks about the current release, wants to cut a new release, mark a release complete, or attach tasks to a release on Frostbyte, call the matching release MCP tool. An explicit request to create or complete a specific release authorizes that action; ask for confirmation when proposing it yourself or when the target is unclear.
+description: Use when the user asks about a Frostbyte release, such as what's in or left in the current one, release history, creating, completing, reactivating or deleting one, launch dates, or drafting and saving release notes.
 ---
 
-# Frostbyte release lifecycle
+# Frostbyte releases
 
-Releases group shipped work. They show on the Dashboard timeline and are the primary unit of "what went out" for the project. Treat release transitions as intentional, not automatic.
+Releases group what ships and make up the project's timeline. Change their status on purpose, never as a side effect.
 
-## When to call which tool
+## Reading
 
-- **Reading the active release** → `frostbyte:release_read_active`. Use for "what's in the current release?", "what's left before we ship?", or any summary question about the in-progress release. Prefer this over `list_releases` when the user just wants current state. For the actual remaining task list, use `frostbyte:list_tasks` with `releaseId` — its default active-only filter returns exactly the unshipped work.
-- **Listing all releases** → `frostbyte:list_releases`. Use when the user asks about release history or wants to pick a specific release to inspect.
-- **Getting a single release** → `frostbyte:get_release`. Pass `projectId` and `releaseId`. Use before any write operation to confirm current status.
-- **Creating a release** → `frostbyte:create_release`. Use the name the user specified, or omit `name` when they ask to use the project's release-naming pattern. Ask only when the intended name or action is unclear; do not repeat approval for an explicit request. Optionally pass a `targetDate` (ISO-8601). To record a release that already shipped, create it with `status: "completed"` and a `launchDate`.
-- **Marking a release shipped** → `frostbyte:update_release` with `status: "completed"`. When the user explicitly asks to complete a specific release, call the tool and verify the result with `get_release`. Do not hand the action back as something the user must do in the UI. If adding a release summary, keep it to 1-2 factual sentences about what shipped and what was cut. Completing a release also emails portal and widget submitters whose linked tasks shipped in it (never people on manually captured signals, and only up to a daily limit per project), so ask before completing a release you suggested yourself. Completing stamps the launch date as now unless you pass `launchDate` in the same call.
-- **Reactivating or moving a release to upcoming** → `frostbyte:update_release` with `status: "active"` or `status: "upcoming"`. Moving out of completed clears its launch date. Reactivating does not recall emails already sent; making a release active moves the previous active release to upcoming.
-- **Backdating or correcting a launch date** → `frostbyte:update_release` with `launchDate` (ISO-8601, `null` to clear). It only applies to a completed release, and setting it on its own sends no emails and publishes nothing, so it is safe on past releases. Moving a release out of `completed` clears the date.
-- **Deleting a release** → `frostbyte:delete_release`, only after following "Deleting" in the `frostbyte:tasks` skill: never on your own initiative, tell the user which release and how many tasks it holds (`list_tasks` with `releaseId`), and wait for a yes in chat before passing `confirm: true`. Its tasks are kept and return to the Backlog. Don't offer to delete a completed release unless the user raises it; it removes shipped history from the Dashboard timeline.
+- `release_read_active` gives the current release's progress; `list_tasks` with its `releaseId` lists exactly what's left.
+- `list_releases` covers history and target or launch dates. `get_release` shows one release's notes and tasks (`taskStatus` filters them). Read a release before changing it.
+- Release names in results are links; reuse them as given.
 
-## Rules
+## Changing releases
 
-- **Link releases when you name them.** `list_releases`, `get_release` and `release_read_active` return the release name as a link to Frostbyte; reuse it as given (see "Linking tasks, releases and areas" in `frostbyte:tasks`).
-- **Use the user's authorization.** Creating and completing releases are visible to every project member. An explicit request naming the release is authorization; do not ask for the same approval again. Ask when the target is unclear or when you propose the action yourself. Release status can be changed again through `update_release`, but completion emails already sent cannot be recalled.
-- **Distinguish tool failures from missing capability.** If `update_release` is unavailable, report that the current connection is missing the tool and suggest reconnecting or refreshing the plugin. If a call fails, explain its actual error. Do not claim that agents cannot complete releases, or report success without checking the resulting status.
-- **Honour requested placement.** When the user names an existing release, resolve it with `list_releases` and pass its real `releaseId` to `create_task` or `update_task`; resolve a named area with `list_areas` and pass `areaId` too. Read the task back to verify both fields. Mentioning placement only in notes fails the request. Do not ask again for an assignment already requested. If a named release is missing, ask whether to create it or choose another; never invent an ID or silently omit the field. Explicit Backlog requests use `releaseId: null`. With no placement stated, omission uses the active release; respect established context and ask only for consequential ambiguity. Do not select an unrelated release, create one, or complete one without user intent. Signal-derived work without a selected release stays in the Backlog.
-- **One active release at a time.** `release_read_active` returns the in-progress release. Creating an upcoming release does not end the active release. Only activate a different release when requested; if you propose switching it yourself, explain that the previous active release becomes upcoming and discuss readiness.
+- **Create:** `create_release` with the user's name, or no `name` to follow the project's pattern (v1.2.0 → v1.2.1). `targetDate` is optional, and new releases are upcoming. To record one that already shipped, create it `completed` with a `launchDate`; `launchDate` with any other status is refused.
+- **Complete:** `update_release` with `status: "completed"`, then confirm with `get_release`. It emails portal and widget submitters whose linked tasks shipped (never manually captured signals, and up to a daily limit per project), and those emails can't be recalled. Completing stamps today as the launch date unless `launchDate` is in the same call, which is then kept. The app and REST API behave the same way.
+- **Reactivate or move to upcoming:** `update_release` with `status: "active"` or `"upcoming"`. Leaving completed clears the launch date. There's only one active release, so making one active moves the current one to upcoming.
+- **Correct a launch date:** `update_release` with `launchDate` (ISO 8601; `null` clears it). It's refused unless the release is completed after the call, and it sends nothing.
+- **Delete:** `delete_release`, only under "Deleting" in `frostbyte:tasks`. Its tasks return to the Backlog and its GitHub milestone is deleted. Don't suggest deleting a completed release; it erases shipped history.
 
-## What a good release summary looks like
+## Release notes
 
-Bad: "Release completed."
-Bad: "All tasks done."
-Good: "Shipped the AI Agents multi-token table and billing page redesign. Cut Codex deep-links to v1.3."
+Draft them from what shipped (`get_release` with `taskStatus: "done"`) and show the draft in chat. Save only when asked, as `releaseNotes` on `update_release` (markdown; an empty string clears it). Saving doesn't complete the release or email anyone. Notes reach the Feedback Portal changelog once the release is published there from the app, and edits to a published release show publicly straight away. Write for the product's users: what changed for them, without task numbers or internal detail. "Draft, don't publish" means chat only.
+
+A release `description` is 1–2 factual sentences, such as "Shipped the multi-token table and billing redesign. Cut Codex deep links to v1.3."
+
+## Authority
+
+- An explicit request naming the release ("complete v1.2") is approval, so don't ask again. Ask when the target is unclear or when you're proposing the action yourself, and say what completing will send.
+- Never hand a requested change back to the user as something to do in the app. If `update_release` is missing, say the connection lacks the tool; if a call fails, report its actual error. Never report success without checking the status.
+- Putting tasks in a release follows "Placement" in `frostbyte:tasks`; planning several releases is `frostbyte:planning`.
