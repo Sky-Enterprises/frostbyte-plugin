@@ -15,7 +15,7 @@
 - The agent explains Free plan limits instead of retrying, including the new cap on reopening a Done task, and knows `completionPolicy` is needed to finish a task with unchecked subtasks.
 - Connection help covers a deleted account (its tokens stop working), an unverified email, and losing access when you leave or are removed from a project.
 - Plugin listings and setup help point to Connect your agent and to Settings → Connections.
-- The tasks and releases skills repeat less: the placement and signals rules each live in one place, and an outdated server-version note is gone.
+- Every skill is rewritten to be shorter, about a third less in total and nearly half for tasks, so less of your agent's context goes on instructions. Shared rules (placement, deleting, plan limits) live once in the tasks skill, skill descriptions are tighter, and an outdated server-version note is gone.
 
 ### Fixed
 - Commit and PR guidance now uses `#42`, the reference Frostbyte's GitHub integration actually links, instead of `FB-42` and branch names.

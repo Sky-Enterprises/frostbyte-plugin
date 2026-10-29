@@ -1,6 +1,6 @@
 ---
 name: planning
-description: When the user asks to plan work in Frostbyte — break a feature, goal or spec into tasks, plan or re-plan one or more releases, organise the backlog, sequence a roadmap, or shape the product itself (pitch, target user, problem, stage, current focus) — read the project's context, propose the plan in chat, and create or move work only once the user approves it. Planning never starts, completes or ships anything.
+description: Use when the user wants to plan work in Frostbyte, such as breaking a goal or feature into tasks, planning one or more releases, organising the backlog or roadmap, or shaping the product brief (pitch, target user, problem, stage, focus). Proposes the plan first and writes only after approval.
 ---
 
 # Planning in Frostbyte
