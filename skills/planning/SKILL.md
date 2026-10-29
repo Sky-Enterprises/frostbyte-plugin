@@ -42,6 +42,6 @@ When the user wants to shape the product rather than the board, `update_project`
 
 ## Limits and boundaries
 
-- A large plan can hit a Free owner's caps: 100 active tasks across their projects, and 5 releases and 5 areas per project. Before writing a big plan, check the counts, and fit the plan or say it won't fit. On a "limit reached" error, stop and tell the user (see "Plan limits" in `frostbyte:tasks`).
+- The tools don't show the owner's plan, and MCP itself needs Indie or higher, so never assume Free or warn about caps up front. A project owned by someone on Free is capped at 100 active tasks across their projects, and 5 releases and 5 areas per project. If a write returns "limit reached", stop and tell the user what was and wasn't created (see "Plan limits" in `frostbyte:tasks`).
 - Planning never starts, completes or deletes work, and never completes a release. Removing obsolete tasks follows "Deleting" in `frostbyte:tasks`.
 - Tasks that come from signals stay in the Backlog unless the user picks a release, and are linked with `signals_link_task` (see `frostbyte:signals`).
