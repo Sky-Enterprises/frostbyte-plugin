@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.9.4] — 2026-10-30
+
+### Changed
+- The agent connection is on every Frostbyte plan, Free included. Listings, setup help and the onboarding and planning skills no longer say Indie or higher is required, and connection help drops the Free upgrade message.
+
 ## [0.9.3] — 2026-10-30
 
 ### Changed

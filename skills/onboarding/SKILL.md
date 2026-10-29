@@ -5,7 +5,7 @@ description: Use when connecting Frostbyte, fixing a connection, choosing which 
 
 # Connect and pick a project
 
-Frostbyte needs an account on Indie or higher. Subscriptions are bought on the website; never start a purchase or payment here.
+Any Frostbyte account can connect, Free included. Paid plans are bought on the website; never start a purchase or payment here.
 
 ## When the connection fails
 
@@ -13,7 +13,7 @@ Say so once, point to the app's connection settings and https://getfrostbyte.dev
 
 - Expired or revoked access: reconnect or sign in again.
 - "Invalid API token": the token was revoked or mistyped, or its account was deleted, which removes its tokens and connections for good.
-- Free accounts get an upgrade message, and an unverified email must be verified first.
+- An unverified email must be verified first.
 - A missing or forbidden project: check membership and the signed-in account.
 
 Never change entitlements or show tokens.

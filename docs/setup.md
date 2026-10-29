@@ -1,6 +1,6 @@
 # Connect Frostbyte
 
-You need a Frostbyte account on Indie or higher. Subscriptions are bought on the
+Any Frostbyte account can connect, Free included. Paid plans are bought on the
 [Frostbyte website](https://getfrostbyte.dev/pricing); the plugin never takes payments.
 
 ## ChatGPT and Codex
@@ -60,7 +60,6 @@ works. Then pick the project and task you want.
 - **Project not found or forbidden:** check you're signed in to the right account
   and are a member of the project. Leaving or being removed from a project ends
   access to it straight away.
-- **Free account:** agent access needs Indie or higher.
 - **Email not verified:** verify your email address in Frostbyte, then try again.
 
 ## Updates

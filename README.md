@@ -3,7 +3,7 @@
 # Keep Frostbyte up to date as you build.
 
 Pick a task, build it, and keep your board, areas and releases accurate from your
-agent. Requires a [Frostbyte](https://getfrostbyte.dev) account with Indie or higher access.
+agent. Works with any [Frostbyte](https://getfrostbyte.dev) account, Free included.
 
 > “Start the setup checklist task and keep it updated.”
 >
