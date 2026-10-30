@@ -54,7 +54,7 @@ account or private network. Do not put credentials in Git, the ZIP or this docum
 Publisher requested: **Sky Enterprises**; the portal's verified identity still needs
 confirmation. All supported countries are intended; the OpenAI package uses an
 empty country allowlist (unrestricted). Verify the saved targeting in each portal.
-No in-agent purchases/payments; a website subscription is required. Legal attestations
+No in-agent purchases/payments; a free Frostbyte account is enough to connect, and paid plans are bought on the website. Legal attestations
 must be completed by the developer. Published privacy/terms URLs are present, but
 policy coverage and attestations are distinct from a successful HTTP response.
 
@@ -62,4 +62,4 @@ Directory submission, review approval and publication are separate milestones.
 Keep all four surfaces coordinated and record their state independently. Do not
 claim directory availability from a ZIP, a GitHub tag, an upload or a passing scan.
 
-The commerce boolean is deliberately omitted until the target portal question is inspected. The package declares the website subscription requirement and absence of in-agent payments in commerce_description; confirm the actual saved question before selecting its boolean.
+The commerce boolean is deliberately omitted until the target portal question is inspected. The package declares in commerce_description that a free account is enough to connect and that there are no in-agent payments; confirm the actual saved question before selecting its boolean.
