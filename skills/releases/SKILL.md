@@ -19,7 +19,7 @@ Releases group what ships and make up the project's timeline. Change their statu
 - **Complete:** `update_release` with `status: "completed"`, then confirm with `get_release`. It emails portal and widget submitters whose linked tasks shipped (never manually captured signals, and up to a daily limit per project), and those emails can't be recalled. Completing stamps today as the launch date unless `launchDate` is in the same call, which is then kept. The app and REST API behave the same way.
 - **Reactivate or move to upcoming:** `update_release` with `status: "active"` or `"upcoming"`. Leaving completed clears the launch date. There's only one active release, so making one active moves the current one to upcoming.
 - **Correct a launch date:** `update_release` with `launchDate` (ISO 8601; `null` clears it). It's refused unless the release is completed after the call, and it sends nothing.
-- **Colour:** leave `color` out when creating, and Frostbyte picks a palette colour no other release uses yet. Set one only when the user asks: the palette colour from the tool's description closest to what they want that `list_releases` doesn't already show, or their exact hex if they give one.
+- **Colour:** leave `color` out when creating, and Frostbyte picks the palette colour other releases use least. Set one only when the user asks: the palette colour from the tool's description closest to what they want that `list_releases` doesn't already show, or their exact hex if they give one.
 - **Delete:** `delete_release`, only under "Deleting" in `frostbyte:tasks`. Its tasks return to the Backlog and its GitHub milestone is deleted. Don't suggest deleting a completed release; it erases shipped history.
 
 ## Release notes

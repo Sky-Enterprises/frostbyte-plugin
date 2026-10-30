@@ -3,7 +3,7 @@
 ## [Unreleased]
 
 ### Changed
-- New areas and releases get a colour no other area or release in the project uses yet, so the agent leaves the colour to Frostbyte unless you ask for one. When you do, it picks the closest colour from Frostbyte's palette and avoids one that's already taken. `list_areas` and `list_releases` now show each colour, and create and update results say which colour was set.
+- New areas and releases get the palette colour the project's other areas or releases use least, so the agent leaves the colour to Frostbyte unless you ask for one. When you do, it picks the closest colour from Frostbyte's palette and avoids one that's already taken. `list_areas` and `list_releases` now show each colour, and create and update results say which colour was set.
 
 ## [0.9.3] — 2026-10-30
 
