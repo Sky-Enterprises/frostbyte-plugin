@@ -1,9 +1,10 @@
 # Changelog
 
-## [Unreleased]
+## [0.9.3] — 2026-10-30
 
 ### Changed
 - Release notes are now a changelog post: the agent drafts a headline (`changelogTitle` on `update_release`) as well as the notes, opening with why the change matters instead of repeating every task. Cover and inline images are added in the app, on Indie and above.
+- The agent keeps each release's description current. When it adds tasks to a release, moves them out or plans one, it writes a missing description or updates one that no longer matches. It suggests new wording in chat instead of rewriting a description you wrote, unless you asked it to plan or reshape the release. Frostbyte's release notes draft now builds on that description.
 
 ## [0.9.2] — 2026-10-29
 

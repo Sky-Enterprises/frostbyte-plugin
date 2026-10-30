@@ -27,7 +27,7 @@ Draft them from what shipped (`get_release` with `taskStatus: "done"`) and show 
 
 Write for the product's users. The headline names the main change in their terms ("Recurring invoices that send themselves"), not the version. The notes open with a short paragraph on why it matters, then a `##` section per notable change, then a `## And a few more` list with bold lead-ins. Don't repeat every task: the changelog already lists them under the post. No task numbers or internal detail. "Draft, don't publish" means chat only.
 
-A release `description` is 1–2 factual sentences, such as "Shipped the multi-token table and billing redesign. Cut Codex deep links to v1.3."
+A release `description` is 1–2 factual sentences on what the release covers and why, such as "Shipped the multi-token table and billing redesign. Cut Codex deep links to v1.3." Release notes drafts build on it, so keep it current. After you add tasks to a release, move them out, or create or re-plan it, read its `description`: write one if it's empty, and update it with `update_release` if it no longer matches the scope. Never silently rewrite one a person clearly wrote: propose the new wording in chat, unless the user asked you to plan or reshape the release.
 
 ## Authority
 

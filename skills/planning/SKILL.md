@@ -22,10 +22,11 @@ Read only what the plan needs:
 1. **Lay the plan out in chat.** For each release, list its tasks (short title, type, priority, area), the existing tasks that move in or out, and what stays in the Backlog. Say what you'd cut or defer and why. For a large plan, summarise by release and area instead of listing every field.
 2. **Wait for approval.** "Plan v1.3" asks for a plan, not for fifty new tasks. An explicit instruction to write ("create these", "set it up in Frostbyte") authorises that write. Approving a plan covers what was in it, not extras you think of later.
 3. **Write it.**
-   - Releases first, with `create_release` (default `upcoming`, optional `targetDate`). Make one `active` only when the user asks; that moves the current active release to upcoming.
+   - Releases first, with `create_release` (default `upcoming`, optional `targetDate`) and a `description` of what each covers and why. Make one `active` only when the user asks; that moves the current active release to upcoming.
    - Areas only when nothing existing fits, with names the user agreed (see `frostbyte:areas`).
    - Tasks with `create_task`, one call each, after checking `list_tasks` for duplicates. Give every task an explicit placement: the planned release's `releaseId`, or `releaseId: null` for the Backlog. Leaving `releaseId` out puts the task in the active release, which a plan for later work rarely wants.
    - Existing tasks move with `update_task` (`releaseId`, `areaId`, `priority`).
+   - Once a release's tasks are in place, update the `description` of every existing release whose scope changed. An approved plan counts as the user reshaping it (see `frostbyte:releases`).
    - Steps that belong inside one task go in `task_spawn_subtasks` (1–20 per call, 50 per task), not in separate tasks.
 4. **Read it back** with `get_release`, or `list_tasks` by area, and report what was created and moved. Reuse the links the tools return.
 
