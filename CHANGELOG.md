@@ -2,7 +2,11 @@
 
 ## [0.9.4] — 2026-10-30
 
+### Added
+- A support skill: questions about contacting Frostbyte go to Contact support, Book a demo, the Feedback Portal or support@getfrostbyte.dev. The agent never submits a form or sends an email without your say-so.
+
 ### Changed
+- The agent knows an owner can turn off shipped emails for their Feedback Portal, so completing a release doesn't always email submitters.
 - The agent connection is on every Frostbyte plan, Free included. Listings, setup help and the onboarding and planning skills no longer say Indie or higher is required, and connection help drops the Free upgrade message.
 
 ## [0.9.3] — 2026-10-30
