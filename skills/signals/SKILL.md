@@ -18,7 +18,7 @@ Signals are what the team learned; tasks are what it will do. A signal can lead 
 
 Act on an explicit request; otherwise recommend and wait. Never sweep the queue on your own.
 
-- `signals_link_task` links a signal to a task and carries its votes across. For new work, propose the tasks; after approval, create each with `releaseId: null` unless the user picks a release, then link it. A reviewed signal can still gain tasks.
+- `signals_link_task` links a signal to a task and carries its votes across. For new work, propose the tasks; after approval, create each with `releaseId: null` unless the user picks a release, then link it. If the link result says the public roadmap is on, ask the user whether to show the task on it before setting `showOnRoadmap`. A reviewed signal can still gain tasks.
 - `signals_mark_reviewed` keeps the learning when no task is needed; `signals_dismiss` declines the signal. Add a short `reason` to either.
 - `signals_unlink_task` removes one link with its votes and evidence; the task and the signal stay.
 - `signals_delete` with `confirm: true` removes a signal permanently, only when the user asks for permanent deletion. Prefer dismissal.

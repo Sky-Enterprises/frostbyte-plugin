@@ -7,6 +7,7 @@
 
 ### Changed
 - The agent knows an owner can turn off shipped emails for their Feedback Portal, so completing a release doesn't always email submitters.
+- When the agent links a task to a public portal request and the public roadmap is on, it asks whether to show the task on the roadmap.
 - The agent connection is on every Frostbyte plan, Free included. Listings, setup help and the onboarding and planning skills no longer say Indie or higher is required, and connection help drops the Free upgrade message.
 
 ## [0.9.3] — 2026-10-30

@@ -48,7 +48,7 @@ Frostbyte is only useful if the board matches reality. When you start, progress 
 - **Decisions:** `task_log_decision` for choices worth revisiting, such as one approach over another, a changed data shape or a deferred problem. It's append-only and changes no fields. Skip routine steps.
 - **Blocked:** `task_add_blocker` with a short `reason` records it without changing the status; `task_start` clears it. Check `tasks_list_blocked` before picking new work.
 - **Move:** `update_task` with `releaseId: null` (Backlog) or `areaId: null` (no area). A field you leave out doesn't change.
-- **Public roadmap:** `update_task` with `showOnRoadmap`, only when the user asks. The roadmap is public once the owner turns it on.
+- **Public roadmap:** `update_task` with `showOnRoadmap`, only when the user asks or agrees after `signals_link_task` tells you to check with them. The roadmap is public once the owner turns it on.
 - **Finish:** `task_complete` with a `summary` of 1–2 plain sentences (what changed and why) and repo-relative `filesTouched`. Unchecked subtasks need `completionPolicy`: `"complete-subtasks"` when their work is done, `"override"` only when the user agrees to leave them open. `update_task` to `done` follows the same rule.
 - **Session wrap-up:** `session_end` once, only when the session changed something no `task_complete` recorded.
 
