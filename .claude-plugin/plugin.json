@@ -1,8 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "frostbyte",
-  "version": "0.9.4",
-  "description": "Keep Frostbyte up to date as you build. Tasks, board, areas and releases in your agent.",
+  "version": "1.0.0",
+  "description": "Product planning for founders who build with AI agents. Your agent reads the Frostbyte plan and writes progress, notes and decisions back.",
   "author": {
     "name": "Sky Enterprises",
     "url": "https://getfrostbyte.dev"

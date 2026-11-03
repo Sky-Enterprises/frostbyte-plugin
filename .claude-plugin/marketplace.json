@@ -5,15 +5,15 @@
     "url": "https://getfrostbyte.dev"
   },
   "metadata": {
-    "description": "Single-plugin marketplace for the Frostbyte Claude Code integration. Adds task, release, and area lifecycle skills powered by the hosted Frostbyte MCP server.",
-    "version": "0.9.4"
+    "description": "The official Frostbyte plugin for Claude Code: skills for tasks, releases, areas and Signals, powered by the hosted Frostbyte MCP server.",
+    "version": "1.0.0"
   },
   "plugins": [
     {
       "name": "frostbyte",
       "source": "./",
-      "description": "Keep Frostbyte up to date as you build. Tasks, board, areas and releases in your agent.",
-      "version": "0.9.4",
+      "description": "Product planning for founders who build with AI agents. Your agent reads the Frostbyte plan and writes progress, notes and decisions back.",
+      "version": "1.0.0",
       "category": "productivity",
       "tags": [
         "mcp",

@@ -1,7 +1,7 @@
 # Prepare and release the plugin
 
 The plugin version is independent of Frostbyte's application version. This candidate
-is plugin **0.9.4**, supporting the application **v1.17.0** and companion MCP **1.5.3**. Production **1.5.0** already supplies Signals and What’s Next; deploy the companion app changes before final host verification/submission.
+is plugin **1.0.0**, supporting the application **v1.17.0** and companion MCP **1.5.3**. Both are live in production.
 
 ## Prepare
 

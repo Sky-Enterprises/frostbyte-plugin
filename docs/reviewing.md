@@ -1,4 +1,4 @@
-# Review the 0.9.4 candidate
+# Review the 1.0.0 candidate
 
 The exact prompts and expected tool calls are packaged in `openai/plugin.json` under
 `extensions.com.openai.review.test_cases` (five positive, three negative). Results

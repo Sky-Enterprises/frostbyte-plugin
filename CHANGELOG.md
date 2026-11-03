@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.0] — 2026-11-04
+
+### Changed
+- The Claude, Codex and ChatGPT listings now say what Frostbyte is and what the plugin lets your agent do.
+- 1.0.0 is the first version submitted to the Claude directory and the ChatGPT plugin directory. Existing installs need no changes and there's nothing to migrate.
+
 ## [0.9.4] — 2026-11-03
 
 ### Added
