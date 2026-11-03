@@ -4,6 +4,7 @@
 
 ### Changed
 - New areas and releases get the palette colour the project's other areas or releases use least, so the agent leaves the colour to Frostbyte unless you ask for one. When you do, it picks the closest colour from Frostbyte's palette and avoids one that's already taken. `list_areas` and `list_releases` now show each colour, and create and update results say which colour was set.
+- The agent can pass a task number (`FB-360` or `360`) anywhere it needs a task, so a task you name by number no longer needs a lookup first.
 
 ## [0.9.3] — 2026-10-30
 
