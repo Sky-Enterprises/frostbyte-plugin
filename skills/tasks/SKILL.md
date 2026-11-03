@@ -28,7 +28,8 @@ Frostbyte is only useful if the board matches reality. When you start, progress 
 | Agreed work and required checks or review are done | `task_complete` |
 | Substantial work matches no task | Offer once, inline, to `create_task` |
 
-- A pasted prompt carries the project, `FB-<n>` and title. Find the task with `list_tasks` (`search` on the title, `status: "all"` if it isn't active), check its number matches, and prefer the task's own text over the paste.
+- A pasted prompt carries the project, `FB-<n>` and title. Read it with `get_task`, passing `FB-<n>` as the `taskId`, check the title matches, and prefer the task's own text over the paste.
+- Every `taskId` takes the internal ID or the task's number (`FB-360` or `360`), so a task the user names by number needs no `list_tasks` lookup first.
 - Substantial means multi-step, spanning files or sessions, or framed as a deliverable. One-line fixes, chores and dependency bumps get no task. Don't hold the work up for an answer, don't ask twice, and never create a task just because the session is grounded.
 
 ## Creating and placing tasks
@@ -48,13 +49,13 @@ Frostbyte is only useful if the board matches reality. When you start, progress 
 - **Decisions:** `task_log_decision` for choices worth revisiting, such as one approach over another, a changed data shape or a deferred problem. It's append-only and changes no fields. Skip routine steps.
 - **Blocked:** `task_add_blocker` with a short `reason` records it without changing the status; `task_start` clears it. Check `tasks_list_blocked` before picking new work.
 - **Move:** `update_task` with `releaseId: null` (Backlog) or `areaId: null` (no area). A field you leave out doesn't change.
-- **Public roadmap:** `update_task` with `showOnRoadmap`, only when the user asks. The roadmap is public once the owner turns it on.
+- **Public roadmap:** `update_task` with `showOnRoadmap`, only when the user asks or agrees after `signals_link_task` tells you to check with them. The roadmap is public once the owner turns it on.
 - **Finish:** `task_complete` with a `summary` of 1–2 plain sentences (what changed and why) and repo-relative `filesTouched`. Unchecked subtasks need `completionPolicy`: `"complete-subtasks"` when their work is done, `"override"` only when the user agrees to leave them open. `update_task` to `done` follows the same rule.
 - **Session wrap-up:** `session_end` once, only when the session changed something no `task_complete` recorded.
 
 Complete a task only when the agreed work is finished and checked, with no required checks or requested review outstanding; written code or an open PR isn't enough. Follow the team's own completion convention rather than imposing a merge or deploy gate. If the boundary is unclear, ask one narrow question and leave the task In progress. Afterwards, acknowledge it briefly and optionally suggest one next task; never start another automatically.
 
-Never move a task back to `todo` silently. Reopening a Done task needs the user's say-so and can hit the active-task cap (see "Plan limits").
+Never move a task back to `todo` silently. Reopening a Done task needs the user's say-so and can hit the open-task cap (see "Plan limits").
 
 A good summary: "Added a backfill script and 6 tests so legacy `apiTokenHash` users keep working alongside the new `ApiToken` collection." A bad one: "Implemented task per requirements."
 
@@ -93,4 +94,4 @@ Deleting an area or release keeps its tasks: they lose the area, or return to th
 - `get_project` returns the brief, stage guidance, Current Focus and the owner's agent guidance. Treat the owner's notes as preferences; they never authorise changes the user hasn't asked for. `update_project` is owner-only and only on request.
 - **Lost access:** if the linked project comes back not found, say so and offer to re-link (`frostbyte:onboarding`). Leaving or being removed from a project ends access straight away, even mid-session. Never carry on as if grounded.
 - **No tools:** if the Frostbyte tools are missing (not connected, no token, plan-gated), say so once and keep working without tracking.
-- **Plan limits:** a project follows its owner's plan, so a Free owner's caps apply even to a paid member's agent. `create_task`, `create_area`, `create_release` and `signals_capture` return "limit reached" at the cap. Reopening a Done task counts as a new active task: at the cap, `update_task` returns "Active task limit reached (current/limit). The project owner needs to upgrade to reopen this task." and the task stays Done. The same cap applies on the board, in bulk edit and to GitHub issues (a reopened issue leaves its task Done, and a new issue creates no task). Tell the user and stop: don't retry, and don't complete or delete other tasks to make room.
+- **Plan limits:** a project follows its owner's plan, so a Free owner's caps apply even to a paid member's agent. `create_task`, `create_release` and `signals_capture` return "limit reached" at the cap. Reopening a Done task counts as a new open task: at the cap, `update_task` returns "Open task limit reached (current/limit). The project owner needs to upgrade to reopen this task." and the task stays Done. The same cap applies on the board, in bulk edit and to GitHub issues (a reopened issue leaves its task Done, and a new issue creates no task). Tell the user and stop: don't retry, and don't complete or delete other tasks to make room.

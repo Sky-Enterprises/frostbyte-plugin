@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "frostbyte",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "Keep Frostbyte up to date as you build. Tasks, board, areas and releases in your agent.",
   "author": {
     "name": "Sky Enterprises",
@@ -15,7 +15,7 @@
       "interface": {
         "displayName": "Frostbyte",
         "shortDescription": "Keep work up to date",
-        "longDescription": "Keep Frostbyte up to date as you build. Read and update tasks and the board, organise areas, plan releases and draft release notes. Choose your own work; the agent tracks agreed implementation and checks completion. User Signals are also supported. Requires a Frostbyte account with Indie or higher access. Subscriptions are purchased on the Frostbyte website; no purchases or payments are initiated in the agent.",
+        "longDescription": "Keep Frostbyte up to date as you build. Read and update tasks and the board, organise areas, plan releases and draft release notes. Choose your own work; the agent tracks agreed implementation and checks completion. User Signals are also supported. Works on every Frostbyte plan, Free included. Paid plans are purchased on the Frostbyte website; no purchases or payments are initiated in the agent.",
         "developerName": "Sky Enterprises",
         "category": "Developer Tools",
         "websiteURL": "https://getfrostbyte.dev/docs/connect-your-agent",
@@ -37,7 +37,7 @@
           "Start this Frostbyte task and keep it updated.",
           "Draft release notes for my planned release."
         ],
-        "commerce_description": "No purchases or payments occur inside the agent. A paid Frostbyte subscription (Indie or higher), purchased on the Frostbyte website, is required.",
+        "commerce_description": "No purchases or payments occur inside the agent. A free Frostbyte account is enough to connect; paid plans, purchased on the Frostbyte website, raise project limits.",
         "test_cases": {
           "positive": [
             {

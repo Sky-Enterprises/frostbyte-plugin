@@ -55,7 +55,9 @@ export function check(root = repo, host = 'source') {
     assert(front?.name === f.split('/')[1] && typeof front.description === 'string' && front.description.trim(), `Invalid skill: ${f}`);
   }
   assert(files.some(f => f === 'skills/tasks/SKILL.md'), 'Tasks skill missing');
-  const manifest = json(join(root, host === 'claude' ? '.claude-plugin/plugin.json' : 'plugin.json'));
+  // The ChatGPT package lives in openai/ so Codex CLI, which prefers a root plugin.json, reads .codex-plugin/.
+  const openai = host === 'openai' ? '' : 'openai/';
+  const manifest = json(join(root, host === 'claude' ? '.claude-plugin/plugin.json' : `${openai}plugin.json`));
   assert(manifest.name === 'frostbyte' && /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/.test(manifest.version), 'Invalid identity/version');
   if (host === 'claude') {
     icon(root, manifest.icon, 512);
@@ -68,7 +70,7 @@ export function check(root = repo, host = 'source') {
     const ajv = new Ajv2020({allErrors: true}); addFormats(ajv);
     const validate = ajv.compile(json(join(repo, 'scripts/schemas/plugin.schema.json')));
     assert(validate(manifest), JSON.stringify(validate.errors));
-    const mcp = json(join(root, 'mcp.json'));
+    const mcp = json(join(root, `${openai}mcp.json`));
     // OpenAI documents server extensions beyond the portable 1.0 schema.
     const portable = structuredClone(mcp);
     for (const server of Object.values(portable.mcpServers)) delete server.extensions;
@@ -90,6 +92,7 @@ export function check(root = repo, host = 'source') {
         assert(!/"(?:hooks|apps|userConfig|bearer_token_env_var)"\s*:/.test(text) && !/\$\{(?:user_config|FROSTBYTE_)/.test(text), `Unsupported public declaration: ${f}`);
       }
     } else {
+      assert(!files.includes('plugin.json') && !files.includes('mcp.json'), 'Keep the ChatGPT manifests in openai/: a root plugin.json hides .codex-plugin from Codex');
       for (const f of ['.claude-plugin/plugin.json','.codex-plugin/plugin.json']) assert(json(join(root,f)).version === manifest.version, `Version mismatch: ${f}`);
       const marketplace = json(join(root,'.claude-plugin/marketplace.json'));
       assert(marketplace.metadata.version === manifest.version && marketplace.plugins[0].version === manifest.version, 'Marketplace version mismatch');
@@ -100,7 +103,7 @@ export function check(root = repo, host = 'source') {
 }
 
 const allowed = (file, host) => /^(?:skills\/|assets\/)/.test(file) || file === 'LICENSE' || (host === 'openai'
-  ? ['plugin.json','mcp.json'].includes(file)
+  ? ['openai/plugin.json','openai/mcp.json'].includes(file)
   : ['.claude-plugin/plugin.json','.claude-plugin/icon.png','.mcp.json','hooks/hooks.json','hooks/frostbyte-grounding.sh','README.md','CHANGELOG.md','docs/setup.md','docs/releasing.md','docs/historical-releases.md','docs/historical-releases.json'].includes(file));
 
 export function prepare(ref, output) {
@@ -126,8 +129,9 @@ export function prepare(ref, output) {
     for (const host of ['openai','claude']) {
       const stage=mkdtempSync(join(tmpdir(),`frostbyte-${host}-`));
       try {
-        const inventory=tracked.filter(f=>allowed(f,host)).sort();
-        for(const file of inventory){const dest=join(stage,file);mkdirSync(dirname(dest),{recursive:true});writeFileSync(dest,readFileSync(join(source,file)));chmodSync(dest,modes.get(file));utimesSync(dest,new Date('2000-01-01T00:00:00Z'),new Date('2000-01-01T00:00:00Z'));}
+        const packaged=new Map(tracked.filter(f=>allowed(f,host)).map(f=>[host==='openai'?f.replace(/^openai\//,''):f,f]));
+        const inventory=[...packaged.keys()].sort();
+        for(const file of inventory){const dest=join(stage,file);mkdirSync(dirname(dest),{recursive:true});writeFileSync(dest,readFileSync(join(source,packaged.get(file))));chmodSync(dest,modes.get(packaged.get(file)));utimesSync(dest,new Date('2000-01-01T00:00:00Z'),new Date('2000-01-01T00:00:00Z'));}
         check(stage,host);
         const name=`frostbyte-${version}-${host}.zip`, path=join(output,name);
         rmSync(path,{force:true});run('zip',['-q','-X',path,...inventory],stage);
