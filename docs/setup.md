@@ -9,18 +9,28 @@ Any Frostbyte account can connect, Free included. Paid plans are bought on the
 Frostbyte, paste `https://getfrostbyte.dev/mcp`, choose OAuth, then sign in to
 Frostbyte and approve access. Availability depends on your plan and workspace settings.
 
-**Codex.** Install the plugin and save your token in your shell profile:
+**Codex.** Install the plugin, then sign in to Frostbyte:
 
 ```sh
 codex plugin marketplace add Sky-Enterprises/frostbyte-plugin
 codex plugin add frostbyte@frostbyte-plugin
+codex mcp login frostbyte
+```
+
+Your browser opens: sign in to Frostbyte and approve access, then start Codex. Check
+`codex mcp list` shows `frostbyte`.
+
+To use a token instead, for example on a machine without a browser, add your own
+`frostbyte` server. It replaces the plugin's sign-in and keeps its skills:
+
+```sh
+codex mcp add frostbyte --url https://getfrostbyte.dev/mcp --bearer-token-env-var FROSTBYTE_API_TOKEN
 export FROSTBYTE_API_TOKEN=<your-token>
 ```
 
-Get the token from Frostbyte → Settings → Connections → Connect your agent, and keep it
-out of your repository. Open a new terminal, then start Codex. To connect only the
-tools without the plugin's guidance, use
-`codex mcp add frostbyte --url https://getfrostbyte.dev/mcp --bearer-token-env-var FROSTBYTE_API_TOKEN`.
+Get the token from Frostbyte → Settings → Connections → Connect your agent, keep it out
+of your repository, and put the `export` line in your shell profile. The same
+`codex mcp add` command connects the tools without the plugin.
 
 ## Claude Code
 
@@ -54,7 +64,8 @@ Ask “Can you see my Frostbyte projects?” If your projects are listed, the co
 works. Then pick the project and task you want.
 
 - **No Frostbyte tools:** reconnect in your app's connection settings.
-- **Expired or revoked access:** reconnect (OAuth) or paste a new token (Claude Code, Codex).
+- **Expired or revoked access:** reconnect (OAuth, or `codex mcp login frostbyte` in Codex)
+  or paste a new token (Claude Code, Codex with a token).
   Deleting a Frostbyte account also deletes its tokens and app connections, so they
   stop working for good.
 - **Project not found or forbidden:** check you're signed in to the right account
