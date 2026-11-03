@@ -9,6 +9,7 @@
 - The agent knows an owner can turn off shipped emails for their Feedback Portal, so completing a release doesn't always email submitters.
 - When the agent links a task to a public portal request and the public roadmap is on, it asks whether to show the task on the roadmap.
 - The agent connection is on every Frostbyte plan, Free included. Listings, setup help and the onboarding and planning skills no longer say Indie or higher is required, and connection help drops the Free upgrade message.
+- New areas and releases get the palette colour the project's other areas or releases use least, so the agent leaves the colour to Frostbyte unless you ask for one. When you do, it picks the closest colour from Frostbyte's palette and avoids one that's already taken. `list_areas` and `list_releases` now show each colour, and create and update results say which colour was set.
 
 ## [0.9.3] — 2026-10-30
 
