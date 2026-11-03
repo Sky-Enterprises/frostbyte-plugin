@@ -28,7 +28,8 @@ Frostbyte is only useful if the board matches reality. When you start, progress 
 | Agreed work and required checks or review are done | `task_complete` |
 | Substantial work matches no task | Offer once, inline, to `create_task` |
 
-- A pasted prompt carries the project, `FB-<n>` and title. Find the task with `list_tasks` (`search` on the title, `status: "all"` if it isn't active), check its number matches, and prefer the task's own text over the paste.
+- A pasted prompt carries the project, `FB-<n>` and title. Read it with `get_task`, passing `FB-<n>` as the `taskId`, check the title matches, and prefer the task's own text over the paste.
+- Every `taskId` takes the internal ID or the task's number (`FB-360` or `360`), so a task the user names by number needs no `list_tasks` lookup first.
 - Substantial means multi-step, spanning files or sessions, or framed as a deliverable. One-line fixes, chores and dependency bumps get no task. Don't hold the work up for an answer, don't ask twice, and never create a task just because the session is grounded.
 
 ## Creating and placing tasks
