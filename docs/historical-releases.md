@@ -20,6 +20,8 @@ Audited 28 October 2026 against remote tags/releases and first-parent main. Publ
 | 0.7.0 | `d6cb4649cdc612e22c1fc382db6616c27576ab4a` | `d6cb4649cdc612e22c1fc382db6616c27576ab4a` | Missing | Missing | `d6cb4649cdc612e22c1fc382db6616c27576ab4a`: Propose tag and release at introducing main commit |
 | 0.8.0 | `3dab813ef6f1391d0b09211334036f03a7d80319` | `3dab813ef6f1391d0b09211334036f03a7d80319` | Missing | Missing | `3dab813ef6f1391d0b09211334036f03a7d80319`: Propose tag and release at introducing main commit |
 | 0.8.1 | `150a5513f174881f4660b6e791c82645f48d659b` | `150a5513f174881f4660b6e791c82645f48d659b` | Missing | Missing | `150a5513f174881f4660b6e791c82645f48d659b`: Propose tag and release at introducing main commit |
+| 0.9.3 | `6cd536cbc91e99b782e9992b7f9537c60d275598` | `6cd536cbc91e99b782e9992b7f9537c60d275598` | `6cd536cbc91e99b782e9992b7f9537c60d275598` | Created 3 Nov 2026 | `6cd536cbc91e99b782e9992b7f9537c60d275598`: Release added on the existing tag with the CHANGELOG.md notes, no assets |
+| 0.9.4 | Published by `scripts/release.mjs` | | Created on publish | Created on publish | Tag and release at the approved main SHA, with both archives |
 
 The 0.6.2 main state includes PR #4 and the PR #2 attachment merge after its 0.7.0 feature bump was reset. Its final main SHA is 373a3513c8893ee40aa89e6c41bdfd7d57c04202. PR #3 then consolidates the unreleased skills into main 0.7.0 at d6cb4649cdc612e22c1fc382db6616c27576ab4a.
 
