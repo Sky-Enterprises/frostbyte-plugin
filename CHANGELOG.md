@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.9.4] — 2026-10-30
+## [0.9.4] — 2026-11-03
 
 ### Added
 - A support skill: questions about contacting Frostbyte go to Contact support, Book a demo, the Feedback Portal or support@getfrostbyte.dev. The agent never submits a form or sends an email without your say-so.
@@ -11,6 +11,7 @@
 - The agent connection is on every Frostbyte plan, Free included. Listings, setup help and the onboarding and planning skills no longer say Indie or higher is required, and connection help drops the Free upgrade message.
 - New areas and releases get the palette colour the project's other areas or releases use least, so the agent leaves the colour to Frostbyte unless you ask for one. When you do, it picks the closest colour from Frostbyte's palette and avoids one that's already taken. `list_areas` and `list_releases` now show each colour, and create and update results say which colour was set.
 - The agent can pass a task number (`FB-360` or `360`) anywhere it needs a task, so a task you name by number no longer needs a lookup first.
+- New release names follow the project's own history, including how it names hotfixes, rather than a fixed versioning rule.
 
 ## [0.9.3] — 2026-10-30
 
