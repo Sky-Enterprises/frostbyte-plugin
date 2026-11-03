@@ -4,6 +4,7 @@
 
 ### Changed
 - The Claude, Codex and ChatGPT listings now say what Frostbyte is and what the plugin lets your agent do.
+- Plan and price answers come from the live pricing page, never from cached search results.
 - 1.0.0 is the first version submitted to the Claude directory and the ChatGPT plugin directory. Existing installs need no changes and there's nothing to migrate.
 
 ## [0.9.4] — 2026-11-03
