@@ -1,6 +1,6 @@
 # Review the 0.9.4 candidate
 
-The exact prompts and expected tool calls are packaged in `plugin.json` under
+The exact prompts and expected tool calls are packaged in `openai/plugin.json` under
 `extensions.com.openai.review.test_cases` (five positive, three negative). Results
 belong in the execution evidence, not invented fields in that schema.
 

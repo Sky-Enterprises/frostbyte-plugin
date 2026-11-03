@@ -11,7 +11,7 @@ Any Frostbyte account can connect, Free included. Paid plans are bought on the w
 
 Say so once, point to the app's connection settings and https://getfrostbyte.dev/docs/connect-your-agent, and carry on without claiming tracking.
 
-- Expired or revoked access: reconnect or sign in again.
+- Expired or revoked access: reconnect or sign in again. In Codex, that's `codex mcp login frostbyte`.
 - "Invalid API token": the token was revoked or mistyped, or its account was deleted, which removes its tokens and connections for good.
 - An unverified email must be verified first.
 - A missing or forbidden project: check membership and the signed-in account.

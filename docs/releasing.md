@@ -12,7 +12,7 @@ Use Node 22 or newer, Git, zip and unzip. Install development dependencies with
    #7 remain intact; the candidate is stacked on #7 and includes the separate local
    pasted-task tracking commit. Merge #6, then #7, then the candidate after review.
    Recheck their bases after each merge. Do not publish intermediate 0.8.2/0.8.3.
-2. Choose the version deliberately. Update `plugin.json`, both compatibility
+2. Choose the version deliberately. Update `openai/plugin.json`, both compatibility
    manifests, both Claude marketplace version fields and the changelog together.
    Use patch for fixes and minor for compatible additions. For an incompatible
    contract, explicitly choose a major bump and document migration; there is no

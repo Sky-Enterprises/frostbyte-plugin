@@ -12,14 +12,14 @@ const repo = new URL('../', import.meta.url).pathname;
 function fixture(change) {
   const root=mkdtempSync(join(tmpdir(),'frostbyte-check-'));
   try {
-    for(const file of filesIn(repo).filter(f=> /^(skills|assets)\//.test(f) || ['plugin.json','mcp.json','LICENSE'].includes(f))) {
-      mkdirSync(dirname(join(root,file)),{recursive:true});copyFileSync(join(repo,file),join(root,file));
+    for(const file of filesIn(repo).filter(f=> /^(skills|assets)\//.test(f) || ['openai/plugin.json','openai/mcp.json','LICENSE'].includes(f))) {
+      const dest=join(root,file.replace(/^openai\//,''));mkdirSync(dirname(dest),{recursive:true});copyFileSync(join(repo,file),dest);
     }
     change(root);return check(root,'openai');
   } finally {rmSync(root,{recursive:true,force:true});}
 }
 const edit=(root,path,fn)=>{const p=join(root,path),v=JSON.parse(readFileSync(p));fn(v);writeFileSync(p,JSON.stringify(v));};
-test('complete public package validates',()=>assert.equal(fixture(()=>{}).version,JSON.parse(readFileSync(join(repo,'plugin.json'))).version));
+test('complete public package validates',()=>assert.equal(fixture(()=>{}).version,JSON.parse(readFileSync(join(repo,'openai/plugin.json'))).version));
 test('discoverable public hooks are rejected',()=>assert.throws(()=>fixture(root=>{mkdirSync(join(root,'hooks'));writeFileSync(join(root,'hooks/hooks.json'),'{}');}),/hook/));
 test('escaping asset references are rejected',()=>assert.throws(()=>fixture(root=>edit(root,'plugin.json',m=>{m.extensions['com.openai'].interface.logo='../icon.png';})),/path/));
 test('Claude credential substitutions cannot leak into public configuration',()=>assert.throws(()=>fixture(root=>edit(root,'mcp.json',m=>{m.mcpServers.frostbyte.headers={Authorization:'Bearer ${user_config.api_token}'};})),/Unsupported/));
