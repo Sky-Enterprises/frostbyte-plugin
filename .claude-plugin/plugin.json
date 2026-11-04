@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "frostbyte",
+  "version": "1.0.1",
+  "description": "Product planning for founders who build with AI agents. Your agent reads the Frostbyte plan and writes progress, notes and decisions back.",
+  "author": {
+    "name": "Sky Enterprises",
+    "url": "https://getfrostbyte.dev"
+  },
+  "homepage": "https://getfrostbyte.dev",
+  "repository": "https://github.com/Sky-Enterprises/frostbyte-plugin",
+  "license": "MIT",
+  "keywords": [
+    "frostbyte",
+    "mcp",
+    "tasks",
+    "releases",
+    "project-management"
+  ],
+  "icon": "./.claude-plugin/icon.png",
+  "privacyPolicyUrl": "https://getfrostbyte.dev/legal/privacy",
+  "termsOfServiceUrl": "https://getfrostbyte.dev/legal/terms-of-service",
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "userConfig": {
+    "api_token": {
+      "type": "string",
+      "title": "Frostbyte API token",
+      "description": "Get it at https://getfrostbyte.dev/settings → Connections → Connect your agent. Pick your tool and the token is created for you; copy it from that tool's steps and paste it here.",
+      "sensitive": true,
+      "required": true
+    }
+  }
+}
