@@ -147,6 +147,24 @@ export function prepare(ref, output) {
   } finally {rmSync(source,{recursive:true,force:true});}
 }
 
+// The Claude directory tracks this branch so its scan sees only the released Claude package, never the release tooling.
+// Commits the ZIP's exact files on top of the branch; a branch already holding them is left alone, so retries are safe.
+export function pushDirectoryBranch(output, receipt, branch = 'claude-directory') {
+  const asset = receipt.assets.find(a => a.name.endsWith('-claude.zip')), work = mkdtempSync(join(tmpdir(), 'frostbyte-directory-'));
+  try {
+    run('unzip', ['-q', join(output, asset.name), '-d', join(work, 'files')]);
+    const git = args => execFileSync('git', args, { cwd: repo, encoding: 'utf8', env: {...process.env, GIT_INDEX_FILE: join(work, 'index')}, stdio: ['ignore', 'pipe', 'pipe'] }).trim();
+    for (const file of asset.files) {
+      const path = join(work, 'files', file), mode = lstatSync(path).mode & 0o111 ? '100755' : '100644';
+      git(['update-index', '--add', '--cacheinfo', `${mode},${git(['hash-object', '-w', path])},${file}`]);
+    }
+    const tree = git(['write-tree']), parent = run('git', ['ls-remote', 'origin', `refs/heads/${branch}`]).split(/\s/)[0];
+    if (parent) { run('git', ['fetch', '-q', 'origin', `refs/heads/${branch}`]); if (run('git', ['rev-parse', `${parent}^{tree}`]) === tree) return; }
+    const commit = git(['commit-tree', tree, ...(parent ? ['-p', parent] : []), '-m', `Frostbyte plugin ${receipt.version} (${receipt.sha})`]);
+    run('git', ['push', 'origin', `${commit}:refs/heads/${branch}`]);
+  } finally { rmSync(work, {recursive: true, force: true}); }
+}
+
 // Publication is manual and requires approval of this exact receipt and main SHA.
 function publish(output, approvedSha, approvedDigest) {
   output=resolve(output);const receiptPath=join(output,'candidate.json'), receipt=json(receiptPath);
@@ -166,6 +184,7 @@ function publish(output, approvedSha, approvedDigest) {
       if(!local) run('git',['tag','-a',tag,receipt.sha,'-m',`Frostbyte plugin ${receipt.version}`]);
       run('git',['push','origin',`refs/tags/${tag}`]);
     }
+    pushDirectoryBranch(output, receipt);
     let existing;try{existing=JSON.parse(run('gh',['release','view',tag,'--json','isDraft,assets,targetCommitish']));}catch(error){if(!String(error.stderr).includes('release not found'))throw error;}
     if(existing){assert(!existing.isDraft,'Existing draft needs deliberate reconciliation');throw new Error('Release already exists; preserve it and inspect its assets rather than overwriting');}
     run('gh',['release','create',tag,'--verify-tag','--title',tag,'--notes-file',join(output,'release-notes.md'),...receipt.assets.map(a=>join(output,a.name)),receiptPath]);

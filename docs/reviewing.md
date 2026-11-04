@@ -1,10 +1,10 @@
-# Review the 1.0.0 candidate
+# Review the 1.0.1 candidate
 
 The exact prompts and expected tool calls are packaged in `openai/plugin.json` under
 `extensions.com.openai.review.test_cases` (five positive, three negative). Results
 belong in the execution evidence, not invented fields in that schema.
 
-Use a dedicated paid demo account and a clean **Plugin Demo** project.
+Use a dedicated demo account (Free is enough) and a clean **Plugin Demo** project.
 Create **Projects** and **Docs** areas, active **v1.17.0**, upcoming **v1.18.0** and
 **v1.19.0**, and a To Do **Improve setup checklist** task with a small disposable
 repository change and an agreed check. Keep GitHub sync and portal notifications
@@ -21,7 +21,7 @@ Run P1–P5 and N1–N3 on ChatGPT, Codex, Claude chat and Claude Code. Addition
 | R1 Pending checks | A task stays In progress while its required test or requested review is outstanding. |
 | R2 Release proposal | An all-done release prompts readiness discussion/draft only; no independent completion or notification. |
 | R3 Linking | Linked root/nested path use nearest link inside `.git` boundary; opt-out/unlinked/unavailable tools produce no fake tracking or repeated offers. |
-| R4 Access | Expired/revoked connection reconnects through the host; free/non-member accounts stay gated. |
+| R4 Access | Expired/revoked connection reconnects through the host; non-member accounts stay gated. |
 
 A backend placement integration test protects persistence. A natural-language host
 run protects argument choice. Neither substitutes for the other. Record host,
