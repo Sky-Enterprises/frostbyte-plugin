@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1] — 2026-11-04
+
+### Changed
+- The Claude directory listing now has keywords and links Frostbyte's terms of service.
+- The Claude directory now reviews only the released Claude package, published to the `claude-directory` branch, instead of the whole repository and its release tooling.
+- The ChatGPT reviewer test cases no longer assume a code repository or mention internal task numbers.
+
 ## [1.0.0] — 2026-11-04
 
 ### Changed

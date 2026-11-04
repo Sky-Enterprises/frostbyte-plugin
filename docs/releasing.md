@@ -1,7 +1,7 @@
 # Prepare and release the plugin
 
 The plugin version is independent of Frostbyte's application version. This candidate
-is plugin **1.0.0**, supporting the application **v1.17.0** and companion MCP **1.5.3**. Both are live in production.
+is plugin **1.0.1**, supporting the application **v1.17.0** and companion MCP **1.5.5**. Both are live in production.
 
 ## Prepare
 
@@ -60,8 +60,8 @@ node scripts/release.mjs publish --out /tmp/frostbyte-candidate \
 ```
 
 This verifies remote main, rebuilds and compares the receipt/notes/assets, rejects a
-conflicting tag, creates an immutable tag once and creates the GitHub release with
-its exact assets. A retry preserves existing releases and stops for inspection;
+conflicting tag, creates an immutable tag once, commits the Claude ZIP's exact files
+to the `claude-directory` branch and creates the GitHub release with its exact assets. A retry preserves existing releases and stops for inspection;
 it never overwrites assets or a draft. GitHub release publication does not publish
 the marketplace listing. Historical backfills are separate approved actions; this
 command does not infer or execute them.
@@ -73,9 +73,11 @@ command does not infer or execute them.
   are distinct actions. Hosted-tool updates and package skills/assets/metadata have
   different update procedures. Replacing a ZIP can reset attestations; inspect the
   saved draft first. Never cancel an in-review version without authorisation.
-- **Claude directory:** inspect the existing identity and tracked branch/publish
-  setting. Prefer release-ready main after agreement. Scheduled/webhook scans can
-  publish a passing version according to that setting; verify it before merging.
+- **Claude directory:** the submission tracks the `claude-directory` branch (path
+  root), which holds only released Claude packages. Its scan would otherwise hold
+  every version for review over the release tooling on main (lockfile, scripts
+  naming icons, credential-named variables). Scheduled/webhook scans can publish a
+  passing version according to the publish setting; verify it before publishing.
   Do not confuse the directory with Anthropic's curated `claude-plugins-official`.
 - **Claude Code:** custom marketplace users control refresh/auto-update. See setup.
 - **Codex local:** installed copies live in the host cache. Refresh/reinstall them;
