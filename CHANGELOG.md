@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.2] — 2026-11-04
+
+### Changed
+- The ChatGPT listing no longer names other AI assistants or mentions plans and pricing, which the ChatGPT plugin directory doesn't allow in descriptions.
+- Companion MCP 1.5.6 marks starting and completing a task as hard-to-undo changes, and updating a signal as reaching the public Feedback Portal.
+
 ## [1.0.1] — 2026-11-04
 
 ### Changed

@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "frostbyte",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Product planning for founders who build with AI agents. Your agent reads the Frostbyte plan and writes progress, notes and decisions back.",
   "author": {
     "name": "Sky Enterprises",
@@ -15,7 +15,7 @@
       "interface": {
         "displayName": "Frostbyte",
         "shortDescription": "Plan and track what you build",
-        "longDescription": "Frostbyte is a product planning workspace for founders and small teams who build software with AI coding agents like Claude Code and Codex. It keeps tasks, releases, ideas, user feedback and decisions in one plan. What's Next ranks what to work on, Project Health shows whether the release is on track, and your agent connects over MCP to read the plan and write progress, notes and decisions back.\n\nWith this plugin you can ask what to work on next, start and finish tasks, put new work in the release and area you name, review user Signals and draft release notes. Tasks stay in progress until the agreed checks pass, and the agent never ships a release on its own.\n\nWorks on every Frostbyte plan, Free included. Paid plans are bought on the Frostbyte website; nothing is bought or paid for in the agent.",
+        "longDescription": "Frostbyte is a product planning workspace for founders and small teams who build software with AI coding agents. It keeps tasks, releases, ideas, user feedback and decisions in one plan. What's Next ranks what to work on, Project Health shows whether the release is on track, and your agent connects over MCP to read the plan and write progress, notes and decisions back.\n\nWith this plugin you can ask what to work on next, start and finish tasks, put new work in the release and area you name, review user Signals and draft release notes. Tasks stay in progress until the agreed checks pass, and the agent never ships a release on its own.",
         "developerName": "Sky Enterprises",
         "category": "Developer Tools",
         "websiteURL": "https://getfrostbyte.dev/docs/connect-your-agent",
