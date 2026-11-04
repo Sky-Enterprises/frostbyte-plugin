@@ -38,6 +38,7 @@
           "Draft release notes for my planned release."
         ],
         "commerce_description": "No purchases or payments occur inside the agent. A free Frostbyte account is enough to connect; paid plans, purchased on the Frostbyte website, raise project limits.",
+        "demo_recording_url": "https://www.youtube.com/watch?v=juXgQqNcHS4",
         "test_cases": {
           "positive": [
             {
@@ -47,16 +48,16 @@
               "expected_behavior": "Use the real demo project ID and returned personal recommendations/reasons. No task_start or writes from this question."
             },
             {
-              "description": "P2. Demo task Improve setup checklist is To Do, and the user has already agreed the change.",
+              "description": "P2. Plugin Demo's Improve setup checklist task is To Do, and the user has already agreed the change it describes. Where the host can't make the change or run its check, the task stays In progress.",
               "prompt": "Start the Improve setup checklist task in Plugin Demo, make the agreed change, and keep it updated.",
               "tools_triggered": "list_tasks, get_task, task_start, task_complete",
-              "expected_behavior": "Read the exact task and attachments when relevant, start when implementation begins, and complete with a factual summary only after agreed work and required checks/review finish. Pending checks leave In progress."
+              "expected_behavior": "Read the task, start it when work begins, and complete it with a factual summary only after the agreed change and its required check are done. While the check is pending, or the host can't run it, the task stays In progress."
             },
             {
-              "description": "P3. Demo project has upcoming v1.18.0 and Projects area; no Grok setup task exists yet.",
+              "description": "P3. Plugin Demo has an upcoming v1.18.0 release and a Projects area, and no Grok setup task yet.",
               "prompt": "Create a task to add Grok setup guidance in Plugin Demo’s v1.18.0 release and Projects area.",
               "tools_triggered": "list_projects, list_releases, list_areas, list_tasks, create_task, get_task",
-              "expected_behavior": "Resolve fixture IDs. Supply both real releaseId and areaId to create_task and verify stored fields with get_task. Notes alone fail. No extra approval for requested placement."
+              "expected_behavior": "Look up the release and area IDs, pass both releaseId and areaId to create_task, and read the stored task back with get_task. Naming them only in the description or notes fails. The user named the placement, so no extra approval is asked."
             },
             {
               "description": "P4. Select the P3 demo task. Planned release means v1.18.0; use a real member ID from get_project.",
