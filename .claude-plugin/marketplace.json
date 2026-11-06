@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "The official Frostbyte plugin for Claude Code: skills for tasks, releases, areas and Signals, powered by the hosted Frostbyte MCP server.",
-    "version": "1.0.2"
+    "version": "1.1.0"
   },
   "plugins": [
     {
       "name": "frostbyte",
       "source": "./",
       "description": "Product planning for founders who build with AI agents. Your agent reads the Frostbyte plan and writes progress, notes and decisions back.",
-      "version": "1.0.2",
+      "version": "1.1.0",
       "category": "productivity",
       "tags": [
         "mcp",

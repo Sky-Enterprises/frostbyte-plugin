@@ -43,6 +43,6 @@ When the user wants to shape the product rather than the board, `update_project`
 
 ## Limits and boundaries
 
-- The tools don't show the owner's plan, so never assume Free or warn about caps up front. A project owned by someone on Free is capped at 100 open tasks across their projects, and 5 releases per project. If a write returns "limit reached", stop and tell the user what was and wasn't created (see "Plan limits" in `frostbyte:tasks`).
+- The tools don't show the owner's plan, so never assume Free or warn about caps up front. A project owned by someone on Free is capped at 250 tasks across their projects, Done included, and 2 open releases per project: the active one and one upcoming. Shipped releases are unlimited, so plan one release ahead and keep the rest in the Backlog. If a write returns "limit reached", stop and tell the user what was and wasn't created (see "Plan limits" in `frostbyte:tasks`).
 - Planning never starts, completes or deletes work, and never completes a release. Removing obsolete tasks follows "Deleting" in `frostbyte:tasks`.
 - Tasks that come from signals stay in the Backlog unless the user picks a release, and are linked with `signals_link_task` (see `frostbyte:signals`).

@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.1.0] — Unreleased
+
+Needs Frostbyte with companion MCP 1.6.0. Publish once that's live.
+
+### Changed
+- Commits and pull requests name the task as `FB-42`, and branches are named after it (`fb-42-…`). Frostbyte now reads `#42` as GitHub issue or PR 42, so the agent never writes a bare `#42` for a task.
+- The agent knows that with Move tasks with pull requests on, an opened PR starts its task and a merge into the default branch completes it.
+- The agent can link a pull request, issue or commit to a task with `task_link_github`, and `get_task` shows a task's linked PRs, issues and latest commits.
+- Free plan limits match Frostbyte's: 250 tasks across the owner's projects, Done included, and 2 open releases per project. Reopening a Done task no longer counts against the cap; reopening a completed release can.
+- The agent knows completing a release also publishes a public GitHub Release when the owner turned that on.
+
 ## [1.0.2] — 2026-11-04
 
 ### Changed
