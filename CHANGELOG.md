@@ -1,8 +1,8 @@
 # Changelog
 
-## [1.1.0] — Unreleased
+## [1.1.0] — 2026-11-06
 
-Needs Frostbyte with companion MCP 1.6.0. Publish once that's live.
+Needs Frostbyte with companion MCP 1.6.0.
 
 ### Changed
 - Commits and pull requests name the task as `FB-42`, and branches are named after it (`fb-42-…`). Frostbyte now reads `#42` as GitHub issue or PR 42, so the agent never writes a bare `#42` for a task.
