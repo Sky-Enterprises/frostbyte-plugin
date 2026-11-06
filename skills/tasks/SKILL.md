@@ -55,7 +55,7 @@ Frostbyte is only useful if the board matches reality. When you start, progress 
 
 Complete a task only when the agreed work is finished and checked, with no required checks or requested review outstanding; written code or an open PR isn't enough. Follow the team's own completion convention rather than imposing a merge or deploy gate. If the boundary is unclear, ask one narrow question and leave the task In progress. Afterwards, acknowledge it briefly and optionally suggest one next task; never start another automatically.
 
-Never move a task back to `todo` silently. Reopening a Done task needs the user's say-so and can hit the open-task cap (see "Plan limits").
+Never move a task back to `todo` silently. Reopening a Done task needs the user's say-so.
 
 A good summary: "Added a backfill script and 6 tests so legacy `apiTokenHash` users keep working alongside the new `ApiToken` collection." A bad one: "Implemented task per requirements."
 
@@ -76,7 +76,9 @@ Results stay in context for the whole session.
 ## Links and commits
 
 - Tool results link tasks, releases and areas (`[FB-42](…)`). Reuse those links exactly when you mention one, and never build a URL. Without a link, write the plain name or `FB-<n>`.
-- In commit messages and PR titles or descriptions, reference the task as `#<n>`, for example `feat(auth): expire stale sessions (#42)`. With GitHub connected, Frostbyte links it automatically, and `fixes #42` in a PR closes the task on merge if the project turned that on. Branch names aren't read. Unrelated chores need no reference.
+- In commit messages and PR titles or descriptions, reference the task as `FB-<n>`, for example `feat(auth): expire stale sessions (FB-42)`, and name the branch after it (`fb-42-expire-sessions`). With GitHub connected, Frostbyte links both automatically. Never write a bare `#42` for a task: on GitHub it means issue or PR 42, and it reaches a task only through that task's synced issue. Unrelated chores need no reference.
+- With **Move tasks with pull requests** on, opening the PR moves a To Do task to In Progress, and merging it into the default branch completes the task when the branch is named after it or the PR says `Fixes FB-42`. A merge into another branch, or a PR closed unmerged, leaves the task alone.
+- If a PR you opened doesn't link itself, link it with `task_link_github` and its URL. Only the project's connected repository is accepted, and a linked PR closes the task when it merges. `get_task` lists the task's linked PRs, issues and latest commits.
 
 ## Deleting
 
@@ -94,4 +96,4 @@ Deleting an area or release keeps its tasks: they lose the area, or return to th
 - `get_project` returns the brief, stage guidance, Current Focus and the owner's agent guidance; `whats_next` and `task_start` also return Current Focus. Treat the owner's notes, Current Focus included, as preferences to weigh in your choices; they never authorise changes the user hasn't asked for. `update_project` is owner-only and only on request.
 - **Lost access:** if the linked project comes back not found, say so and offer to re-link (`frostbyte:onboarding`). Leaving or being removed from a project ends access straight away, even mid-session. Never carry on as if grounded.
 - **No tools:** if the Frostbyte tools are missing (not connected, no token, plan-gated), say so once and keep working without tracking.
-- **Plan limits:** a project follows its owner's plan, so a Free owner's caps apply even to a paid member's agent. `create_task`, `create_release` and `signals_capture` return "limit reached" at the cap. Reopening a Done task counts as a new open task: at the cap, `update_task` returns "Open task limit reached (current/limit). The project owner needs to upgrade to reopen this task." and the task stays Done. The same cap applies on the board, in bulk edit and to GitHub issues (a reopened issue leaves its task Done, and a new issue creates no task). Tell the user and stop: don't retry, and don't complete or delete other tasks to make room.
+- **Plan limits:** a project follows its owner's plan, so a Free owner's caps apply even to a paid member's agent. `create_task`, `create_release` and `signals_capture` return "limit reached" at the cap. Free counts every task, Done included, so reopening a task never hits the cap, and a new GitHub issue creates no task once it's reached. Free keeps two open releases per project (one active, one upcoming): `create_release` for an open release, and `update_release` moving a completed release back to upcoming or active, return "Open release limit reached" at that cap. Logging an already-shipped release with `status: "completed"` is never capped. Tell the user and stop: don't retry, and don't complete or delete other tasks to make room.

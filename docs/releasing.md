@@ -1,7 +1,7 @@
 # Prepare and release the plugin
 
 The plugin version is independent of Frostbyte's application version. This candidate
-is plugin **1.0.2**, supporting the application **v1.17.0** and companion MCP **1.5.6**. Both are live in production.
+is plugin **1.1.0**, supporting companion MCP **1.6.0** (`FB-` references, `task_link_github` and the new Free limits). Publish it only after that Frostbyte release is live in production.
 
 ## Prepare
 
