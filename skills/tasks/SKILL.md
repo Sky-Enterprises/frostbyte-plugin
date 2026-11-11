@@ -52,7 +52,7 @@ Frostbyte is only useful if the board matches reality. When you start, progress 
 - **Move:** `update_task` with `releaseId: null` (Backlog) or `areaId: null` (no area). A field you leave out doesn't change.
 - **Public roadmap:** `update_task` with `showOnRoadmap`, only when the user asks or agrees after `signals_link_task` tells you to check with them. The roadmap is public once the owner turns it on.
 - **Finish:** `task_complete` with a `summary` of 1–2 plain sentences (what changed and why) and repo-relative `filesTouched`. Unchecked subtasks need `completionPolicy`: `"complete-subtasks"` when their work is done, `"override"` only when the user agrees to leave them open. `update_task` to `done` follows the same rule.
-- **Session wrap-up:** when you stop with work unfinished or with context the tasks don't hold, or the user asks you to wrap up, write a handoff with `session_end` as `frostbyte:notes` describes. Skip it when `task_complete` already recorded everything.
+- **Session wrap-up:** when you stop with work unfinished or with context the tasks don't hold, or the user asks you to wrap up, write a handoff with `session_end` as `frostbyte:notes` describes. Unless the user asked for one, skip it when `task_complete` already recorded everything.
 
 Complete a task only when the agreed work is finished and checked, with no required checks or requested review outstanding; written code or an open PR isn't enough. Follow the team's own completion convention rather than imposing a merge or deploy gate. If the boundary is unclear, ask one narrow question and leave the task In progress. Afterwards, acknowledge it briefly and optionally suggest one next task; never start another automatically.
 
