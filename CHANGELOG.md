@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased]
+
+Needs Frostbyte with companion MCP 1.7.0.
+
+### Added
+- The agent can keep a build plan, session handoff or other living doc in the project with `list_docs`, `get_doc` and `write_doc`, and the team reads it under Docs in the app. It reads a handoff at the start of a session and offers once to copy a local `buildplan.md` or `HANDOFF.md` into Frostbyte.
+
 ## [1.1.0] — 2026-11-06
 
 Needs Frostbyte with companion MCP 1.6.0.

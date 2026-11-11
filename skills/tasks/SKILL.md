@@ -51,7 +51,7 @@ Frostbyte is only useful if the board matches reality. When you start, progress 
 - **Move:** `update_task` with `releaseId: null` (Backlog) or `areaId: null` (no area). A field you leave out doesn't change.
 - **Public roadmap:** `update_task` with `showOnRoadmap`, only when the user asks or agrees after `signals_link_task` tells you to check with them. The roadmap is public once the owner turns it on.
 - **Finish:** `task_complete` with a `summary` of 1–2 plain sentences (what changed and why) and repo-relative `filesTouched`. Unchecked subtasks need `completionPolicy`: `"complete-subtasks"` when their work is done, `"override"` only when the user agrees to leave them open. `update_task` to `done` follows the same rule.
-- **Session wrap-up:** `session_end` once, only when the session changed something no `task_complete` recorded.
+- **Session wrap-up:** `session_end` once, only when the session changed something no `task_complete` recorded. If the project keeps a handoff or plan doc, update it as `frostbyte:project-docs` describes.
 
 Complete a task only when the agreed work is finished and checked, with no required checks or requested review outstanding; written code or an open PR isn't enough. Follow the team's own completion convention rather than imposing a merge or deploy gate. If the boundary is unclear, ask one narrow question and leave the task In progress. Afterwards, acknowledge it briefly and optionally suggest one next task; never start another automatically.
 
@@ -75,7 +75,7 @@ Results stay in context for the whole session.
 
 ## Links and commits
 
-- Tool results link tasks, releases and areas (`[FB-42](…)`). Reuse those links exactly when you mention one, and never build a URL. Without a link, write the plain name or `FB-<n>`.
+- Tool results link tasks, releases, areas and docs (`[FB-42](…)`). Reuse those links exactly when you mention one, and never build a URL. Without a link, write the plain name or `FB-<n>`.
 - In commit messages and PR titles or descriptions, reference the task as `FB-<n>`, for example `feat(auth): expire stale sessions (FB-42)`, and name the branch after it (`fb-42-expire-sessions`). With GitHub connected, Frostbyte links both automatically. Never write a bare `#42` for a task: on GitHub it means issue or PR 42, and it reaches a task only through that task's synced issue. Unrelated chores need no reference.
 - With **Move tasks with pull requests** on, opening the PR moves a To Do task to In Progress, and merging it into the default branch completes the task when the branch is named after it or the PR says `Fixes FB-42`. A merge into another branch, or a PR closed unmerged, leaves the task alone.
 - If a PR you opened doesn't link itself, link it with `task_link_github` and its URL. Only the project's connected repository is accepted, and a linked PR closes the task when it merges. `get_task` lists the task's linked PRs, issues and latest commits.
