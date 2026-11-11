@@ -69,9 +69,9 @@ Cursor reads the plugin from `.cursor-plugin/` in this repository. Until Frostby
 
 More in [setup](docs/setup.md#cursor).
 
-**ChatGPT and Claude chat**
+**ChatGPT, Claude chat and Grok**
 
-Add `https://getfrostbyte.dev/mcp` as a custom connector and sign in. Steps for [ChatGPT](docs/setup.md#chatgpt-and-codex) and [Claude](docs/setup.md#claude-chat).
+Add `https://getfrostbyte.dev/mcp` as a custom connector and sign in. Steps for [ChatGPT](docs/setup.md#chatgpt-and-codex), [Claude](docs/setup.md#claude-chat) and [Grok](docs/setup.md#grok).
 
 ## Try it
 

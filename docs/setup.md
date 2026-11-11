@@ -95,6 +95,12 @@ Open **Settings → Connectors**, add a custom connector with
 `https://getfrostbyte.dev/mcp`, then sign in to Frostbyte. Chat sessions pick a
 project by name; they don't need `.frostbyte.json`.
 
+## Grok
+
+Open **Plugins**, click **New Connector**, then **Custom**. Name it Frostbyte,
+paste `https://getfrostbyte.dev/mcp`, click **Add Connector**, then sign in to
+Frostbyte and approve access. Chats pick a project by name.
+
 ## Check and recover
 
 Ask “Can you see my Frostbyte projects?” If your projects are listed, the connection
