@@ -1,7 +1,7 @@
 # Prepare and release the plugin
 
 The plugin version is independent of Frostbyte's application version. This candidate
-is plugin **1.2.0** (adds the Cursor manifest), supporting companion MCP **1.6.0** (`FB-` references, `task_link_github` and the new Free limits), which is already live. Publish it only after that Frostbyte release is live in production.
+is plugin **1.2.0** (adds the Cursor manifest), supporting companion MCP **1.7.0** (session handoffs and agent notes). Publish it only after that Frostbyte release is live in production.
 
 ## Prepare
 

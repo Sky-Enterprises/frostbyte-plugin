@@ -2,11 +2,18 @@
 
 ## [1.2.0] — 2026-11-11
 
-Needs Frostbyte with companion MCP 1.6.0.
+Needs Frostbyte with companion MCP 1.7.0. Publish only after that release is live.
 
 ### Added
+- The agent reads the last session's handoff, which `dashboard_snapshot`, `whats_next` and `get_project` now return, and trusts the tracker over it for task state.
+- The agent keeps lasting context the user asks for, such as architecture, in a project note with `list_notes`, `get_note` and `write_note`. A project keeps five, and only a person can delete one.
 - A Cursor plugin manifest (`.cursor-plugin/plugin.json`) so Frostbyte can be reviewed for the Cursor Marketplace. It reuses the same eight skills and connects to the same hosted MCP server. In Cursor the token comes from the `FROSTBYTE_API_TOKEN` environment variable, because Cursor doesn't read Claude Code's token prompt.
 - `npm run check` now validates the Cursor manifest and fails if its version, text, logo or MCP configuration drift from the other manifests.
+
+### Changed
+- `session_end` writes a session handoff instead of a line in the activity feed: what's half done, what to try next and what to watch out for. The agent writes one when it stops with work unfinished and whenever the user asks it to wrap up. Frostbyte keeps a project's last three.
+- The agent offers to move a build plan kept in a file into releases and tasks, where the dashboard can use it.
+- The agent knows a signal imported from another tool can be corrected like a manual one until it's on the portal, except its reference.
 
 ## [1.1.0] — 2026-11-06
 
