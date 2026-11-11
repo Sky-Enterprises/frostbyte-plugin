@@ -66,7 +66,7 @@ Get the token from Frostbyte → Settings → Connections → Connect your agent
 from the Dock or Spotlight doesn't see your shell profile on macOS, so quit it and run
 `cursor .` from a terminal, or set the variable with `launchctl setenv`.
 
-The plugin is `.cursor-plugin/plugin.json` in this repository: the same eight skills
+The plugin is `.cursor-plugin/plugin.json` in this repository: the same skills
 and `.cursor-plugin/mcp.json`, which points at the hosted server. Install it from the
 Cursor Marketplace once Frostbyte is listed there. Until then, to try a checkout, copy
 the repository to `~/.cursor/plugins/local/frostbyte/` and reload Cursor, or add the
