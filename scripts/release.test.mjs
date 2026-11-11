@@ -28,3 +28,19 @@ test('symlinks are rejected',()=>assert.throws(()=>fixture(root=>symlinkSync('/e
 test('incomplete reviewer cases are rejected',()=>assert.throws(()=>fixture(root=>edit(root,'plugin.json',m=>{delete m.extensions['com.openai'].review.test_cases.positive[0].expected_behavior;})),/review case/));
 
 test('publication rejects a receipt without exact approval before any public action',()=>{const root=mkdtempSync(join(tmpdir(),'frostbyte-approval-'));try{writeFileSync(join(root,'candidate.json'),JSON.stringify({sha:'unapproved',version:'0.9.0',assets:[]}));const result=spawnSync(process.execPath,[join(repo,'scripts/release.mjs'),'publish','--out',root,'--approved-sha','wrong','--approved-receipt','wrong'],{encoding:'utf8'});assert.equal(result.status,1);assert.match(result.stderr,/approved SHA and receipt/);}finally{rmSync(root,{recursive:true,force:true});}});
+
+function cursorFixture(change) {
+  const root=mkdtempSync(join(tmpdir(),'frostbyte-cursor-'));
+  try {
+    for(const file of filesIn(repo).filter(f=> /^(skills|assets|\.cursor-plugin)\//.test(f) || ['.claude-plugin/plugin.json','.claude-plugin/marketplace.json','.claude-plugin/icon.png','.mcp.json','.codex-plugin/plugin.json','.codex-plugin/mcp.json','openai/plugin.json','openai/mcp.json','CHANGELOG.md','LICENSE'].includes(f)||/^hooks\//.test(f))) {
+      const dest=join(root,file);mkdirSync(dirname(dest),{recursive:true});copyFileSync(join(repo,file),dest);
+    }
+    change(root);return check(root);
+  } finally {rmSync(root,{recursive:true,force:true});}
+}
+test('complete Cursor manifest validates',()=>assert.ok(cursorFixture(()=>{}).version));
+test('Cursor version drift is rejected',()=>assert.throws(()=>cursorFixture(root=>edit(root,'.cursor-plugin/plugin.json',m=>{m.version='0.0.1';})),/Version mismatch/));
+test('Cursor description drift is rejected',()=>assert.throws(()=>cursorFixture(root=>edit(root,'.cursor-plugin/plugin.json',m=>{m.description='Changed';})),/description differs/));
+test('Cursor cannot use Claude token substitution',()=>assert.throws(()=>cursorFixture(root=>edit(root,'.cursor-plugin/mcp.json',m=>{m.mcpServers.frostbyte.headers.Authorization='Bearer ${user_config.api_token}';})),/Unexpected Cursor/));
+test('Cursor logo must exist',()=>assert.throws(()=>cursorFixture(root=>edit(root,'.cursor-plugin/plugin.json',m=>{m.logo='assets/missing.png';})),/ENOENT|Missing referenced file/));
+test('a root plugin.json is rejected because it hides Codex',()=>assert.throws(()=>cursorFixture(root=>writeFileSync(join(root,'plugin.json'),'{}')),/Keep the ChatGPT manifests/));

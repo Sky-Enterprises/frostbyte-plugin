@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "frostbyte": {
+      "url": "https://getfrostbyte.dev/mcp",
+      "headers": {
+        "Authorization": "Bearer ${env:FROSTBYTE_API_TOKEN}",
+        "X-Frostbyte-Client": "cursor"
+      }
+    }
+  }
+}

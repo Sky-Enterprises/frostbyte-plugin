@@ -52,6 +52,43 @@ The bundled SessionStart hook reads only `.frostbyte.json`, stops at the reposit
 boundary and makes no network calls. It needs jq or Python 3 to parse the file and
 skips grounding without them. Set `"grounding": false` in the file to pause it.
 
+## Cursor
+
+Cursor doesn't prompt for a token the way Claude Code does. It reads it from the
+`FROSTBYTE_API_TOKEN` environment variable, so set that first:
+
+```sh
+export FROSTBYTE_API_TOKEN=paste-your-token-here
+```
+
+Get the token from Frostbyte → Settings → Connections → Connect your agent and put the
+`export` line in your shell profile, then start Cursor from that shell. A Cursor opened
+from the Dock or Spotlight doesn't see your shell profile on macOS, so quit it and run
+`cursor .` from a terminal, or set the variable with `launchctl setenv`.
+
+The plugin is `.cursor-plugin/plugin.json` in this repository: the same eight skills
+and `.cursor-plugin/mcp.json`, which points at the hosted server. Install it from the
+Cursor Marketplace once Frostbyte is listed there. Until then, to try a checkout, copy
+the repository to `~/.cursor/plugins/local/frostbyte/` and reload Cursor, or add the
+server alone to `~/.cursor/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "frostbyte": {
+      "url": "https://getfrostbyte.dev/mcp",
+      "headers": {
+        "Authorization": "Bearer ${env:FROSTBYTE_API_TOKEN}",
+        "X-Frostbyte-Client": "cursor"
+      }
+    }
+  }
+}
+```
+
+Check that Cursor's MCP settings show `frostbyte` as connected. Cursor doesn't expand
+Claude Code's `${user_config.api_token}`, which is why Cursor has its own MCP file.
+
 ## Claude chat
 
 Open **Settings → Connectors**, add a custom connector with
@@ -78,6 +115,8 @@ works. Then pick the project and task you want.
 Claude Code: `/plugin` → Installed → Frostbyte → Update now, or
 `claude plugin update frostbyte@frostbyte-plugin`. Custom marketplaces have
 [auto-update off by default](https://code.claude.com/docs/en/discover-plugins#keep-plugins-updated).
+
+Cursor: update from Customize, or copy the new checkout over your local copy.
 
 Codex: refresh with `codex plugin marketplace upgrade`, reinstall with
 `codex plugin add frostbyte@frostbyte-plugin`, then start a new session.

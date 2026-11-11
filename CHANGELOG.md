@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.0] — 2026-11-11
+
+Needs Frostbyte with companion MCP 1.6.0.
+
+### Added
+- A Cursor plugin manifest (`.cursor-plugin/plugin.json`) so Frostbyte can be reviewed for the Cursor Marketplace. It reuses the same eight skills and connects to the same hosted MCP server. In Cursor the token comes from the `FROSTBYTE_API_TOKEN` environment variable, because Cursor doesn't read Claude Code's token prompt.
+- `npm run check` now validates the Cursor manifest and fails if its version, text, logo or MCP configuration drift from the other manifests.
+
 ## [1.1.0] — 2026-11-06
 
 Needs Frostbyte with companion MCP 1.6.0.
