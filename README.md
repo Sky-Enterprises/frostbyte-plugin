@@ -49,9 +49,9 @@ codex mcp login frostbyte
 
 Your browser opens to sign in to Frostbyte. Prefer a token? See [setup](docs/setup.md#chatgpt-and-codex).
 
-**ChatGPT and Claude chat**
+**ChatGPT, Claude chat and Grok**
 
-Add `https://getfrostbyte.dev/mcp` as a custom connector and sign in. Steps for [ChatGPT](docs/setup.md#chatgpt-and-codex) and [Claude](docs/setup.md#claude-chat).
+Add `https://getfrostbyte.dev/mcp` as a custom connector and sign in. Steps for [ChatGPT](docs/setup.md#chatgpt-and-codex), [Claude](docs/setup.md#claude-chat) and [Grok](docs/setup.md#grok).
 
 ## Try it
 
