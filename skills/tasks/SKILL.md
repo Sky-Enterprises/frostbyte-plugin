@@ -17,6 +17,7 @@ Frostbyte is only useful if the board matches reality. When you start, progress 
 
 - Project context comes from the nearest `.frostbyte.json` inside the repository (see `frostbyte:onboarding`); respect `grounding: false`. In chat, use the project the user named or `list_projects`.
 - Load only the work you need: `get_task` for a named task, a scoped `list_tasks` otherwise. Don't load the board or onboard for incidental questions.
+- Before substantial work, read the project once with `dashboard_snapshot` if you haven't this session. It returns the last session's handoff with its date. Trust the tasks over the handoff for task state.
 - Make the obvious transitions without asking and mention them in passing; the board is the user's receipt.
 
 | Situation | Action |
@@ -51,8 +52,7 @@ Frostbyte is only useful if the board matches reality. When you start, progress 
 - **Move:** `update_task` with `releaseId: null` (Backlog) or `areaId: null` (no area). A field you leave out doesn't change.
 - **Public roadmap:** `update_task` with `showOnRoadmap`, only when the user asks or agrees after `signals_link_task` tells you to check with them. The roadmap is public once the owner turns it on.
 - **Finish:** `task_complete` with a `summary` of 1–2 plain sentences (what changed and why) and repo-relative `filesTouched`. Unchecked subtasks need `completionPolicy`: `"complete-subtasks"` when their work is done, `"override"` only when the user agrees to leave them open. `update_task` to `done` follows the same rule.
-- **Session handoff:** `dashboard_snapshot`, `whats_next` and `get_project` return the last session's handoff when there is one. Read it before you start, and trust the tracker over it for task state. Write a new one with `session_end` when you stop with work unfinished or with context the tasks don't hold, and whenever the user asks you to wrap up: what's half done and where, what to try next, what to watch out for. It shows on the project dashboard, and the project keeps its last three, so yours doesn't erase another session's. Don't repeat what `task_complete` or `task_log_decision` already recorded.
-- **Notes:** a build plan belongs in releases and tasks, so offer to move one in when the user keeps it in a file. Keep other lasting context the user asks for, such as architecture, in a note with `list_notes`, `get_note` and `write_note` (`append: true` adds to a note without resending it). A project keeps five, and only a person can delete one, in Frostbyte.
+- **Session wrap-up:** when you stop with work unfinished or with context the tasks don't hold, or the user asks you to wrap up, write a handoff with `session_end` as `frostbyte:notes` describes. Skip it when `task_complete` already recorded everything.
 
 Complete a task only when the agreed work is finished and checked, with no required checks or requested review outstanding; written code or an open PR isn't enough. Follow the team's own completion convention rather than imposing a merge or deploy gate. If the boundary is unclear, ask one narrow question and leave the task In progress. Afterwards, acknowledge it briefly and optionally suggest one next task; never start another automatically.
 
