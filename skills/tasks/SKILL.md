@@ -17,7 +17,7 @@ Frostbyte is only useful if the board matches reality. When you start, progress 
 
 - Project context comes from the nearest `.frostbyte.json` inside the repository (see `frostbyte:onboarding`); respect `grounding: false`. In chat, use the project the user named or `list_projects`.
 - Load only the work you need: `get_task` for a named task, a scoped `list_tasks` otherwise. Don't load the board or onboard for incidental questions.
-- Before substantial work, read the project once with `dashboard_snapshot` if you haven't this session. It returns the last session's handoff with its date. Trust the tasks over the handoff for task state.
+- Before substantial work, read the project once with `dashboard_snapshot`, unless you already read it or `whats_next` this session. It returns the last session's handoff with its date. Trust the tasks over the handoff for task state.
 - Make the obvious transitions without asking and mention them in passing; the board is the user's receipt.
 
 | Situation | Action |
