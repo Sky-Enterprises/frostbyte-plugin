@@ -1,7 +1,7 @@
 # Prepare and release the plugin
 
 The plugin version is independent of Frostbyte's application version. This candidate
-is plugin **1.1.0**, supporting companion MCP **1.6.0** (`FB-` references, `task_link_github` and the new Free limits). Publish it only after that Frostbyte release is live in production.
+is plugin **1.2.0** (adds the Cursor manifest), supporting companion MCP **1.7.0** (session handoffs and agent notes). Publish it only after that Frostbyte release is live in production.
 
 ## Prepare
 
@@ -12,8 +12,8 @@ Use Node 22 or newer, Git, zip and unzip. Install development dependencies with
    #7 remain intact; the candidate is stacked on #7 and includes the separate local
    pasted-task tracking commit. Merge #6, then #7, then the candidate after review.
    Recheck their bases after each merge. Do not publish intermediate 0.8.2/0.8.3.
-2. Choose the version deliberately. Update `openai/plugin.json`, both compatibility
-   manifests, both Claude marketplace version fields and the changelog together.
+2. Choose the version deliberately. Update `openai/plugin.json`, the three compatibility
+   manifests (`.claude-plugin`, `.codex-plugin`, `.cursor-plugin`), both Claude marketplace version fields and the changelog together.
    Use patch for fixes and minor for compatible additions. For an incompatible
    contract, explicitly choose a major bump and document migration; there is no
    bot restricting releases to patch/minor. The 0.x identifier migration in 0.9.0
@@ -79,6 +79,14 @@ command does not infer or execute them.
   naming icons, credential-named variables). Scheduled/webhook scans can publish a
   passing version according to the publish setting; verify it before publishing.
   Do not confuse the directory with Anthropic's curated `claude-plugins-official`.
+- **Cursor:** the Cursor Marketplace reads this repository (default branch) directly,
+  with no archive, so `.cursor-plugin/` on main is what reviewers see. Submitting is a
+  signed-in application at cursor.com/marketplace/publish, and Cursor reviews every
+  update before it is listed. The manifest is in `.cursor-plugin/` because a root
+  `plugin.json` would hide `.codex-plugin` from Codex. Cursor expands neither
+  `${user_config.*}` nor `${PLUGIN_ROOT}`, so it has its own `.cursor-plugin/mcp.json`
+  that reads `${env:FROSTBYTE_API_TOKEN}`. `npm run check` fails when its version or
+  text drift from the other manifests. The Cursor files are in no release ZIP.
 - **Claude Code:** custom marketplace users control refresh/auto-update. See setup.
 - **Codex local:** installed copies live in the host cache. Refresh/reinstall them;
   a source checkout edit alone does not update an installed package.
@@ -88,10 +96,12 @@ receipt. If review is held, keep the live version and address the finding. Corre
 a bad publication through a new version or a supported directory rollback; never
 rewrite public tags or assume a source revert changes the live listing.
 
-Official references, checked 28 October 2026:
+Official references, checked 28 October 2026 (Cursor, 11 November 2026):
 [OpenAI package](https://developers.openai.com/plugins/build/plugins),
 [submission](https://developers.openai.com/plugins/deploy/submission),
 [OAuth](https://developers.openai.com/plugins/build/auth),
 [MCP review](https://developers.openai.com/plugins/deploy/app-review),
 [Claude directory](https://claude.com/docs/plugins/submit),
-[Claude Code distribution](https://code.claude.com/docs/en/plugins/publish).
+[Claude Code distribution](https://code.claude.com/docs/en/plugins/publish),
+[Cursor plugins](https://cursor.com/docs/plugins),
+[Cursor plugins reference](https://cursor.com/docs/reference/plugins).

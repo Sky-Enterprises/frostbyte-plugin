@@ -40,6 +40,23 @@ function icon(root, path, minimum) {
   assert(width === height && width >= minimum && width <= 2048 && bytes.length < 2 * 1024 * 1024, 'Invalid icon dimensions or size');
 }
 
+// Cursor Marketplace reads the repository itself (no archive), so the manifest is checked in place.
+// It lives in .cursor-plugin/ because a root plugin.json would hide .codex-plugin from Codex.
+// Cursor expands neither ${user_config.*} nor the standard's ${PLUGIN_ROOT}, so Claude's .mcp.json cannot be reused:
+// .cursor-plugin/mcp.json reads the token from the FROSTBYTE_API_TOKEN environment variable instead.
+function checkCursor(root, identity) {
+  const manifest = json(join(root, '.cursor-plugin/plugin.json')), claude = json(join(root, '.claude-plugin/plugin.json'));
+  assert(/^[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?$/.test(manifest.name) && manifest.name === identity.name, 'Cursor name must be lowercase kebab-case and match the other manifests');
+  for (const key of ['description', 'homepage', 'repository', 'license']) assert(manifest[key] === claude[key], `Cursor ${key} differs from the Claude manifest`);
+  assert(JSON.stringify(manifest.keywords) === JSON.stringify(claude.keywords), 'Cursor keywords differ from the Claude manifest');
+  icon(root, './' + manifest.logo, 256);
+  assert(manifest.skills === './skills/' && manifest.mcpServers === './.cursor-plugin/mcp.json', 'Cursor manifest must point at ./skills/ and ./.cursor-plugin/mcp.json');
+  contained(root, manifest.mcpServers);
+  const text = readFileSync(join(root, manifest.mcpServers), 'utf8'), server = JSON.parse(text).mcpServers.frostbyte;
+  assert(server.url === 'https://getfrostbyte.dev/mcp' && server.headers.Authorization === 'Bearer ${env:FROSTBYTE_API_TOKEN}' && server.headers['X-Frostbyte-Client'] === 'cursor', 'Unexpected Cursor MCP configuration');
+  assert(!/\$\{(?:user_config|PLUGIN_ROOT|PLUGIN_DATA)/.test(text), 'Cursor does not expand this variable');
+}
+
 export function check(root = repo, host = 'source') {
   const files = filesIn(root).filter(f => !/^(?:node_modules|\.git|\.execution|dist)\//.test(f) && f !== '.git');
   for (const f of files.filter(f => f.endsWith('.json'))) json(join(root, f));
@@ -93,7 +110,8 @@ export function check(root = repo, host = 'source') {
       }
     } else {
       assert(!files.includes('plugin.json') && !files.includes('mcp.json'), 'Keep the ChatGPT manifests in openai/: a root plugin.json hides .codex-plugin from Codex');
-      for (const f of ['.claude-plugin/plugin.json','.codex-plugin/plugin.json']) assert(json(join(root,f)).version === manifest.version, `Version mismatch: ${f}`);
+      for (const f of ['.claude-plugin/plugin.json','.codex-plugin/plugin.json','.cursor-plugin/plugin.json']) assert(json(join(root,f)).version === manifest.version, `Version mismatch: ${f}`);
+      checkCursor(root, manifest);
       const marketplace = json(join(root,'.claude-plugin/marketplace.json'));
       assert(marketplace.metadata.version === manifest.version && marketplace.plugins[0].version === manifest.version, 'Marketplace version mismatch');
       assert(readFileSync(join(root,'CHANGELOG.md'),'utf8').includes(`## [${manifest.version}]`), 'Missing release notes');

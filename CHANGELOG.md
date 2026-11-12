@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.0] — 2026-11-12
+
+Needs Frostbyte with companion MCP 1.7.0. Publish only after that release is live.
+
+### Added
+- A notes skill. The agent writes a session handoff with `session_end` when it stops with work unfinished or you ask it to wrap up, and the next session reads it back from its first look at the project. Lasting context, such as architecture, goes in up to five project notes with `list_notes`, `get_note` and `write_note`. The agent offers once to move a local `buildplan.md` into releases and tasks.
+- A Cursor plugin manifest (`.cursor-plugin/plugin.json`) so Frostbyte can be reviewed for the Cursor Marketplace. It reuses the same skills and connects to the same hosted MCP server. In Cursor the token comes from the `FROSTBYTE_API_TOKEN` environment variable, because Cursor doesn't read Claude Code's token prompt.
+- `npm run check` now validates the Cursor manifest and fails if its version, text, logo or MCP configuration drift from the other manifests.
+- Setup and the README cover Grok: add Frostbyte as a custom connector, then sign in.
+
+### Changed
+- `session_end` writes a handoff the next session reads, not an end-of-session line in the activity feed. The project keeps the last three.
+- The agent knows a signal imported from another tool can be corrected like a manual one until it's on the portal, except its reference.
+
 ## [1.1.0] — 2026-11-06
 
 Needs Frostbyte with companion MCP 1.6.0.

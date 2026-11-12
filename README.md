@@ -2,7 +2,7 @@
   <a href="https://getfrostbyte.dev"><img src="assets/icon.png" width="80" alt="Frostbyte" /></a>
 </p>
 
-<h1 align="center">Frostbyte for Claude Code and Codex</h1>
+<h1 align="center">Frostbyte for Claude Code, Codex and Cursor</h1>
 
 <p align="center"><strong>The product workspace for software teams and their agents.</strong></p>
 
@@ -24,9 +24,9 @@
 
 ## What is Frostbyte?
 
-Frostbyte is a product planning workspace for founders and small teams who build software with AI coding agents like Claude Code and Codex. It keeps tasks, releases, ideas, user feedback and decisions in one plan. What's Next ranks what to work on, Project Health shows whether the release is on track, and your agent connects over MCP to read the plan and write progress, notes and decisions back.
+Frostbyte is a product planning workspace for founders and small teams who build software with AI coding agents like Claude Code, Codex and Cursor. It keeps tasks, releases, ideas, user feedback and decisions in one plan. What's Next ranks what to work on, Project Health shows whether the release is on track, and your agent connects over MCP to read the plan and write progress, notes and decisions back.
 
-This plugin is the official way to connect Claude Code and Codex. It works with every Frostbyte account, Free included.
+This plugin is the official way to connect Claude Code, Codex and Cursor. It works with every Frostbyte account, Free included.
 
 ## Install
 
@@ -49,9 +49,29 @@ codex mcp login frostbyte
 
 Your browser opens to sign in to Frostbyte. Prefer a token? See [setup](docs/setup.md#chatgpt-and-codex).
 
-**ChatGPT and Claude chat**
+**Cursor**
 
-Add `https://getfrostbyte.dev/mcp` as a custom connector and sign in. Steps for [ChatGPT](docs/setup.md#chatgpt-and-codex) and [Claude](docs/setup.md#claude-chat).
+Cursor reads the plugin from `.cursor-plugin/` in this repository. Until Frostbyte is listed in the Cursor Marketplace, add the server by hand. Put your API token in the `FROSTBYTE_API_TOKEN` environment variable (**Settings → Connections → Connect your agent** in Frostbyte creates it), start Cursor from that environment, and add this to `~/.cursor/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "frostbyte": {
+      "url": "https://getfrostbyte.dev/mcp",
+      "headers": {
+        "Authorization": "Bearer ${env:FROSTBYTE_API_TOKEN}",
+        "X-Frostbyte-Client": "cursor"
+      }
+    }
+  }
+}
+```
+
+More in [setup](docs/setup.md#cursor).
+
+**ChatGPT, Claude chat and Grok**
+
+Add `https://getfrostbyte.dev/mcp` as a custom connector and sign in. Steps for [ChatGPT](docs/setup.md#chatgpt-and-codex), [Claude](docs/setup.md#claude-chat) and [Grok](docs/setup.md#grok).
 
 ## Try it
 
@@ -72,6 +92,7 @@ Draft release notes for v1.18.0, but don't publish it.
 | **Releases** | Shows what's left in a release and drafts release notes. |
 | **Signals** | Reviews bug reports and requests from your users and links them to tasks. You make the triage calls. |
 | **Areas** | Groups a project's tasks into areas. |
+| **Notes** | Leaves a session handoff for the next session and keeps lasting context, such as architecture, in a few project notes. |
 | **Onboarding** | Links a repository to a Frostbyte project with a `.frostbyte.json` file. |
 | **Docs and support** | Answers how Frostbyte works from the live docs. |
 
