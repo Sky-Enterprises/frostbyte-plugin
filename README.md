@@ -93,7 +93,7 @@ Draft release notes for v1.18.0, but don't publish it.
 | **Signals** | Reviews bug reports and requests from your users and links them to tasks. You make the triage calls. |
 | **Areas** | Groups a project's tasks into areas. |
 | **Notes** | Leaves a session handoff for the next session and keeps lasting context, such as architecture, in a few project notes. |
-| **Onboarding** | Links a repository to a Frostbyte project with a `.frostbyte.json` file. |
+| **Onboarding** | Links a repository to a Frostbyte project with a `.frostbyte.json` file, and sets up an empty project from your README, TODO.md or build plan. Shows the plan first and never changes your files. |
 | **Docs and support** | Answers how Frostbyte works from the live docs. |
 
 <table>

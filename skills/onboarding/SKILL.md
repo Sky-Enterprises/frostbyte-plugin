@@ -1,6 +1,6 @@
 ---
 name: onboarding
-description: Use when connecting Frostbyte, fixing a connection, choosing which Frostbyte project to work in, or starting substantial work in a repository that isn't linked yet. Skip incidental questions.
+description: Use when connecting Frostbyte, fixing a connection, choosing which Frostbyte project to work in, starting substantial work in a repository that isn't linked yet, or setting up an empty project from the repo's README, TODO.md or build plan. Skip incidental questions.
 ---
 
 # Connect and pick a project
@@ -35,6 +35,18 @@ For substantial work in an unlinked repository, offer once to link it. On a yes,
 It holds no credentials and can be committed the user's usual way; don't commit it yourself. If they decline, don't offer again this session.
 
 An explicit request for a new project authorises `create_project`. Ask only for missing essentials, and create starting tasks or areas only within what was agreed. Linking the repository still needs the user's go-ahead.
+
+## Set up an empty project from the repo
+
+When the user asks to set up or fill a project from this repo, do it. When the linked project has no tasks and the repo has a TODO.md, build plan (such as `buildplan.md`), Backlog.md or `.beads`, offer once. This is the only offer to move a local plan in; `frostbyte:notes` doesn't make a second one.
+
+- Read the README and the plan files. Propose a first release with its tasks and what stays in the Backlog, then wait for a yes (`frostbyte:planning`). When the project has no active release, make the first one active, so What's Next ranks its tasks.
+- Copy titles exactly as written. Carry over done states, priorities and notes. Items under no version go to the Backlog (`releaseId: null`). Parts that aren't work to do, such as architecture, go in a note (`frostbyte:notes`).
+- Never edit, move or delete the source files. "Move" means copy.
+- With no plan files, ask what they want to ship first. Don't invent a plan from the code, and plan from their answer without padding the Backlog with ideas of your own.
+- Afterwards, check the count with `list_tasks` and say what you didn't check.
+
+In a project that already has tasks, don't offer. On request, follow the same rules and reuse existing tasks instead of duplicating them.
 
 ## Check it works
 
