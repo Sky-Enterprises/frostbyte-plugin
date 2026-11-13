@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.3.0] — 2026-11-16
+
+Ships with Frostbyte 1.18.1. No MCP change.
+
+### Added
+- The agent sets up an empty project from your repo. Ask it to, or, when the linked project has no tasks and the repo has a TODO.md, build plan, Backlog.md or `.beads`, it offers once. It reads the README and plan files, proposes a first release and the Backlog, and creates them after your yes. The first release is made active when none is, so What's Next ranks its tasks. Titles are copied exactly, done states, priorities and notes carry over, and your files are never edited or deleted. With no plan in the repo, it asks what you want to ship first instead of inventing one from the code.
+
+### Changed
+- The notes skill no longer makes its own offer to move a `buildplan.md`; the onboarding offer covers it, so the agent offers once.
+
 ## [1.2.0] — 2026-11-12
 
 Needs Frostbyte with companion MCP 1.7.0. Publish only after that release is live.
