@@ -1,7 +1,7 @@
 {
   "name": "frostbyte",
   "version": "1.4.0",
-  "description": "Product planning for founders who build with AI agents. Your agent reads the Frostbyte plan and writes progress, notes and decisions back.",
+  "description": "The product workspace your team and agents build from. Your agent reads the Frostbyte plan and writes progress, notes and decisions back.",
   "author": {
     "name": "Sky Enterprises"
   },
