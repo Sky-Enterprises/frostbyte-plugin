@@ -4,7 +4,7 @@
 
 <h1 align="center">Frostbyte for Claude Code, Codex and Cursor</h1>
 
-<p align="center"><strong>The product workspace for software teams and their agents.</strong></p>
+<p align="center"><strong>The product workspace your team and agents build from.</strong></p>
 
 <p align="center">
   <a href="https://github.com/Sky-Enterprises/frostbyte-plugin/releases"><img src="https://img.shields.io/github/v/release/Sky-Enterprises/frostbyte-plugin?label=plugin&color=2f81f7" alt="Latest release" /></a>
@@ -24,7 +24,7 @@
 
 ## What is Frostbyte?
 
-Frostbyte is a product planning workspace for founders and small teams who build software with AI coding agents like Claude Code, Codex and Cursor. It keeps tasks, releases, ideas, user feedback and decisions in one plan. What's Next ranks what to work on, Project Health shows whether the release is on track, and your agent connects over MCP to read the plan and write progress, notes and decisions back.
+Frostbyte is the product workspace for software teams and their AI coding agents, like Claude Code and Codex, from a solo founder to a team of ten. It keeps tasks, releases, ideas, customer feedback and decisions in one plan. What's Next ranks what to work on, Project Health shows whether the release is on track, and your agent connects over MCP to read the plan and write progress, notes and decisions back.
 
 This plugin is the official way to connect Claude Code, Codex and Cursor. It works with every Frostbyte account, Free included.
 
