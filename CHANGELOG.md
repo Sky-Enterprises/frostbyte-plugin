@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.4.0] — 2026-11-15
+
+Needs Frostbyte with companion MCP 1.8.0.
+
+### Added
+- The tasks skill attaches screenshots and files the user shares to the task they relate to: `task_create_attachment_upload` with `curl` when the agent has a shell, `task_add_attachment` (base64) when it doesn't.
+
+### Changed
+- The manifests and README describe Frostbyte with the current positioning.
+- Session handoffs name tasks by their link or as `FB-<n>`, so the app links them.
+
 ## [1.3.0] — 2026-11-16
 
 Ships with Frostbyte 1.18.1. No MCP change.
