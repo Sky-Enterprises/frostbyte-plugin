@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.4.0] — Unreleased
 
 Needs Frostbyte with companion MCP 1.8.0.
 
