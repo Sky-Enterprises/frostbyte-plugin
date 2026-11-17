@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.4] — 2026-11-18
+
+No MCP change.
+
+### Changed
+- The ChatGPT listing no longer names other AI assistants in its description, which OpenAI's review flags.
+
 ## [1.5.3] — 2026-11-18
 
 Pairs with companion MCP 1.9.1, which marks `create_release`, `session_end` and `task_add_blocker` destructive.
