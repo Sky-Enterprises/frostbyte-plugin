@@ -33,7 +33,9 @@ Use Node 22 or newer, Git, zip and unzip. Install development dependencies with
    validates their actual contents and byte checksums. It writes `candidate.json`
    and `release-notes.md`. Rerunning the same commit produces identical archives.
    The OpenAI archive excludes every local hook, compatibility token config and
-   marketplace; Claude keeps its sensitive user-config token and literal hook.
+   marketplace. Claude keeps its sensitive user-config token but drops the hook,
+   which the Claude directory refuses from unverified organisations; marketplace
+   installs from this repository keep it.
 5. Review that exact receipt, notes and final inventories. Run host installation,
    authentication and natural-language cases against this candidate. A package
    parser pass does not prove an installed host works. Complete the launch sheet.

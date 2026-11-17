@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.3] — 2026-11-18
+
+Pairs with companion MCP 1.9.1, which marks `create_release`, `session_end` and `task_add_blocker` destructive.
+
+### Changed
+- The Claude directory package no longer ships the SessionStart hook, which the directory refuses from unverified organisations. The onboarding skill still grounds the session from `.frostbyte.json`. Installs from this repository keep the hook.
+
 ## [1.5.2] — 2026-11-17
 
 Needs Frostbyte with companion MCP 1.9.0.
