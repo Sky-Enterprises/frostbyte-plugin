@@ -80,9 +80,8 @@ export function check(root = repo, host = 'source') {
     icon(root, manifest.icon, 512);
     assert(manifest.userConfig.api_token.sensitive && manifest.mcpServers === './.mcp.json', 'Claude user configuration missing');
     assert(json(join(root, '.mcp.json')).mcpServers.frostbyte.headers.Authorization === 'Bearer ${user_config.api_token}', 'Unexpected Claude authentication');
-    run('bash', ['-n', join(root, 'hooks/frostbyte-grounding.sh')]);
-    assert(lstatSync(join(root,'hooks/frostbyte-grounding.sh')).mode & 0o111, 'Hook must be executable');
-    assert(json(join(root, 'hooks/hooks.json')).hooks.SessionStart.length > 0, 'Local hook missing');
+    // The Claude directory refuses command hooks and scripts from unverified organisations.
+    assert(!files.some(f => f.startsWith('hooks/')), 'Claude directory package contains hooks');
   } else {
     const ajv = new Ajv2020({allErrors: true}); addFormats(ajv);
     const validate = ajv.compile(json(join(repo, 'scripts/schemas/plugin.schema.json')));
@@ -112,6 +111,9 @@ export function check(root = repo, host = 'source') {
       assert(!files.includes('plugin.json') && !files.includes('mcp.json'), 'Keep the ChatGPT manifests in openai/: a root plugin.json hides .codex-plugin from Codex');
       for (const f of ['.claude-plugin/plugin.json','.codex-plugin/plugin.json','.cursor-plugin/plugin.json']) assert(json(join(root,f)).version === manifest.version, `Version mismatch: ${f}`);
       checkCursor(root, manifest);
+      run('bash', ['-n', join(root, 'hooks/frostbyte-grounding.sh')]);
+      assert(lstatSync(join(root,'hooks/frostbyte-grounding.sh')).mode & 0o111, 'Hook must be executable');
+      assert(json(join(root, 'hooks/hooks.json')).hooks.SessionStart.length > 0, 'Local hook missing');
       const marketplace = json(join(root,'.claude-plugin/marketplace.json'));
       assert(marketplace.metadata.version === manifest.version && marketplace.plugins[0].version === manifest.version, 'Marketplace version mismatch');
       assert(readFileSync(join(root,'CHANGELOG.md'),'utf8').includes(`## [${manifest.version}]`), 'Missing release notes');
@@ -122,7 +124,7 @@ export function check(root = repo, host = 'source') {
 
 const allowed = (file, host) => /^(?:skills\/|assets\/)/.test(file) || file === 'LICENSE' || (host === 'openai'
   ? ['openai/plugin.json','openai/mcp.json'].includes(file)
-  : ['.claude-plugin/plugin.json','.claude-plugin/icon.png','.mcp.json','hooks/hooks.json','hooks/frostbyte-grounding.sh','README.md','CHANGELOG.md','docs/setup.md','docs/releasing.md','docs/historical-releases.md','docs/historical-releases.json'].includes(file));
+  : ['.claude-plugin/plugin.json','.claude-plugin/icon.png','.mcp.json','README.md','CHANGELOG.md','docs/setup.md','docs/releasing.md','docs/historical-releases.md','docs/historical-releases.json'].includes(file));
 
 export function prepare(ref, output) {
   assert(ref, 'Pass --ref with an immutable commit');
