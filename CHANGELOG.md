@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.5.1] — 2026-11-17
+
+Pairs with the Frostbyte release that asks for short points in `session_end`'s description and shows them as lists. No MCP version change.
+
+### Changed
+- Session handoffs put each part's bold label on its own line with short bullet points under it, one fact or step per point, so the app shows each part as a list.
+
+## [1.5.0] — 2026-11-20
+
+Ships with Frostbyte 1.19.0. No MCP change.
+
+### Changed
+- Setting up an empty project from the repo now fills in the product context and creates areas for the main parts of the product straight away, from what the README and docs say, then shows what it set and asks for changes. A plan in the repo still becomes a proposed first release that waits for your yes, with each task in its area. With no plan, it asks whether you want to plan a first release now rather than assuming you do.
+- The setup offer comes once for any linked project with no tasks and no areas, not only when the repo has a TODO.md or build plan.
+
 ## [1.4.0] — 2026-11-15
 
 Needs Frostbyte with companion MCP 1.8.0.
