@@ -23,6 +23,7 @@ Audited 28 October 2026 against remote tags/releases and first-parent main. Publ
 | 0.9.3 | `6cd536cbc91e99b782e9992b7f9537c60d275598` | `6cd536cbc91e99b782e9992b7f9537c60d275598` | `6cd536cbc91e99b782e9992b7f9537c60d275598` | Created 3 Nov 2026 | `6cd536cbc91e99b782e9992b7f9537c60d275598`: Release added on the existing tag with the CHANGELOG.md notes, no assets |
 | 0.9.4 | Published by `scripts/release.mjs` | | Created on publish | Created on publish | Tag and release at the approved main SHA, with both archives |
 | 1.0.0 | Published by `scripts/release.mjs` | | Created on publish | Created on publish | Tag and release at the approved main SHA, with both archives. First version submitted to the Claude directory and the ChatGPT plugin directory |
+| 1.5.0 | `f2e76ebe489523c8134a3d83583c1a104bb82787` | | Created 17 Nov 2026 | Created 17 Nov 2026 | Tag and release backfilled at the introducing main commit with the CHANGELOG.md notes, no assets; 1.5.1 was published first because publish only runs at main |
 
 The 0.6.2 main state includes PR #4 and the PR #2 attachment merge after its 0.7.0 feature bump was reset. Its final main SHA is 373a3513c8893ee40aa89e6c41bdfd7d57c04202. PR #3 then consolidates the unreleased skills into main 0.7.0 at d6cb4649cdc612e22c1fc382db6616c27576ab4a.
 

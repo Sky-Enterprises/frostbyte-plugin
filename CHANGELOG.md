@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.2] — 2026-11-17
+
+Needs Frostbyte with companion MCP 1.9.0.
+
+### Changed
+- The releases skill knows a changelog post can publish itself as the release completes (`changelogAutoPublish`), and says so before completing one that will.
+- Before turning that on, the agent lists the Done tasks the post will show and asks which to leave out, then saves the choice as `changelogHiddenTaskIds`. `get_release` marks hidden tasks "[hidden from changelog]".
+
 ## [1.5.1] — 2026-11-17
 
 Pairs with the Frostbyte release that asks for short points in `session_end`'s description and shows them as lists. No MCP version change.
@@ -7,7 +15,7 @@ Pairs with the Frostbyte release that asks for short points in `session_end`'s d
 ### Changed
 - Session handoffs put each part's bold label on its own line with short bullet points under it, one fact or step per point, so the app shows each part as a list.
 
-## [1.5.0] — 2026-11-20
+## [1.5.0] — 2026-11-17
 
 Ships with Frostbyte 1.19.0. No MCP change.
 
