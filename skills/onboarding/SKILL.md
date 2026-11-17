@@ -1,6 +1,6 @@
 ---
 name: onboarding
-description: Use when connecting Frostbyte, fixing a connection, choosing which Frostbyte project to work in, starting substantial work in a repository that isn't linked yet, or setting up an empty project from the repo's README, TODO.md or build plan. Skip incidental questions.
+description: Use when connecting Frostbyte, fixing a connection, choosing which Frostbyte project to work in, starting substantial work in a repository that isn't linked yet, or setting up an empty project from the repo's README, docs, TODO.md or build plan. Skip incidental questions.
 ---
 
 # Connect and pick a project
@@ -38,12 +38,14 @@ An explicit request for a new project authorises `create_project`. Ask only for 
 
 ## Set up an empty project from the repo
 
-When the user asks to set up or fill a project from this repo, do it. When the linked project has no tasks and the repo has a TODO.md, build plan (such as `buildplan.md`), Backlog.md or `.beads`, offer once. This is the only offer to move a local plan in; `frostbyte:notes` doesn't make a second one.
+When the user asks to set up or fill a project from this repo, do it. When the linked project has no tasks and no areas, offer once, whether or not the repo has a TODO.md, build plan (such as `buildplan.md`), Backlog.md or `.beads`. This is the only offer to move a local plan in; `frostbyte:notes` doesn't make a second one.
 
-- Read the README and the plan files. Propose a first release with its tasks and what stays in the Backlog, then wait for a yes (`frostbyte:planning`). When the project has no active release, make the first one active, so What's Next ranks its tasks.
-- Copy titles exactly as written. Carry over done states, priorities and notes. Items under no version go to the Backlog (`releaseId: null`). Parts that aren't work to do, such as architecture, go in a note (`frostbyte:notes`).
+- Read the README, the docs and any plan files.
+- Straight away, fill in the product context with `update_project` (description, stage, target user, problem, why it wins; leave `currentFocus` alone) and create areas for the main parts of the product (`frostbyte:areas`), using only what the repo says. Skip a field the repo doesn't answer, and reuse areas that already exist. Then say what you set and ask if they want changes. Only the owner can set product context; for anyone else, skip it and say so.
+- With plan files, propose a first release with its tasks and what stays in the Backlog, then wait for a yes (`frostbyte:planning`). When the project has no active release, make the first one active, so What's Next ranks its tasks.
+- Copy titles exactly as written. Carry over done states, priorities and notes. Items under no version go to the Backlog (`releaseId: null`). Put each task in its area. Parts that aren't work to do, such as architecture, go in a note (`frostbyte:notes`).
 - Never edit, move or delete the source files. "Move" means copy.
-- With no plan files, ask what they want to ship first. Don't invent a plan from the code, and plan from their answer without padding the Backlog with ideas of your own.
+- With no plan files, ask whether they want to plan a first release now; they may only want the project set up around the product. Don't invent a plan from the code, and plan from their answer without padding the Backlog with ideas of your own.
 - Afterwards, check the count with `list_tasks` and say what you didn't check.
 
 In a project that already has tasks, don't offer. On request, follow the same rules and reuse existing tasks instead of duplicating them.
