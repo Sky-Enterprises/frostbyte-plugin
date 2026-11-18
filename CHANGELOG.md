@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.6] — 2026-11-19
+
+Pairs with companion MCP 1.9.4, whose `feedback_hub_get` prints the portal's submit URL.
+
+### Changed
+- The signals skill knows the portal's submit URL, so when the user wants their own app, game or form to send feedback into Frostbyte, the agent wires a POST from the person's device and notes that titles and descriptions are public.
+
 ## [1.5.5] — 2026-11-18
 
 Pairs with companion MCP 1.9.3.
