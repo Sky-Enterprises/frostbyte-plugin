@@ -63,7 +63,7 @@ A good summary: "Added a backfill script and 6 tests so legacy `apiTokenHash` us
 ## What to work on next
 
 - Call `whats_next` before suggesting work. It returns personal recommendations with reasons, a separate release advisory, dismissed items and the owner's Current Focus. The user's own choice beats the ranking. Never invent tasks, or start, assign or ship anything because it was recommended; discuss any release action you propose.
-- `whats_next_dismiss` and `whats_next_restore` change only the user's own recommendations, when asked. A task uses `kind: "task"` and its ID; a release suggestion uses `kind: "release"` and the advisory's `id` (the advisory's own `kind` field is its state, not the dismissal kind).
+- `whats_next_dismiss` and `whats_next_restore` change only the user's own recommendations, when asked. A task uses `kind: "task"` and its ID; a release suggestion uses `kind: "release"` and the advisory's `id` (the advisory's own `kind` field is its state, not the dismissal kind); a setup row uses `kind: "setup"` and its `id` (`release`, `product` or `areas`).
 
 ## Keep reads lean
 
