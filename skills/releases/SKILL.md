@@ -10,7 +10,7 @@ Releases group what ships and make up the project's timeline. Change their statu
 ## Reading
 
 - `release_read_active` gives the current release's progress; `list_tasks` with its `releaseId` lists exactly what's left.
-- `list_releases` covers history and target or launch dates. `get_release` shows one release's notes and tasks (`taskStatus` filters them). Read a release before changing it.
+- `list_releases` covers history and target or launch dates. `get_release` shows one release's notes, tasks (`taskStatus` filters them) and its latest comments from the team. Read a release before changing it.
 - Release names in results are links; reuse them as given.
 
 ## Changing releases

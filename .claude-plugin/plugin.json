@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "frostbyte",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "The product workspace your team and agents build from. Your agent reads the Frostbyte plan and writes progress, notes and decisions back.",
   "author": {
     "name": "Sky Enterprises",
