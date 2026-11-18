@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.5] — 2026-11-18
+
+Pairs with companion MCP 1.9.3.
+
+### Changed
+- `whats_next_dismiss` and `whats_next_restore` take `kind: "setup"` with the row's `id` (`release`, `product` or `areas`), so the agent can dismiss or restore the owner's setup rows when asked.
+- The releases skill knows `get_release` now ends with the release's latest comments, so the agent reads what the team said about a release before changing it.
+
 ## [1.5.4] — 2026-11-18
 
 No MCP change.
