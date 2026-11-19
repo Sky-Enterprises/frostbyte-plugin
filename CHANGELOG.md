@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.7] — 2026-11-19
+
+Pairs with companion MCP 1.9.4. No tool changes.
+
+### Changed
+- Descriptions and the README say what Frostbyte is now: the project tracker for software built with agents. What's Next is described as reading back your open work, led by the release and priorities you set.
+
 ## [1.5.6] — 2026-11-19
 
 Pairs with companion MCP 1.9.4, whose `feedback_hub_get` prints the portal's submit URL.

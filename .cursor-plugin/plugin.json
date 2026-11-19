@@ -1,7 +1,7 @@
 {
   "name": "frostbyte",
-  "version": "1.5.6",
-  "description": "The product workspace your team and agents build from. Your agent reads the Frostbyte plan and writes progress, notes and decisions back.",
+  "version": "1.5.7",
+  "description": "The project tracker for software built with agents. Your agent reads the Frostbyte plan and writes progress, notes and decisions back.",
   "author": {
     "name": "Sky Enterprises"
   },
