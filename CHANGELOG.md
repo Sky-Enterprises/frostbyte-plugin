@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased]
+
+Pairs with the companion MCP change that shows the task room left in `get_project` on capped plans.
+
+### Changed
+- Setting a project up from the repo brings over open work only and asks before bringing finished work over as Done. It counts the plan first and, when it won't fit the owner's task limit, says so in the proposal instead of stopping partway.
+
 ## [1.5.7] — 2026-11-19
 
 Pairs with companion MCP 1.9.5, whose registry listing carries the same description. No tool changes.
