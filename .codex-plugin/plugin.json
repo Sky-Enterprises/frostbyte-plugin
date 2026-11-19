@@ -1,7 +1,7 @@
 {
   "name": "frostbyte",
-  "version": "1.5.6",
-  "description": "The product workspace your team and agents build from. Your agent reads the Frostbyte plan and writes progress, notes and decisions back.",
+  "version": "1.5.7",
+  "description": "The project tracker for software built with agents. Your agent reads the Frostbyte plan and writes progress, notes and decisions back.",
   "author": {
     "name": "Sky Enterprises",
     "url": "https://getfrostbyte.dev"
@@ -21,7 +21,7 @@
   "interface": {
     "displayName": "Frostbyte",
     "shortDescription": "Plan and track what you build",
-    "longDescription": "Frostbyte is the product workspace for software teams and their AI coding agents, like Claude Code and Codex, from a solo founder to a team of ten. It keeps tasks, releases, ideas, customer feedback and decisions in one plan. What's Next ranks what to work on, Project Health shows whether the release is on track, and your agent connects over MCP to read the plan and write progress, notes and decisions back.\n\nWith this plugin you can ask what to work on next, start and finish tasks, put new work in the release and area you name, review user Signals and draft release notes. Tasks stay in progress until the agreed checks pass, and the agent never ships a release on its own.\n\nWorks on every Frostbyte plan, Free included. Paid plans are bought on the Frostbyte website; nothing is bought or paid for in the agent.",
+    "longDescription": "Frostbyte is a project tracker for software built with AI coding agents like Claude Code, Codex and Cursor, from a solo founder to a team of ten. It keeps tasks, releases, user requests and decisions in one plan. Your agent connects over MCP, reads the plan before every session and writes progress, decisions and a handoff note back. What's Next reads back your open work, led by the release and priorities you set, and Project Health shows whether the release is on track.\n\nWith this plugin you can ask what to work on next, start and finish tasks, put new work in the release and area you name, review user Signals and draft release notes. Tasks stay in progress until the agreed checks pass, and the agent never ships a release on its own.\n\nWorks on every Frostbyte plan, Free included. Paid plans are bought on the Frostbyte website; nothing is bought or paid for in the agent.",
     "developerName": "Sky Enterprises",
     "category": "Developer Tools",
     "websiteURL": "https://getfrostbyte.dev/docs/connect-your-agent",

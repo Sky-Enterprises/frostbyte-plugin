@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.7] — 2026-11-19
+
+Pairs with companion MCP 1.9.5, whose registry listing carries the same description. No tool changes.
+
+### Changed
+- Descriptions and the README say what Frostbyte is now: the project tracker for software built with agents. What's Next is described as reading back your open work, led by the release and priorities you set.
+- When the onboarding skill sets a project up from the repo, it looks through the project's folders if the README, docs and plan files don't say enough to describe the product or name its main parts, matching the site's setup prompt.
+
 ## [1.5.6] — 2026-11-19
 
 Pairs with companion MCP 1.9.4, whose `feedback_hub_get` prints the portal's submit URL.
