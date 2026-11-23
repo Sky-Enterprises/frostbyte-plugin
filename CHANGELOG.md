@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.6.0] — 2026-11-23
+
+Pairs with companion MCP 1.10.0, which adds `task_clear_blocker` and keeps a blocker when a task moves between To Do and In Progress.
+
+### Changed
+- The tasks skill says when to block a task (only for something the user or someone else must resolve, with a reason saying what would unblock it) and when not to (anything you can work around, or waiting on review).
+- It unblocks with `task_clear_blocker` once what was missing arrives, even when it isn't resuming yet, uses `task_start` when it resumes, and reads a task's blocker before starting it.
+
 ## [1.5.8] — 2026-11-23
 
 Pairs with the Frostbyte server change, live 23 November, that shows the task room left in `get_project` on capped plans. Companion MCP stays 1.9.5.
