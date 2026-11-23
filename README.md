@@ -41,6 +41,10 @@ Paste your API token when asked. You'll find it in Frostbyte under **Settings â†
 
 **Codex**
 
+In the ChatGPT desktop app, open **Plugins**, click **Add**, then **Add a marketplace**, and enter `Sky-Enterprises/frostbyte-plugin`. On the **Personal** tab, click **+** next to Frostbyte, then open it, connect it under **MCP servers**, sign in to Frostbyte and approve access. It also works in the Codex CLI, which shares the app's setup (`~/.codex/config.toml`).
+
+In the Codex CLI:
+
 ```sh
 codex plugin marketplace add Sky-Enterprises/frostbyte-plugin
 codex plugin add frostbyte@frostbyte-plugin

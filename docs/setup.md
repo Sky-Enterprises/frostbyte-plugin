@@ -6,10 +6,17 @@ Any Frostbyte account can connect, Free included. Paid plans are bought on the
 ## ChatGPT and Codex
 
 **ChatGPT.** Open **Plugins**, click **+**, then **Add custom MCP server**. Name it
-Frostbyte, paste `https://getfrostbyte.dev/mcp`, choose OAuth, then sign in to
-Frostbyte and approve access. Availability depends on your plan and workspace settings.
+Frostbyte, paste `https://getfrostbyte.dev/mcp`, choose OAuth, then **Create as a
+plugin**. Sign in to Frostbyte and approve access. Availability depends on your plan and
+workspace settings.
 
-**Codex.** Install the plugin, then sign in to Frostbyte:
+**Codex in the ChatGPT desktop app.** Open **Plugins**, click **Add**, then **Add a
+marketplace**, and enter `Sky-Enterprises/frostbyte-plugin`. On the **Personal** tab,
+click **+** next to Frostbyte. Open Frostbyte, connect it under **MCP servers**, sign in
+to Frostbyte and approve access. It also works in the Codex CLI, which shares the app's
+setup (`~/.codex/config.toml`).
+
+**Codex CLI.** Install the plugin, then sign in to Frostbyte:
 
 ```sh
 codex plugin marketplace add Sky-Enterprises/frostbyte-plugin
