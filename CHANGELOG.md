@@ -1,11 +1,12 @@
 # Changelog
 
-## [Unreleased]
+## [1.5.8] — 2026-11-23
 
-Pairs with the companion MCP change that shows the task room left in `get_project` on capped plans.
+Pairs with the Frostbyte server change, live 23 November, that shows the task room left in `get_project` on capped plans. Companion MCP stays 1.9.5.
 
 ### Changed
 - Setting a project up from the repo brings over open work only and asks before bringing finished work over as Done. It counts the plan first and, when it won't fit the owner's task limit, says so in the proposal instead of stopping partway.
+- Setup docs: Claude chat adds the connector from **Plugins → Add → Add custom connector**, and a new Claude Desktop (Code tab) section connects through that same connector, with the plugin as optional automatic tracking added from **Add marketplace**.
 
 ## [1.5.7] — 2026-11-19
 

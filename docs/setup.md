@@ -91,9 +91,19 @@ Claude Code's `${user_config.api_token}`, which is why Cursor has its own MCP fi
 
 ## Claude chat
 
-Open **Settings → Connectors**, add a custom connector with
-`https://getfrostbyte.dev/mcp`, then sign in to Frostbyte. Chat sessions pick a
-project by name; they don't need `.frostbyte.json`.
+Open **Plugins**, click **Add**, then **Add custom connector**. Name it Frostbyte, paste
+`https://getfrostbyte.dev/mcp`, then sign in to Frostbyte and approve access. Chat
+sessions pick a project by name; they don't need `.frostbyte.json`.
+
+## Claude Desktop (Code tab)
+
+Add the same custom connector as Claude chat. It follows your account into the Code
+tab, so Frostbyte works there and in chat with no token.
+
+For automatic tracking, also add the plugin. In **Plugins → Add → Add marketplace**,
+enter `Sky-Enterprises/frostbyte-plugin`. Then install Frostbyte from the Code tab's
+**+ → Plugins → Browse plugins** and paste your token when asked. Get the token from
+Frostbyte → Settings → Connections → Connect your agent.
 
 ## Grok
 
