@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+- Setup docs: Codex in the ChatGPT desktop app adds the plugin from **Plugins → Add → Add a marketplace**, then connects under **MCP servers**. The Codex CLI shares that setup. ChatGPT's custom MCP server steps add **Create as a plugin**.
+
 ## [1.6.0] — 2026-11-23
 
 Pairs with companion MCP 1.10.0, which adds `task_clear_blocker` and keeps a blocker when a task moves between To Do and In Progress.
