@@ -9,6 +9,7 @@
 <p align="center">
   <a href="https://github.com/Sky-Enterprises/frostbyte-plugin/releases"><img src="https://img.shields.io/github/v/release/Sky-Enterprises/frostbyte-plugin?label=plugin&color=2f81f7" alt="Latest release" /></a>
   <a href="https://registry.modelcontextprotocol.io/v0/servers?search=dev.getfrostbyte"><img src="https://img.shields.io/badge/MCP_Registry-dev.getfrostbyte%2Ffrostbyte-555" alt="Official MCP Registry" /></a>
+  <a href="https://glama.ai/mcp/connectors/dev.getfrostbyte/frostbyte"><img src="https://glama.ai/mcp/connectors/dev.getfrostbyte/frostbyte/badges/score.svg" alt="Frostbyte MCP connector on Glama" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="MIT licence" /></a>
 </p>
 
