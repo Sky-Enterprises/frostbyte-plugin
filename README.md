@@ -116,7 +116,7 @@ Draft release notes for v1.18.0, but don't publish it.
 
 - **The plugin** (this repository) adds the skills above, so your agent follows the same workflow every session.
 - **The [hosted MCP server](https://getfrostbyte.dev/docs/mcp-server)** at `https://getfrostbyte.dev/mcp` reads and writes your Frostbyte projects. Any MCP client can use it on its own.
-- **In Claude Code installed from this repository**, a SessionStart hook reads `.frostbyte.json` so each session starts in the right project. It makes no network calls. The Claude directory version leaves the hook out; its onboarding skill reads the same file when you first ask about Frostbyte.
+- **In Claude Code installed from this repository**, a SessionStart hook reads `.frostbyte.json` so each session starts in the right project. It makes no network calls. The Claude directory version leaves the hook out; its onboarding skill reads the same file when you first ask about Frostbyte. A Stop hook, once per session, asks the agent to offer a Frostbyte update when it changed files but wrote nothing back.
 
 ## Pricing
 

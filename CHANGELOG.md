@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased]
+## [1.7.0] — 2026-11-27
+
+Pairs with companion MCP 1.10.1, whose server instructions and `session_end` description carry the same wrap-up check for apps without the plugin.
+
+### Added
+- When you finish a task or feature, write a handoff or wrap up, the agent checks whether the board reflects the work. If it doesn't, it asks once whether to update Frostbyte and says exactly what would change. It never syncs without your yes, and skips the offer when `task_complete` already ran or GitHub moved the task.
+- In Claude Code installed from this repository, a Stop hook backs that up: once per session in a linked repo, when the transcript shows file edits or commits but no Frostbyte writes, it asks the agent to make the offer. It reads only the local transcript and `.frostbyte.json`, makes no network calls and is left out of the Claude directory build.
 
 ### Changed
 - Setup docs: Codex in the ChatGPT desktop app adds the plugin from **Plugins → Add → Add a marketplace**, then connects under **MCP servers**. The Codex CLI shares that setup. ChatGPT's custom MCP server steps add **Create as a plugin**.

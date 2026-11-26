@@ -24,3 +24,37 @@ test('malformed and wrong-type JSON never grounds',()=>{for(const link of ['{"pr
 
 test('Python fallback rejects malformed JSON without jq',()=>fixture('{"projectId":"demo",',({root,run})=>{const bin=join(root,'bin');mkdirSync(bin);for(const name of ['dirname','grep','python3'])symlinkSync('/usr/bin/'+name,join(bin,name));assert.equal(run(root,{PATH:bin}),'');}));
 test('no JSON parser is a graceful no-op',()=>fixture('{"projectId":"demo"}',({root,run})=>{const bin=join(root,'bin');mkdirSync(bin);for(const name of ['dirname','grep'])symlinkSync('/usr/bin/'+name,join(bin,name));assert.equal(run(root,{PATH:bin}),'');}));
+
+const wrapUp=new URL('../hooks/frostbyte-wrap-up.sh',import.meta.url).pathname;
+const use=(name,input={})=>JSON.stringify({type:'assistant',message:{content:[{type:'tool_use',name,input}]}});
+function stop(lines,{link='{"projectId":"demo"}',active=false,runs=1,path}={}) {
+  const dir=mkdtempSync(join(tmpdir(),'frostbyte-stop-')), root=join(dir,'repo');
+  try {
+    mkdirSync(root);writeFileSync(join(root,'.git'),'gitdir: fixture');
+    if(link!==null)writeFileSync(join(root,'.frostbyte.json'),link);
+    writeFileSync(join(dir,'t.jsonl'),lines.join('\n')+'\n{"truncated":');
+    const input=JSON.stringify({session_id:'s1',transcript_path:join(dir,'t.jsonl'),cwd:root,hook_event_name:'Stop',stop_hook_active:active});
+    let out='';
+    for(let i=0;i<runs;i++){
+      if(path){const bin=join(dir,'bin');mkdirSync(bin,{recursive:true});for(const name of path)try{symlinkSync(execFileSync('/usr/bin/which',[name],{encoding:'utf8'}).trim(),join(bin,name));}catch{}}
+      out=execFileSync('/bin/sh',[wrapUp],{input,cwd:root,env:{PATH:path?join(dir,'bin'):process.env.PATH,TMPDIR:dir},encoding:'utf8'});
+    }
+    return out;
+  } finally {rmSync(dir,{recursive:true,force:true});}
+}
+const blocks=out=>JSON.parse(out).decision==='block';
+test('stop: edits with no Frostbyte writes ask for the wrap-up offer',()=>{assert.ok(blocks(stop([use('Edit')])));assert.ok(blocks(stop([use('Bash',{command:'git add . && git commit -m x'})])));});
+test('stop: a Frostbyte write from any server name skips it',()=>{for(const name of ['mcp__plugin_frostbyte_frostbyte__task_complete','mcp__045cb9c5__session_end'])assert.equal(stop([use('Edit'),use(name)]),'');});
+test('stop: no edits, a read-only Frostbyte call or a git read skips it',()=>{assert.equal(stop([use('Read'),use('mcp__x__get_task'),use('Bash',{command:'git log'})]),'');});
+test('stop: stop_hook_active, a second stop, an unlinked repo or grounding false skips it',()=>{
+  assert.equal(stop([use('Edit')],{active:true}),'');
+  assert.equal(stop([use('Edit')],{runs:2}),'');
+  assert.equal(stop([use('Edit')],{link:null}),'');
+  assert.equal(stop([use('Edit')],{link:'{"projectId":"demo","grounding":false}'}),'');
+});
+test('stop: Python fallback matches jq, and no parser is a no-op',()=>{
+  const base=['sh','cat','sed','grep','dirname'];
+  assert.ok(blocks(stop([use('Write')],{path:[...base,'python3']})));
+  assert.equal(stop([use('Write'),use('mcp__f__create_task')],{path:[...base,'python3']}),'');
+  assert.equal(stop([use('Write')],{path:base}),'');
+});
