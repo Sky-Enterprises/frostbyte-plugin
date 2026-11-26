@@ -52,9 +52,4 @@ test('stop: stop_hook_active, a second stop, an unlinked repo or grounding false
   assert.equal(stop([use('Edit')],{link:null}),'');
   assert.equal(stop([use('Edit')],{link:'{"projectId":"demo","grounding":false}'}),'');
 });
-test('stop: Python fallback matches jq, and no parser is a no-op',()=>{
-  const base=['sh','cat','sed','grep','dirname'];
-  assert.ok(blocks(stop([use('Write')],{path:[...base,'python3']})));
-  assert.equal(stop([use('Write'),use('mcp__f__create_task')],{path:[...base,'python3']}),'');
-  assert.equal(stop([use('Write')],{path:base}),'');
-});
+test('stop: without jq it is a no-op',()=>assert.equal(stop([use('Write')],{path:['cat','sed','grep','dirname','python3']}),''));

@@ -58,9 +58,9 @@ now `frostbyte`. Install `frostbyte@frostbyte-plugin` and enter your token again
 The bundled SessionStart hook reads only `.frostbyte.json`, stops at the repository
 boundary and makes no network calls. It needs jq or Python 3 to parse the file and
 skips grounding without them. The bundled Stop hook reads the same file and the
-session's local transcript: once per session, when the agent changed files or made
-commits but wrote nothing to Frostbyte, it asks the agent to offer an update. Set
-`"grounding": false` in the file to pause both.
+session's local transcript, and needs jq: once per session, when the agent changed
+files or made commits but wrote nothing to Frostbyte, it asks the agent to offer an
+update. Set `"grounding": false` in the file to pause both.
 
 ## Cursor
 
