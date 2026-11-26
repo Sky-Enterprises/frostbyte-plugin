@@ -1,5 +1,5 @@
 {
-  "description": "Frostbyte grounding — on session start, if the repo is linked via .frostbyte.json, tell the agent which Frostbyte project it is working in. Intentionally unmatcher-ed so it fires on every SessionStart event (startup, resume, clear, compact): grounding must survive resumes and context compaction.",
+  "description": "Frostbyte grounding and wrap-up. On session start, if the repo is linked via .frostbyte.json, tell the agent which Frostbyte project it is working in. Intentionally unmatcher-ed so it fires on every SessionStart event (startup, resume, clear, compact): grounding must survive resumes and context compaction. On stop, once per session, asks the agent to offer a Frostbyte sync when files changed but nothing was written to Frostbyte.",
   "hooks": {
     "SessionStart": [
       {
@@ -7,6 +7,16 @@
           {
             "type": "command",
             "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/frostbyte-grounding.sh\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/frostbyte-wrap-up.sh\""
           }
         ]
       }
